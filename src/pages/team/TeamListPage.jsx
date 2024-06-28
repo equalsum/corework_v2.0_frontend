@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Avatar, Col, Dropdown, Input, Row, Spin, Table} from 'antd';
-import {DownOutlined, SearchOutlined} from '@ant-design/icons';
-import {requestAxios} from "../../api/Axios";
-import {getAvatarName, getAvatarStyle, gfnGetDutyPositionTxt, isNull} from '../../components/common';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Avatar, Col, Dropdown, Input, Row, Spin, Table } from 'antd';
+import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { requestAxios } from "../../api/Axios";
+import { getAvatarName, getAvatarStyle, gfnGetDutyPositionTxt, isNull } from '../../components/common';
 
 const TeamListPage = () => {
     const [data, setData] = useState([]);
@@ -11,9 +11,20 @@ const TeamListPage = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [expandedRowKeys, setExpandedRowKeys] = useState([]); // State for expanded row keys
 
+    const getAllKeys = useCallback((data) => {
+        const keys = [];
+        data.forEach(item => {
+            keys.push(item.key);
+            if (item.children) {
+                keys.push(...getAllKeys(item.children));
+            }
+        });
+        return keys;
+    }, []); // 메모이제이션을 위해 useCallback 사용
+
     useEffect(() => {
         requestAxios('/team1'
-            , {method: 'GET'}
+            , { method: 'GET' }
             , (response) => {
                 const transformedData = transformData(response.data.teamList, response.data.teamUserList);
                 setData(transformedData);
@@ -26,7 +37,7 @@ const TeamListPage = () => {
                 setLoading(false);
             }
         );
-    }, []);
+    }, [getAllKeys]);
 
     const handleSearch = (e) => {
         const value = e.target.value;
@@ -53,17 +64,6 @@ const TeamListPage = () => {
         return result;
     };
 
-    const getAllKeys = (data) => {
-        const keys = [];
-        data.forEach(item => {
-            keys.push(item.key);
-            if (item.children) {
-                keys.push(...getAllKeys(item.children));
-            }
-        });
-        return keys;
-    };
-
     const handleExpand = (expanded, record) => {
         const keys = expanded ? [...expandedRowKeys, record.key] : expandedRowKeys.filter(key => key !== record.key);
         setExpandedRowKeys(keys);
@@ -82,7 +82,7 @@ const TeamListPage = () => {
             render: (text, record) => (
                 isNull(record.ct_leader_id) ?
                     '-' :
-                    <div style={{display: 'flex', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Avatar size={30} style={{
                             ...getAvatarStyle(record.ct_leader_img_path),
                             marginRight: 8,
@@ -90,7 +90,7 @@ const TeamListPage = () => {
                         }}>
                             {!record.ct_leader_img_path.includes('/') ? getAvatarName(record.ct_leader_nm, record.ct_leader_last_nm) : ''}
                         </Avatar>
-                        <div style={{width: 'calc(100% - 48px)', display: 'flex', flexDirection: 'column'}}>
+                        <div style={{ width: 'calc(100% - 48px)', display: 'flex', flexDirection: 'column' }}>
                             <span style={{
                                 overflow: 'hidden',
                                 whiteSpace: 'nowrap',
@@ -114,7 +114,7 @@ const TeamListPage = () => {
                     return '';
                 } else if (record.team_user_list.length === 1) {
                     return (
-                        <div style={{display: 'flex', alignItems: 'center'}}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Avatar size={30} style={{
                                 ...getAvatarStyle(record.team_user_list[0].cu_img_path),
                                 marginRight: 8,
@@ -122,7 +122,7 @@ const TeamListPage = () => {
                             }}>
                                 {!record.team_user_list[0].cu_img_path.includes('/') ? getAvatarName(record.team_user_list[0].cu_nm, record.team_user_list[0].cu_last_nm) : ''}
                             </Avatar>
-                            <div style={{width: 'calc(100% - 48px)', display: 'flex', flexDirection: 'column'}}>
+                            <div style={{ width: 'calc(100% - 48px)', display: 'flex', flexDirection: 'column' }}>
                                 <span style={{
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
@@ -141,7 +141,7 @@ const TeamListPage = () => {
                         <Dropdown menu={{ items: renderDropdownMenu(record.team_user_list) }}>
                             <div>
                                 <span>총 {record.team_user_list.length}명의 멤버</span>
-                                <DownOutlined style={{marginLeft: 8}}/>
+                                <DownOutlined style={{ marginLeft: 8 }} />
                             </div>
                         </Dropdown>
                     );
@@ -182,7 +182,7 @@ const TeamListPage = () => {
             if (paths.length > 1) {
                 const parentKey = paths[paths.length - 2];
                 if (!map[parentKey]) {
-                    map[parentKey] = {children: []};
+                    map[parentKey] = { children: [] };
                 }
                 map[parentKey].children.push(newItem);
             } else {
@@ -227,8 +227,8 @@ const TeamListPage = () => {
                         placeholder="팀 검색"
                         value={searchText}
                         onChange={handleSearch}
-                        style={{marginBottom: 20}}
-                        suffix={<SearchOutlined/>}
+                        style={{ marginBottom: 20 }}
+                        suffix={<SearchOutlined />}
                     />
                 </Col>
             </Row>

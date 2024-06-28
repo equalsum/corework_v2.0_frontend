@@ -30,7 +30,7 @@ const MyCheckinPage = () => {
     const observer = useRef();
     const [cuId, setCuId] = useState('');
 
-    const fetchData = (newLimitStart) => {
+    const fetchData = useCallback((newLimitStart) => {
         setLoading(true);
         requestAxios('/mycheckin1'
             , {
@@ -41,8 +41,8 @@ const MyCheckinPage = () => {
                     task_limit_start: taskLimitStart,
                     task_limit_end: taskLimitEnd,
                     search_type: searchType
-                    }
                 }
+            }
             , (response) => {
                 const data = response.data;
                 if (data.feedbackList && data.feedbackList.length > 0) {
@@ -72,13 +72,13 @@ const MyCheckinPage = () => {
                 setLoading(false);
             }
         );
-    };
+    }, [limitStart, limitEnd, taskLimitStart, taskLimitEnd, searchType]);
 
     useEffect(() => {
         if (hasMore) {
             fetchData(limitStart);
         }
-    }, [limitStart]);
+    }, [fetchData, hasMore, limitStart]);
 
     const lastElementRef = useCallback(node => {
         if (loading || !hasMore || feedbackList.length < 10) return;
@@ -89,7 +89,7 @@ const MyCheckinPage = () => {
             }
         });
         if (node) observer.current.observe(node);
-    }, [loading, hasMore]);
+    }, [loading, hasMore, feedbackList.length]);
 
     return (
         <Row gutter={[16, 16]} style={{height: '100%'}}>
