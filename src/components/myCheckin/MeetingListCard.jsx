@@ -6,7 +6,7 @@ const MeetingListCard = ({myCheckInMeetingList, cuId}) => {
     return (
         <Card title="1:1 미팅" style={{width: '100%', height: '50%'}}>
             {
-                myCheckInMeetingList != null && myCheckInMeetingList.length == 0 ? (
+                myCheckInMeetingList != null && myCheckInMeetingList.length === 0 ? (
                     <p>예정된 미팅이 없습니다.</p>
                 ) : (
                     <List
@@ -15,10 +15,10 @@ const MeetingListCard = ({myCheckInMeetingList, cuId}) => {
                         style={{height: 250, overflowY: 'auto'}}
                         renderItem={item => {
 
-                            let cu_img_path = "";
-                            let cu_last_nm = "";
-                            let cu_nm = "";
-                            if (cuId == item.cu_id) {
+                            let cu_img_path;
+                            let cu_last_nm;
+                            let cu_nm;
+                            if (cuId === item.cu_id) {
                                 cu_img_path = item.meet_target_img_path;
                                 cu_last_nm = item.meet_target_last_nm;
                                 cu_nm = item.meet_target_nm;

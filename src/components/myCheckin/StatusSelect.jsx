@@ -14,7 +14,7 @@ const StatusSelect = ({onStatusChange}) => {
     const [selectedValues, setSelectedValues] = useState(['0']);
 
     const handleChange = (values) => {
-        if (values.length == 0) {
+        if (values.length === 0) {
             setSelectedValues(['0']);
             onStatusChange(['0']);
         } else {
@@ -23,11 +23,11 @@ const StatusSelect = ({onStatusChange}) => {
                 onStatusChange(['0']);
             } else {
                 if (values.includes('0') && values.length > 1) {
-                    if (values[values.length - 1] == '0') {
+                    if (values[values.length - 1] === '0') {
                         setSelectedValues(['0']);
                         onStatusChange(['0']);
                     } else {
-                        let filterValue = values.filter(val => val != '0');
+                        let filterValue = values.filter(val => val !== '0');
                         setSelectedValues(filterValue);
                         onStatusChange(filterValue);
                     }

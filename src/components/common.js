@@ -40,7 +40,7 @@ export function gfnGetDutyPositionTxt(duty, position) {
 }
 
 export function isNull(val) {
-    return typeof val === undefined || val == null || val.toString().replace(/(^\s*)|(\s*$)/g, "").length === 0;
+    return typeof val === 'undefined' || val === null || val.toString().replace(/(^\s*)|(\s*$)/g, "").length === 0;
 }
 
 export function gfnGetOtStatNm(ot_stat) {

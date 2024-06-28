@@ -3,7 +3,7 @@ import {Avatar, Card, Image, List, Radio, Tooltip} from 'antd';
 import {getAvatarName, getAvatarStyle, gfnGetDutyPositionTxt} from '../common';
 
 function renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId) {
-    if (!Array.isArray(receiveFeedbackRankingList) || receiveFeedbackRankingList.length == 0) {
+    if (!Array.isArray(receiveFeedbackRankingList) || receiveFeedbackRankingList.length === 0) {
         return (
             <p>
                 아직 순위를 볼 수 있는 피드백이 없네요.<br/>
@@ -12,7 +12,7 @@ function renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId) {
         );
     }
 
-    let myReceiveFeedbackRankingList = receiveFeedbackRankingList.filter(feedback => feedback.cu_id == cuId);
+    let myReceiveFeedbackRankingList = receiveFeedbackRankingList.filter(feedback => feedback.cu_id === cuId);
     let myReceiveFeedbackRank = myReceiveFeedbackRankingList[0]?.feedback_rank ?? -1;
     let includeReceiveRankYn = "N";
     let receiveRankCnt = 5;
@@ -21,13 +21,13 @@ function renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId) {
     }
 
     const topReceiveFeedbackRankingList = receiveFeedbackRankingList.slice(0, receiveRankCnt);
-    if (topReceiveFeedbackRankingList.some(feedback => feedback.cu_id == cuId)) {
+    if (topReceiveFeedbackRankingList.some(feedback => feedback.cu_id === cuId)) {
         includeReceiveRankYn = "Y";
     }
 
     const dataSource = [
         ...topReceiveFeedbackRankingList,
-        ...(myReceiveFeedbackRank > 5 || includeReceiveRankYn == "N" ? myReceiveFeedbackRankingList : [])
+        ...(myReceiveFeedbackRank > 5 || includeReceiveRankYn === "N" ? myReceiveFeedbackRankingList : [])
     ];
 
     return (
@@ -37,11 +37,11 @@ function renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId) {
             renderItem={(element, i) => {
                 let rankSrc = "";
                 let feedbackRank = element.feedback_rank;
-                if (feedbackRank == 1) {
+                if (feedbackRank === '1') {
                     rankSrc = "/assets/images/rank_gold.svg";
-                } else if (feedbackRank == 2) {
+                } else if (feedbackRank === '2') {
                     rankSrc = "/assets/images/rank_silver.svg";
-                } else if (feedbackRank == 3) {
+                } else if (feedbackRank === '3') {
                     rankSrc = "/assets/images/rank_bronze.svg";
                 }
 
@@ -99,7 +99,7 @@ function renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId) {
 }
 
 function renderSendFeedbackRankingInfo(sendFeedbackRankingList, cuId) {
-    if (!Array.isArray(sendFeedbackRankingList) || sendFeedbackRankingList.length == 0) {
+    if (!Array.isArray(sendFeedbackRankingList) || sendFeedbackRankingList.length === 0) {
         return (
             <p>
                 아직 순위를 볼 수 있는 피드백이 없네요.<br/>
@@ -108,7 +108,7 @@ function renderSendFeedbackRankingInfo(sendFeedbackRankingList, cuId) {
         );
     }
 
-    let mySendFeedbackRankingList = sendFeedbackRankingList.filter(feedback => feedback.cu_id == cuId);
+    let mySendFeedbackRankingList = sendFeedbackRankingList.filter(feedback => feedback.cu_id === cuId);
     let mySendFeedbackRank = mySendFeedbackRankingList[0]?.feedback_rank ?? -1;
     let includeSendRankYn = "N";
     let sendRankCnt = 5;
@@ -117,13 +117,13 @@ function renderSendFeedbackRankingInfo(sendFeedbackRankingList, cuId) {
     }
 
     const topSendFeedbackRankingList = sendFeedbackRankingList.slice(0, sendRankCnt);
-    if (topSendFeedbackRankingList.some(feedback => feedback.cu_id == cuId)) {
+    if (topSendFeedbackRankingList.some(feedback => feedback.cu_id === cuId)) {
         includeSendRankYn = "Y";
     }
 
     const dataSource = [
         ...topSendFeedbackRankingList,
-        ...(mySendFeedbackRank > 5 || includeSendRankYn == "N" ? mySendFeedbackRankingList : [])
+        ...(mySendFeedbackRank > 5 || includeSendRankYn === "N" ? mySendFeedbackRankingList : [])
     ];
 
     return (
@@ -133,11 +133,11 @@ function renderSendFeedbackRankingInfo(sendFeedbackRankingList, cuId) {
             renderItem={(element, i) => {
                 let rankSrc = "";
                 let feedbackRank = element.feedback_rank;
-                if (feedbackRank == 1) {
+                if (feedbackRank === '1') {
                     rankSrc = "/assets/images/rank_gold.svg";
-                } else if (feedbackRank == 2) {
+                } else if (feedbackRank === '2') {
                     rankSrc = "/assets/images/rank_silver.svg";
-                } else if (feedbackRank == 3) {
+                } else if (feedbackRank === '3') {
                     rankSrc = "/assets/images/rank_bronze.svg";
                 }
 
@@ -214,7 +214,7 @@ const FeedbackStatusCard = ({receiveFeedbackRankingList, sendFeedbackRankingList
                 </div>
             }
         >
-            {activeFeedbackRankingStatusTab == "1"
+            {activeFeedbackRankingStatusTab === "1"
                 ? renderReceiveFeedbackRankingInfo(receiveFeedbackRankingList, cuId)
                 : renderSendFeedbackRankingInfo(sendFeedbackRankingList, cuId)}
         </Card>

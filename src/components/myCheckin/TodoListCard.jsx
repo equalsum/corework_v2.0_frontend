@@ -30,7 +30,7 @@ const TodoListCard = ({initMyCheckInOkrTaskList, bpList}) => {
     const [myCheckInOkrTaskList, setMyCheckInOkrTaskList] = useState(initMyCheckInOkrTaskList);
     const [selectedOtStat, setSelectedOtStat] = useState([]);
     const [bpNo, setBpNo] = useState('');
-    const [taskLimitStart, setTaskLimitStart] = useState(0);
+    const [setTaskLimitStart] = useState(0);
     const [taskLimitEnd] = useState(10);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
@@ -58,7 +58,7 @@ const TodoListCard = ({initMyCheckInOkrTaskList, bpList}) => {
             .then(response => {
                 const data = response.data;
                 if (data.myCheckInOkrTaskList && data.myCheckInOkrTaskList.length > 0) {
-                    if (newLimitStart == 0) {
+                    if (newLimitStart === 0) {
                         setMyCheckInOkrTaskList(data.myCheckInOkrTaskList);
                     } else {
                         setMyCheckInOkrTaskList(prev => [...prev, ...data.myCheckInOkrTaskList]);
@@ -102,7 +102,7 @@ const TodoListCard = ({initMyCheckInOkrTaskList, bpList}) => {
             }
         });
         if (node) observer.current.observe(node);
-    }, [loading, hasMore, selectedOtStat, bpNo]);
+    }, [loading, hasMore, selectedOtStat, bpNo, setTaskLimitStart]);
 
     return (
         <Card title="To-Do" style={{width: '100%', marginTop: 16, height: '50%'}}>
