@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-
+import App from './App.js';
 
 
 describe('App', () => {
