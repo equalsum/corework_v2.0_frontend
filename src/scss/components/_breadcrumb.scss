@@ -1,0 +1,18 @@
+.breadCrumb {
+  margin-top: px-to-rem(24px);
+  h1 {
+    font-size: px-to-rem(14px);
+    font-weight: 500;
+    color: $primary-color;
+  }
+  h2 {
+    font-size: px-to-rem(32px);
+    font-weight: 600;
+    letter-spacing: -1px;
+    color: #13130c;
+  }
+  p {
+    margin-top: px-to-rem(7px); color: #4A5568;
+    font-size: px-to-rem(14px); font-weight: 400; 
+  }
+}

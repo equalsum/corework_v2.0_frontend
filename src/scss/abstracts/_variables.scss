@@ -1,0 +1,37 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+// 기본 루트 변수 설정
+$base-url: "~@images";
+
+// 기본 폰트 변수 설정
+$font-primary: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+  Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+  "Malgun Gothic", sans-serif;
+$base-font-size: 16px;
+
+// 색상 변수 설정
+$primary-color: #0388a6;
+$link-color: #aaa;
+$success-color: #aaa;
+$warning-color: #aaa;
+$error-color: #ff4d4f;
+$bg-color: #ebf9ff;
+
+// 브레이크포인트 변수
+$breakpoint-web: 1200px;
+$breakpoint-tab: 992px;
+$breakpoint-mo: 768px;
+
+// z-index 변수
+$z-index: (
+  "z-index-1": 100,
+  "z-index-2": 200,
+  "z-index-3": 300,
+  "z-index-4": 400,
+  "z-index-5": 500,
+  "z-index-6": 600,
+  "z-index-7": 700,
+  "z-index-8": 800,
+  "z-index-9": 900,
+  "z-index-10": 1000,
+);
