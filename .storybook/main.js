@@ -23,7 +23,7 @@ module.exports = {
       '@': path.resolve(__dirname, '../src'),
       '@font': path.resolve(__dirname, '../src/fonts'),
       '@images': path.resolve(__dirname, '../public/assets/images'),
-      '@layout': path.resolve(__dirname, '../src/pages/antDesign/comp/layout'),
+      '@layout': path.resolve(__dirname, '../src/pages/publishing/comp/layout'),
     };
     return config;
   },

@@ -8,15 +8,15 @@ export default {
     defaultActiveKey: { control: 'text' },
     type: {
       options: ['line', 'card', 'editable-card'],
-      control: { type: 'select' }
+      control: { type: 'select' },
     },
     size: {
       options: ['large', 'default', 'small'],
-      control: { type: 'radio' }
+      control: { type: 'radio' },
     },
     tabPosition: {
       options: ['top', 'right', 'bottom', 'left'],
-      control: { type: 'select' }
+      control: { type: 'select' },
     },
     centered: { control: 'boolean' },
     animated: { control: 'boolean' },

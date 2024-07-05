@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import CustomModal from '../pages/antDesign/comp/CustomModal';
+import CustomModal from '../pages/publishing/comp/CustomModal';
 
 export default {
   title: 'Components/CustomModal',
