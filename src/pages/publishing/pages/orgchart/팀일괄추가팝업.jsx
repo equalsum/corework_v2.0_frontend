@@ -106,10 +106,12 @@ const Orgchart02 = () => {
     setTeamNames(items);
   };
 
+  // 모달 표시 함수
   const showDrawer = () => {
     setVisible(true);
   };
 
+  // 모달 닫기 함수
   const onClose = () => {
     setVisible(false);
   };
@@ -133,8 +135,9 @@ const Orgchart02 = () => {
               key: '1',
               children: (
                 <div className="task-manager">
-                  {/* // 헤더 */}
+                  {/* 헤더 */}
                   <header className="task-header flex jcb aic">
+                    {/* 왼쪽 액션 버튼들 */}
                     <div className="left-actions flex aic gap8">
                       <Button size="large" type="primary" onClick={showDrawer}>
                         <i className="icon-download"></i> 일괄 추가
@@ -146,6 +149,7 @@ const Orgchart02 = () => {
                         <i className="icon-sorter"></i> {isEditMode ? '편집 완료' : '순서 편집'}
                       </Button>
                     </div>
+                    {/* 오른쪽 검색 바 */}
                     <div className="right-actions flex aic gap16">
                       <Search
                         placeholder="팀명을 입력하세요."
@@ -160,8 +164,9 @@ const Orgchart02 = () => {
                       />
                     </div>
                   </header>
-                  {/* // 메인 컨텐츠 */}
+                  {/* 메인 컨텐츠 */}
                   <main className="task-content">
+                    {/* 팀이 없을 때 표시할 내용 */}
                     {teamInputs.length === 0 && teamNames.length === 0 && (
                       <div className="task-input-container">
                         <Button size="large" type="text" className="task-btn" onClick={addTeamInput}>
@@ -180,10 +185,12 @@ const Orgchart02 = () => {
                           <div className="all-num">
                             전체 <span>{teamNames.length}</span>
                           </div>
+                          {/* 드래그 앤 드롭 컨텍스트 */}
                           <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="teamName">
                               {(provided) => (
                                 <div {...provided.droppableProps} ref={provided.innerRef} className="teamlist">
+                                  {/* 팀 목록 렌더링 */}
                                   {teamNames.map((teamName, index) => (
                                     <Draggable
                                       key={teamName}
@@ -207,10 +214,12 @@ const Orgchart02 = () => {
                               )}
                             </Droppable>
                           </DragDropContext>
+                          {/* 팀 입력 필드 렌더링 */}
                           {teamInputs.map((input, index) => (
                             <div key={index} className="team-input-wrap">
                               <div key={index} className="team-input flex aic jcb gap8">
                                 <div className="left-item flex  aic gap8">
+                                  {/* 에러 메시지 툴팁 */}
                                   {inputErrors[index] && (
                                     <Tooltip
                                       title={inputErrors[index]}
@@ -222,6 +231,7 @@ const Orgchart02 = () => {
                                       <i className="icon-alert-circle" style={{ color: 'red' }}></i>
                                     </Tooltip>
                                   )}
+                                  {/* 팀 이름 입력 필드 */}
                                   <Input
                                     allowClear
                                     value={input}
@@ -231,6 +241,7 @@ const Orgchart02 = () => {
                                     size="large"
                                     status={inputErrors[index] ? 'error' : ''}
                                   />
+                                  {/* 팀 추가 버튼 */}
                                   <Button
                                     type="primary"
                                     size="large"
@@ -242,6 +253,7 @@ const Orgchart02 = () => {
                                   </Button>
                                 </div>
                                 <div className="right-item">
+                                  {/* 입력 필드 제거 버튼 */}
                                   <Button
                                     size="large"
                                     onClick={() => removeTeamInput(index)}
@@ -255,7 +267,9 @@ const Orgchart02 = () => {
                       )}
                     </div>
                   </main>
+                  {/* 팀 일괄 추가 모달 */}
                   <CustomModal title="팀 일괄 추가" placement="right" size="large" onClose={onClose} visible={visible}>
+                    {/* 모달 내용 */}
                     <div className="member-upload">
                       <h2>
                         양식에 맞게 작성한 엑셀 파일을 업로드해 주세요. 데이터가 올바른지 확인한 후, 문제가 없다면 여러

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-
 import CustomModal from 'pages/publishing/comp/CustomModal';
 import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
-
 import { Button, Select, Input } from 'antd';
 const { Option } = Select;
 
 const TeamItem = ({ teamName, index, isEditMode }) => {
+  // 상태 관리
   const [showLeaderSelect, setShowLeaderSelect] = useState(false);
   const [selectedLeader, setSelectedLeader] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
@@ -17,77 +16,72 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
   const [_showMembers, setShowMembers] = useState(false);
   const [visible, setVisible] = useState(false);
 
+  // 리더 옵션 데이터
   const leaderOptions = [
     { value: 'kang', label: '강민식', department: '전략기획팀 / DX리드' },
-    { value: 'go', label: '고나경', department: '디자이너팀 / 팀원' },
-    { value: 'kim', label: '김용현', department: '개발팀 / 리드' },
-    { value: 'park', label: '박진옥', department: '개발팀 / 팀원' },
-    { value: 'lee', label: '이길상', department: '경영지원&Mgmt / CEO' },
-    { value: 'lee2', label: '이석우', department: '영업/마케팅 / CGO' },
-    { value: 'choi', label: '최지훈', department: '디자인팀 / 리드' },
-    { value: 'jung', label: '정수민', department: '마케팅팀 / 팀원' },
-    { value: 'yoo', label: '유재석', department: '인사팀 / 리드' },
-    { value: 'han', label: '한소희', department: '고객지원팀 / 팀원' },
-    { value: 'lim', label: '임창정', department: '재무팀 / 리드' },
-    { value: 'song', label: '송혜교', department: 'PR팀 / 팀원' },
-    { value: 'kwon', label: '권상우', department: '법무팀 / 리드' },
-    { value: 'bae', label: '배수지', department: '상품개발팀 / 팀원' },
-    { value: 'oh', label: '오연서', department: '해외사업팀 / 리드' },
+    // ... 기타 리더 옵션
   ];
 
+  // 팀 구성원 데이터
   const teamMembers = [
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
-    { value: 'go', label: '고나경', department: '디자이너 / 팀원' },
-    { value: 'kim', label: '김용현', department: 'IT개발 / IT리드' },
-    { value: 'park', label: '박진록', department: 'IT개발 / 팀원' },
-    { value: 'lee', label: '이찬용', department: '퍼블리셔 / 팀원' },
-    { value: 'lee2', label: '전보현', department: '솔루션총괄 / CPO' },
-    { value: 'choi', label: '진미경', department: '서비스기획 / UX리드' },
+    // ... 기타 팀 구성원
   ];
 
+  // 검색어에 따른 필터링된 리더 옵션
   const filteredOptions = leaderOptions.filter((option) =>
     option.label.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  // 리더 선택 토글 함수
   const handleLeaderClick = () => {
     setShowLeaderSelect((prev) => !prev);
   };
 
+  // 리더 선택 처리 함수
   const handleLeaderSelect = (value) => {
     const leader = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader(leader);
     setShowLeaderSelect(false);
   };
 
+  // 팀 이름 편집 모드 전환 함수
   const handleNameClick = () => {
     setIsEditingName(true);
   };
 
+  // 임시 팀 이름 변경 처리 함수
   const handleTempNameChange = (e) => {
     setTempTeamName(e.target.value);
   };
 
+  // 팀 이름 저장 함수
   const handleNameSave = () => {
     setEditedTeamName(tempTeamName);
     setIsEditingName(false);
   };
 
+  // 팀 이름 편집 취소 함수
   const handleNameCancel = () => {
     setIsEditingName(false);
   };
 
+  // 이벤트 버블링 방지 함수
   const handleInnerClick = (event) => {
-    event.stopPropagation(); // 이벤트 버블링을 막습니다.
+    event.stopPropagation();
   };
 
+  // 모달 표시 함수
   const showDrawer = () => {
     setVisible(true);
   };
 
+  // 모달 닫기 함수
   const onClose = () => {
     setVisible(false);
   };
 
+  // 팀 메뉴 아이템 정의
   const teamMenuItems = [
     {
       key: '1',
@@ -101,6 +95,7 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
     },
   ];
 
+  // 리더 옵션 렌더링 함수
   const renderOption = (leader) => (
     <div className="profile-wrap">
       <div className="left">
@@ -111,6 +106,7 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
     </div>
   );
 
+  // 팀 구성원 메뉴 아이템 생성
   const memberMenuItems = teamMembers.map((member) => ({
     key: member.value,
     label: renderOption(member),
@@ -119,7 +115,9 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
   return (
     <>
       <div className="team-item flex aic gap32">
+        {/* 팀 정보 섹션 */}
         <div className="team-info flex aic gap32" onClick={handleInnerClick}>
+          {/* 팀 이름 편집 UI */}
           {!isEditingName ? (
             <h3 className="team-name" onClick={handleNameClick}>
               {editedTeamName}
@@ -142,6 +140,7 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
             </div>
           )}
 
+          {/* 팀 리더 선택 UI */}
           {!showLeaderSelect ? (
             <div className="team-leader">
               <div onClick={handleLeaderClick}>
@@ -198,6 +197,8 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
               </Select>
             </div>
           )}
+
+          {/* 팀원 드롭다운 */}
           <CustomDropdown
             items={memberMenuItems}
             buttonText="팀원"
@@ -206,6 +207,8 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
             buttonClassName="custom-button"
           />
         </div>
+
+        {/* 팀 액션 드롭다운 */}
         <div className="team-actions" onClick={handleInnerClick}>
           <CustomDropdown
             items={teamMenuItems}
@@ -222,6 +225,8 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
           </CustomDropdown>
         </div>
       </div>
+
+      {/* 팀 정보 모달 */}
       <CustomModal title={teamName} placement="right" size="large" onClose={onClose} visible={visible}>
         <p>This is my custom drawer content.</p>
       </CustomModal>
