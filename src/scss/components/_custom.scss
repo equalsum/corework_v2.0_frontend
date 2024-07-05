@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Select
+   ========================================================================== */
+.custom-select .ant-select-dropdown {
+  top: 100% !important;
+  bottom: auto !important;
+}
+
+.ant-select-single {
+  height: 40px;
+}
+
+/* ==========================================================================
+   Dropdown
+   ========================================================================== */
+.ant-dropdown {
+  min-width: px-to-rem(143px);
+  .ant-dropdown-menu-item {
+    height: 45px;
+    .ant-dropdown-menu-title-content {
+      color: #000c17;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .ant-dropdown-menu {
+    overflow-y: auto;
+    max-height: 250px;
+    &.width-lg {
+      width: px-to-rem(280px) !important;
+    }
+    &.h280 {
+      max-height: 280px;
+    }
+    &.click-none .ant-dropdown-menu-item {
+      pointer-events: none;
+    }
+    .profile-wrap {
+      span {
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+}
+/* ==========================================================================
+   Tooltip
+   ========================================================================== */
+.ant-tooltip {
+  max-width: max-content;
+  @include max-width(mo) {
+    max-width: 80%;
+    word-break: keep-all;
+  }
+}
+.ant-tooltip.ant-tooltip-red .ant-tooltip-arrow {
+  --antd-arrow-background-color: #fff2f0;
+  display: none;
+}
+.ant-tooltip.ant-tooltip-red {
+  .ant-tooltip-inner {
+    background: #fff2f0;
+    color: $error-color;
+    font-size: px-to-rem(14px);
+    font-weight: 700;
+    word-break: keep-all;
+  }
+}
+/* 기본 Tooltip 위치 조정 */
+.custom-tooltip-position .ant-tooltip-inner {
+  transform: translate(2%, -20px);
+  @include max-width(tab) {
+    transform: translate(2%, -12px);
+  }
+  @include max-width(mo) {
+    transform: translate(2%, -12px);
+  }
+}
+
+/* ==========================================================================
+   Input
+   ========================================================================== */
+.ant-input {
+  padding: 8px 11px;
+}
+.ant-input-affix-wrapper-lg {
+  padding: px-to-rem(7px) px-to-rem(11px);
+  font-size: px-to-rem(16px);
+}
+/* ==========================================================================
+   CustomModal
+   ========================================================================== */
+.ant-drawer {
+  .ant-drawer-title {
+    font-size: px-to-rem(16px);
+    font-weight: 700;
+    color: #000;
+  }
+}
+@include max-width(mo) {
+  .ant-drawer-content-wrapper {
+    width: 100% !important;
+  }
+}
+/* ==========================================================================
+   BUTTON 
+   ========================================================================== */
+.ant-btn-lg {
+  font-size: px-to-rem(16px);
+  height: px-to-rem(40px);
+  padding: px-to-rem(7px) px-to-rem(15px);
+  align-items: center;
+  gap: px-to-rem(8px);
+  line-height: 1;
+  > span {
+    font-size: px-to-rem(16px);
+  }
+  // 반복문으로 .mw1 ~ mw120
+  @for $i from 1 through 120 {
+    &.mw#{$i} {
+      min-width: px-to-rem($i * 1px);
+    }
+  }
+}
+.ant-input-search-large .ant-input-search-button {
+  height: px-to-rem(40px);
+}
+
+/* ==========================================================================
+   TAB
+   ========================================================================== */
+.tab-panel {
+  margin-top: px-to-rem(10px);
+}

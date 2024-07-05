@@ -16,8 +16,10 @@ import LoginPage from '../pages/login/LoginPage';
 import { requestAxios } from '../api/Axios';
 import URL from 'constants/url';
 
-// 예시 라우터 설정
-import Ant01 from 'pages/antDesign/pages/Ant01';
+// 퍼블리싱 파일 라우터 셋팅
+import Guide from 'pages/guide/Guide';
+import Orgchart01 from 'pages/publishing/pages/orgchart/조직도전체';
+import Orgchart02 from 'pages/publishing/pages/orgchart/팀일괄추가팝업';
 
 const { Header, Sider, Content } = Layout;
 
@@ -57,8 +59,9 @@ const RootRoutes = () => {
     <Routes>
       {/* 인증이 필요하지 않은 라우트 */}
       <Route path={URL.LOGIN} element={<LoginPage onLogin={handleLogin} />} />
-      <Route path="/antDesign/pages/Ant01" element={<Ant01 />} />
-
+      <Route path="/Orgchart01" element={<Orgchart01 />} />
+      <Route path="/Orgchart02" element={<Orgchart02 />} />
+      <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
       {/* 인증이 필요한 라우트 */}
       <Route
         element={

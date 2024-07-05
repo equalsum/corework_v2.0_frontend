@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "antd": "^5.18.1",
+    "aos": "^2.3.4",
     "axios": "^1.7.2",
     "qs": "^6.11.0",
     "react": "^18.2.0",
@@ -16,14 +17,28 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.0.0",
+    "@chromatic-com/storybook": "^1.6.0",
+    "@storybook/addon-docs": "^8.1.11",
+    "@storybook/addon-essentials": "^8.1.11",
+    "@storybook/addon-interactions": "^8.1.11",
+    "@storybook/addon-links": "^8.1.11",
+    "@storybook/addon-onboarding": "^8.1.11",
+    "@storybook/blocks": "^8.1.11",
+    "@storybook/preset-create-react-app": "^8.1.11",
+    "@storybook/react": "^8.1.11",
+    "@storybook/react-webpack5": "^8.1.11",
+    "@storybook/test": "^8.1.11",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "eslint-plugin-storybook": "^0.8.0",
+    "file-loader": "^6.2.0",
     "prettier": "^3.3.2",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "5.0.1",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1",
+    "storybook": "^8.1.11",
     "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4"
   },
@@ -31,7 +46,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "eslintConfig": {
     "extends": [

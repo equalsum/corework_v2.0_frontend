@@ -9,8 +9,10 @@
     background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
 
     /* boxShadow */
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.03),
-      0px 1px 6px -1px rgba(0, 0, 0, 0.02), 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+    box-shadow:
+      0px 1px 2px 0px rgba(0, 0, 0, 0.03),
+      0px 1px 6px -1px rgba(0, 0, 0, 0.02),
+      0px 2px 4px 0px rgba(0, 0, 0, 0.02);
 
     .task-btn {
       display: flex;
@@ -51,18 +53,82 @@
       margin-top: px-to-rem(24px);
     }
     .team-item {
+      cursor: pointer;
       margin-bottom: px-to-rem(16px);
       height: px-to-rem(72px);
       padding-left: px-to-rem(24px);
-      display: flex; align-items: center;
+      padding-right: px-to-rem(24px);
+      display: flex;
+      align-items: center;
       border-radius: var(--Border-Radius-borderRadius, 6px);
       background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
       /* boxShadow */
-      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.03),
+      box-shadow:
+        0px 1px 2px 0px rgba(0, 0, 0, 0.03),
         0px 1px 6px -1px rgba(0, 0, 0, 0.02),
         0px 2px 4px 0px rgba(0, 0, 0, 0.02);
-      &:last-of-type {
-        margin-bottom: px-to-rem(0px);
+      // &:hover {
+      //   border: 1px solid $primary-color;
+      // }
+      .team-info {
+        flex: 1 0 0;
+        .por {
+          position: relative;
+          right: 20px;
+        }
+        .team-name {
+          flex: 1;
+        }
+        .ant-select-selector {
+          width: px-to-rem(320px);
+        }
+        .team-leader {
+          padding-left: px-to-rem(10px);
+          padding-right: px-to-rem(10px);
+          width: px-to-rem(320px);
+          display: flex;
+          flex: none;
+          justify-content: space-between;
+          align-items: center;
+          .profile-wrap {
+            justify-content: start;
+          }
+          .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: $primary-color;
+            border-radius: 9999px;
+          }
+          .team-leader-assignment {
+            display: inline-flex;
+            align-items: center;
+            gap: px-to-rem(8px);
+            cursor: pointer;
+            text-justify: auto;
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+        .team-members {
+          width: px-to-rem(150px);
+          font-size: px-to-rem(14px);
+          font-style: normal;
+          font-weight: 400;
+          color: var(--Colors-Neutral-Text-colorTextTertiary, rgba(0, 0, 0, 0.45));
+          span {
+            display: inline-block;
+            font-size: px-to-rem(14px);
+            margin-left: px-to-rem(3px);
+            color: #000;
+            font-weight: 600;
+          }
+        }
+      }
+      .team-actions {
       }
     }
   }
@@ -72,12 +138,10 @@
     height: auto;
     background: #fff;
     border-radius: var(--Border-Radius-borderRadius, 6px);
-    border: 1px solid
-      var(--Components-Input-Component-activeBorderColor, #2698bd);
+    border: 1px solid var(--Components-Input-Component-activeBorderColor, #2698bd);
     background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
     /* Component/Input/activeShadow */
-    box-shadow: 0px 0px 0px 2px
-      var(--Colors-Brand-Control-controlOutline, rgba(5, 145, 255, 0.1));
+    box-shadow: 0px 0px 0px 2px var(--Colors-Brand-Control-controlOutline, rgba(5, 145, 255, 0.1));
     .team-input {
       position: relative;
     }
@@ -101,6 +165,124 @@
       top: 40px;
       font-size: px-to-rem(12px);
       color: $error-color;
+    }
+  }
+}
+
+.team-members-wrap {
+  position: relative;
+  .member-list {
+    position: absolute;
+    left: 10px;
+    top: 30px;
+  }
+}
+
+/* ==========================================================================
+   멤버 업로드 일괄 추가 팝업 관련
+   ========================================================================== */
+.member-upload {
+  h2 {
+    font-size: px-to-rem(14px);
+    font-weight: 500;
+    color: var(--Colors-Neutral-Text-colorTextSecondary, rgba(0, 0, 0, 0.65));
+  }
+  .header-wrp {
+    margin-top: px-to-rem(16px);
+    padding: px-to-rem(24px) px-to-rem(16px);
+    border-radius: var(--Border-Radius-borderRadiusLG, 8px);
+    background: var(--Colors-Neutral-Fill-colorFillTertiary, rgba(0, 0, 0, 0.04));
+    h1.title {
+      display: flex;
+      align-items: center;
+      gap: px-to-rem(8px);
+      color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+      font-size: px-to-rem(16px);
+      font-weight: 500;
+      span {
+        color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+        display: inline-block;
+        font-weight: 700;
+        font-size: px-to-rem(16px);
+        margin-left: px-to-rem(3px);
+      }
+    }
+  }
+
+  .content {
+    margin-top: px-to-rem(16px);
+    padding: px-to-rem(134px) px-to-rem(0px);
+    display: block;
+    text-align: center;
+    > p {
+      margin-bottom: px-to-rem(12px);
+      color: var(--Colors-Neutral-Text-colorTextSecondary, rgba(0, 0, 0, 0.65));
+      font-size: px-to-rem(14px);
+      font-weight: 500;
+      line-height: px-to-rem(22px);
+    }
+    .wrap {
+      height: px-to-rem(450px);
+      display: inline-flex;
+      border-radius: var(--Border-Radius-borderRadiusLG, 8px);
+      border: var(--Components-Input-Component-paddingBlockSM, 1px) solid
+        var(--Colors-Neutral-Border-colorBorder, #d9d9d9);
+      /* drop-shadow/0.15 */
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+      > * {
+        flex: 1 1 100%; /* 자식 요소가 부모의 전체 공간을 차지하도록 설정 */
+        width: 100%; /* 너비를 100%로 설정 */
+        height: 100%; /* 높이를 100%로 설정 */
+      }
+      .upload-area {
+        width: px-to-rem(400px);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        i {
+          margin-bottom: px-to-rem(24px);
+        }
+        p {
+          color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+          font-size: px-to-rem(16px);
+          font-weight: 700;
+          margin-bottom: px-to-rem(12px);
+        }
+        > span {
+          display: inline-block;
+          margin-bottom: px-to-rem(12px);
+        }
+      }
+      .instructions {
+        height: 100%;
+        max-width: px-to-rem(400px);
+        padding: px-to-rem(24px) px-to-rem(16px);
+        background: var(--Colors-Neutral-Bg-colorBgLayout, #f5f5f5);
+        p {
+          position: relative;
+          text-align: left;
+          color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+          font-size: px-to-rem(14px);
+          padding-left: px-to-rem(27px);
+          font-weight: 500;
+          line-height: px-to-rem(22px);
+          word-break: keep-all;
+          margin-bottom: px-to-rem(12px);
+          @include make-before() {
+            position: absolute;
+            left: 0;
+            top: px-to-rem(2px);
+            width: px-to-rem(20px);
+            height: px-to-rem(20px);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 1.5C6.20156 1.5 1.5 6.20156 1.5 12C1.5 17.7984 6.20156 22.5 12 22.5C17.7984 22.5 22.5 17.7984 22.5 12C22.5 6.20156 17.7984 1.5 12 1.5ZM12 20.7188C7.18594 20.7188 3.28125 16.8141 3.28125 12C3.28125 7.18594 7.18594 3.28125 12 3.28125C16.8141 3.28125 20.7188 7.18594 20.7188 12C20.7188 16.8141 16.8141 20.7188 12 20.7188Z' fill='black' fill-opacity='0.45'/%3E%3Cpath d='M10.875 7.875C10.875 8.17337 10.9935 8.45952 11.2045 8.6705C11.4155 8.88147 11.7016 9 12 9C12.2984 9 12.5845 8.88147 12.7955 8.6705C13.0065 8.45952 13.125 8.17337 13.125 7.875C13.125 7.57663 13.0065 7.29048 12.7955 7.0795C12.5845 6.86853 12.2984 6.75 12 6.75C11.7016 6.75 11.4155 6.86853 11.2045 7.0795C10.9935 7.29048 10.875 7.57663 10.875 7.875ZM12.5625 10.5H11.4375C11.3344 10.5 11.25 10.5844 11.25 10.6875V17.0625C11.25 17.1656 11.3344 17.25 11.4375 17.25H12.5625C12.6656 17.25 12.75 17.1656 12.75 17.0625V10.6875C12.75 10.5844 12.6656 10.5 12.5625 10.5Z' fill='black' fill-opacity='0.45'/%3E%3C/svg%3E");
+            border-radius: 50%;
+            background-size: cover;
+            margin-right: px-to-rem(8px);
+          }
+        }
+      }
     }
   }
 }

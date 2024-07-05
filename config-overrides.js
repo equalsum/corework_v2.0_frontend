@@ -1,15 +1,14 @@
 const path = require('path');
 
 module.exports = function override(config, env) {
-  // 웹팩 설정 수정
+  // 경로 별칭 설정
   config.resolve.alias = {
     ...config.resolve.alias,
+    '@': path.resolve(__dirname, 'src'),
     '@font': path.resolve(__dirname, 'src/fonts'),
     '@images': path.resolve(__dirname, 'public/assets/images'),
-    '@layout': path.resolve(__dirname, 'src/pages/antDesign/comp/layout'),
+    '@layout': path.resolve(__dirname, 'src/pages/publishing/comp/layout'),
   };
-
-  // 필요한 다른 웹팩 설정 추가
 
   return config;
 };

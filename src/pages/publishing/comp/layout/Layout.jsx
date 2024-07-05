@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import Sidebar from './Sidebar';
 import Breadcrumb from './Breadcrumb';
 
-const AdminLayout = ({ breadcrumbItems, children , pageClass  }) => {
+const AdminLayout = ({ breadcrumbItems, children, pageClass }) => {
   function adjustSidebarHeight() {
     const $mainNav = document.querySelector('.main-nav');
     const $leftMenu = document.querySelector('.admin-sidebar-left-menu');
@@ -18,7 +18,7 @@ const AdminLayout = ({ breadcrumbItems, children , pageClass  }) => {
   window.addEventListener('load', adjustSidebarHeight);
 
   // 창 크기가 변경될 때마다 실행
-  window.addEventListener('resize', adjustSidebarHeight); 
+  window.addEventListener('resize', adjustSidebarHeight);
 
   return (
     <Layout className={`admin-layout ${pageClass}`}>
@@ -27,16 +27,18 @@ const AdminLayout = ({ breadcrumbItems, children , pageClass  }) => {
       {/* <Header className='admin-header' /> */}
       {/* Header EEE */}
 
-      <div className='admin-body-container'>
+      <div className="admin-body-container">
         {/* SideBar */}
-        <Sidebar className='admin-sidebar' />
+        <Sidebar className="admin-sidebar" />
         {/* SideBar EEE */}
 
         {/* Content */}
-        <div className='admin-content-wrapper'>
-          <Breadcrumb breadcrumbItems={breadcrumbItems} className='admin-breadcrumb' />
+        <div className="admin-content-wrapper">
+          <Breadcrumb breadcrumbItems={breadcrumbItems} className="admin-breadcrumb" />
           {/* 메인 콘텐츠가 여기에 들어갑니다 */}
-          <div className='admin-main-content'>{children}</div>
+          <div className="admin-main-content" data-aos="fade-right" data-aos-delay="400">
+            {children}
+          </div>
           {/* 메인 콘텐츠가 여기에 들어갑니다 EEE */}
         </div>
         {/* Content EEE */}

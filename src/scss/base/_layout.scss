@@ -1,10 +1,10 @@
 /* ==========================================================================
    SideBar
    ========================================================================== */
-body,
-html {
-  overflow-y: hidden;
-}
+// body,
+// html {
+//   overflow-y: hidden;
+// }
 
 .admin-body-container {
   display: flex;
@@ -22,7 +22,6 @@ html {
   overflow-x: hidden;
   overflow-y: auto;
 
-  
   @include max-width(tab) {
     width: 0;
   }
@@ -133,10 +132,12 @@ html {
   padding: px-to-rem(60px);
   padding-top: px-to-rem(30px);
   overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
 
   @include max-width(tab) {
-    padding-left: 0; padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -153,6 +154,12 @@ html {
   }
   &.jcb {
     justify-content: space-between;
+  }
+  .flex-1 {
+    flex: 1;
+  }
+  .w-full {
+    width: 100%;
   }
 }
 /* ==========================================================================
