@@ -1,12 +1,21 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
 // 기본 루트 변수 설정
-$base-url: "~@images";
+$base-url: '~@images';
 
 // 기본 폰트 변수 설정
-$font-primary: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
-  Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
-  "Malgun Gothic", sans-serif;
+$font-primary:
+  'Pretendard',
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
+  Roboto,
+  'Helvetica Neue',
+  'Segoe UI',
+  'Apple SD Gothic Neo',
+  'Noto Sans KR',
+  'Malgun Gothic',
+  sans-serif;
 $base-font-size: 16px;
 
 // 색상 변수 설정
@@ -24,14 +33,75 @@ $breakpoint-mo: 600px;
 
 // z-index 변수
 $z-index: (
-  "z-index-1": 100,
-  "z-index-2": 200,
-  "z-index-3": 300,
-  "z-index-4": 400,
-  "z-index-5": 500,
-  "z-index-6": 600,
-  "z-index-7": 700,
-  "z-index-8": 800,
-  "z-index-9": 900,
-  "z-index-10": 1000,
+  'z-index-1': 100,
+  'z-index-2': 200,
+  'z-index-3': 300,
+  'z-index-4': 400,
+  'z-index-5': 500,
+  'z-index-6': 600,
+  'z-index-7': 700,
+  'z-index-8': 800,
+  'z-index-9': 900,
+  'z-index-10': 1000,
 );
+
+// 다크 모드를 위한 변수 추가
+:root {
+  --bg-container: #fff8f0;
+  --bg-color: #fff;
+  --sidebar-bg: #006678;
+  --text-color: rgba(0, 0, 0, 0.88);
+  --text-secondary: rgba(0, 0, 0, 0.65);
+  --border-color: #d9d9d9;
+  --primary-color: #2698bd;
+  --error-color: #ff4d4f;
+  --warning-bg: #fff2f0;
+  --fill-tertiary: rgba(0, 0, 0, 0.04);
+}
+
+.dark-mode {
+  --bg-container: #141414;
+  --bg-color: #1f1f1f;
+  --sidebar-bg: #004a59;
+  --text-color: rgba(255, 255, 255, 0.88);
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --border-color: #434343;
+  --primary-color: #4bb5ff;
+  --error-color: #ff6b6b;
+  --warning-bg: #2b1d1d;
+  --fill-tertiary: rgba(255, 255, 255, 0.04);
+}
+
+// 다크 모드 스타일
+.dark-mode {
+  --bg-color: #141414;
+  --text-color: #fff;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  // 추가적인 다크 모드 스타일
+  .wrap {
+    background-color: var(--bg-color);
+  }
+
+  .content-area {
+    background-color: #1f1f1f;
+  }
+
+  // 필요한 다른 요소들의 다크 모드 스타일을 여기에 추가
+}
+
+// 테마 토글 버튼 스타일
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  padding: 5px 10px;
+  background-color: #0388a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -20,6 +20,7 @@ import URL from 'constants/url';
 import Guide from 'pages/guide/Guide';
 import Orgchart01 from 'pages/publishing/pages/orgchart/조직도전체';
 import Orgchart02 from 'pages/publishing/pages/orgchart/팀일괄추가팝업';
+import Orgchart03 from 'pages/publishing/pages/orgchart/팀일괄추가팝업_업로드결과';
 
 const { Header, Sider, Content } = Layout;
 
@@ -61,6 +62,7 @@ const RootRoutes = () => {
       <Route path={URL.LOGIN} element={<LoginPage onLogin={handleLogin} />} />
       <Route path="/Orgchart01" element={<Orgchart01 />} />
       <Route path="/Orgchart02" element={<Orgchart02 />} />
+      <Route path="/Orgchart03" element={<Orgchart03 />} />
       <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
       {/* 인증이 필요한 라우트 */}
       <Route

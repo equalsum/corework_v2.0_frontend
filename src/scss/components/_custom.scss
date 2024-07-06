@@ -18,7 +18,7 @@
   .ant-dropdown-menu-item {
     height: 45px;
     .ant-dropdown-menu-title-content {
-      color: #000c17;
+      color: var(--text-color);
       display: flex;
       align-items: center;
     }
@@ -92,13 +92,16 @@
    CustomModal
    ========================================================================== */
 .ant-drawer {
+  .ant-drawer-body {
+    padding: px-to-rem(24px);
+  }
   .ant-drawer-title {
     font-size: px-to-rem(16px);
     font-weight: 700;
-    color: #000;
+    color: var(--text-color);
   }
 }
-@include max-width(mo) {
+@include max-width(web) {
   .ant-drawer-content-wrapper {
     width: 100% !important;
   }

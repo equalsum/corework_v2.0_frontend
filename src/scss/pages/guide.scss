@@ -1,88 +1,125 @@
+$colors: (
+  primary: #3498db,
+  secondary: #2c3e50,
+  tertiary: #34495e,
+  quaternary: #2980b9,
+  text: #333,
+  light-text: #7f8c8d,
+  background: #f8f9fa,
+  white: #fff,
+);
+
+$font-sizes: (
+  xl: 2rem,
+  lg: 1.5rem,
+  md: 1.2rem,
+  sm: 1rem,
+  xs: 0.9rem,
+);
+
+$spacing: (
+  xxs: 0.25rem,
+  xs: 0.5rem,
+  sm: 0.35rem,
+  md: 1rem,
+  lg: 1.5rem,
+  xl: 2rem,
+);
+
+@mixin box-shadow($opacity: 0.1) {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, $opacity);
+}
+
 .guide {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: map-get($spacing, md);
   font-family: Arial, sans-serif;
-  color: #333;
+  color: map-get($colors, text);
+  line-height: 1.4;
 
   &__title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+    font-size: map-get($font-sizes, xl);
+    margin-bottom: map-get($spacing, lg);
     text-align: center;
-    color: #2c3e50;
+    color: map-get($colors, secondary);
   }
 
   &__content {
-    background-color: #f8f9fa;
+    background-color: map-get($colors, background);
     border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: map-get($spacing, lg);
+    @include box-shadow;
   }
 
   &__section {
-    margin-bottom: 3rem;
+    margin-bottom: map-get($spacing, lg);
 
     &-title {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #34495e;
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 0.5rem;
+      font-size: map-get($font-sizes, lg);
+      margin-bottom: map-get($spacing, md);
+      color: map-get($colors, tertiary);
+      border-bottom: 1px solid map-get($colors, primary);
+      padding-bottom: map-get($spacing, xxs);
     }
   }
 
   &__subsection {
-    margin-bottom: 2rem;
+    margin-bottom: map-get($spacing, md);
 
     &-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #2980b9;
+      font-size: map-get($font-sizes, md);
+      margin-bottom: map-get($spacing, sm);
+      color: map-get($colors, quaternary);
     }
   }
 
   &__list {
     list-style-type: none;
     padding-left: 0;
+    margin-bottom: map-get($spacing, sm);
   }
 
   &__item {
-    margin-bottom: 1.5rem;
-    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: map-get($spacing, sm);
+    background-color: map-get($colors, white);
     border-radius: 4px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: map-get($spacing, sm);
+    @include box-shadow;
   }
 
   &__link {
     display: inline-block;
-    font-size: 1.1rem;
-    color: #3498db;
+    font-size: map-get($font-sizes, sm);
+    color: map-get($colors, primary);
     text-decoration: none;
-    margin-bottom: 0.5rem;
+    margin-bottom: map-get($spacing, xxs);
     transition: color 0.3s ease;
 
     &:hover {
-      color: #2980b9;
+      color: map-get($colors, quaternary);
       text-decoration: underline;
     }
   }
 
   &__description {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    margin-bottom: 0.5rem;
+    font-size: map-get($font-sizes, xs);
+    color: map-get($colors, light-text);
+    margin-bottom: map-get($spacing, xxs);
   }
 
   &__subitem {
-    margin-top: 1rem;
-    padding-left: 1rem;
-    border-left: 2px solid #ecf0f1;
+    margin-top: map-get($spacing, xs);
+    padding-left: map-get($spacing, sm);
+    border-left: 1px solid darken(map-get($colors, background), 10%);
 
     &-title {
-      font-size: 1rem;
-      color: #16a085;
-      margin-bottom: 0.5rem;
+      font-size: map-get($font-sizes, sm);
+      color: darken(map-get($colors, primary), 10%);
+      margin-bottom: map-get($spacing, xxs);
     }
   }
 }

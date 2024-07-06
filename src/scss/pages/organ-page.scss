@@ -4,16 +4,12 @@
   }
   .task-input-container {
     border-radius: var(--Border-Radius-borderRadius, 6px);
-    border: var(--Components-Input-Component-paddingBlockSM, 1px) dashed
-      var(--Colors-Brand-Primary-colorPrimary, #2698bd);
-    background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
-
-    /* boxShadow */
+    border: 1px dashed var(--primary-color);
+    background: var(--bg-color);
     box-shadow:
       0px 1px 2px 0px rgba(0, 0, 0, 0.03),
       0px 1px 6px -1px rgba(0, 0, 0, 0.02),
       0px 2px 4px 0px rgba(0, 0, 0, 0.02);
-
     .task-btn {
       display: flex;
       padding-top: px-to-rem(24px);
@@ -36,17 +32,17 @@
       justify-content: center;
       font-size: px-to-rem(14px);
       font-weight: 400;
-      color: #000;
+      color: var(--text-color);
     }
     .all-num {
       font-size: px-to-rem(20px);
       font-weight: 700;
-      color: #000;
+      color: var(--text-color);
       line-height: 1;
       span {
         font-size: px-to-rem(20px);
         font-weight: 700;
-        color: $primary-color;
+        color: var(--primary-color);
       }
     }
     .teamlist {
@@ -61,8 +57,8 @@
       display: flex;
       align-items: center;
       border-radius: var(--Border-Radius-borderRadius, 6px);
-      background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
-      /* boxShadow */
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
       box-shadow:
         0px 1px 2px 0px rgba(0, 0, 0, 0.03),
         0px 1px 6px -1px rgba(0, 0, 0, 0.02),
@@ -118,12 +114,12 @@
           font-size: px-to-rem(14px);
           font-style: normal;
           font-weight: 400;
-          color: var(--Colors-Neutral-Text-colorTextTertiary, rgba(0, 0, 0, 0.45));
+          color: var(--text-secondary);
           span {
             display: inline-block;
             font-size: px-to-rem(14px);
             margin-left: px-to-rem(3px);
-            color: #000;
+            color: var(--text-color);
             font-weight: 600;
           }
         }
@@ -136,12 +132,10 @@
     margin-top: px-to-rem(24px);
     padding: px-to-rem(16px);
     height: auto;
-    background: #fff;
     border-radius: var(--Border-Radius-borderRadius, 6px);
-    border: 1px solid var(--Components-Input-Component-activeBorderColor, #2698bd);
-    background: var(--Colors-Neutral-Bg-colorBgContainer, #fff);
+    border: 1px solid var(--primary-color);
+    background: var(--bg-color);
     /* Component/Input/activeShadow */
-    box-shadow: 0px 0px 0px 2px var(--Colors-Brand-Control-controlOutline, rgba(5, 145, 255, 0.1));
     .team-input {
       position: relative;
     }
@@ -185,27 +179,104 @@
   h2 {
     font-size: px-to-rem(14px);
     font-weight: 500;
-    color: var(--Colors-Neutral-Text-colorTextSecondary, rgba(0, 0, 0, 0.65));
+    line-height: px-to-rem(22px);
+    word-wrap: keep-all;
+    color: var(--text-secondary);
   }
   .header-wrp {
     margin-top: px-to-rem(16px);
-    padding: px-to-rem(24px) px-to-rem(16px);
+    padding: px-to-rem(16px) px-to-rem(16px);
     border-radius: var(--Border-Radius-borderRadiusLG, 8px);
-    background: var(--Colors-Neutral-Fill-colorFillTertiary, rgba(0, 0, 0, 0.04));
+    background: var(--fill-tertiary);
+
     h1.title {
       display: flex;
       align-items: center;
       gap: px-to-rem(8px);
-      color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+      color: var(--text-color);
       font-size: px-to-rem(16px);
       font-weight: 500;
-      span {
-        color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+      span.desc {
+        color: var(--text-secondary);
         display: inline-block;
         font-weight: 700;
         font-size: px-to-rem(16px);
         margin-left: px-to-rem(3px);
+        @include max-width(tab) {
+          display: none;
+        }
       }
+
+      @include max-width(tab) {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      @include max-width(tab) {
+        .left {
+          line-height: px-to-rem(22px);
+          .icon-circle-outlined {
+            display: none;
+          }
+          flex-direction: column;
+          align-items: start;
+        }
+      }
+    }
+  }
+  .warning-message {
+    margin-top: px-to-rem(16px);
+    padding: px-to-rem(16px) px-to-rem(16px);
+    display: flex;
+    align-items: center;
+    border-radius: var(--Border-Radius-borderRadiusLG, 8px);
+    background: var(--warning-bg);
+    color: var(--error-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    .icon-warning-outlined {
+      margin-right: 8px;
+      position: relative;
+      top: px-to-rem(-1px);
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      color: var(--text-color);
+      font-weight: 400;
+    }
+    .total-count {
+      color: $primary-color;
+      display: inline-block;
+      font-size: px-to-rem(16px);
+      font-weight: 600;
+    }
+
+    .error-count {
+      color: $error-color;
+      font-weight: 600;
+      display: inline-block;
+      margin-left: px-to-rem(2px);
+    }
+
+    .error-message {
+      color: $error-color;
+      font-weight: 600;
+    }
+
+    .icon-warning {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    .download-button {
+      margin-left: auto;
+      background-color: transparent;
+      color: #ff4d4f;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 
@@ -216,7 +287,7 @@
     text-align: center;
     > p {
       margin-bottom: px-to-rem(12px);
-      color: var(--Colors-Neutral-Text-colorTextSecondary, rgba(0, 0, 0, 0.65));
+      color: var(--text-secondary);
       font-size: px-to-rem(14px);
       font-weight: 500;
       line-height: px-to-rem(22px);
@@ -225,15 +296,8 @@
       height: px-to-rem(450px);
       display: inline-flex;
       border-radius: var(--Border-Radius-borderRadiusLG, 8px);
-      border: var(--Components-Input-Component-paddingBlockSM, 1px) solid
-        var(--Colors-Neutral-Border-colorBorder, #d9d9d9);
-      /* drop-shadow/0.15 */
+      border: 1px solid var(--border-color);
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
-      > * {
-        flex: 1 1 100%; /* 자식 요소가 부모의 전체 공간을 차지하도록 설정 */
-        width: 100%; /* 너비를 100%로 설정 */
-        height: 100%; /* 높이를 100%로 설정 */
-      }
       .upload-area {
         width: px-to-rem(400px);
         height: 100%;
@@ -245,7 +309,7 @@
           margin-bottom: px-to-rem(24px);
         }
         p {
-          color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+          color: var(--text-color);
           font-size: px-to-rem(16px);
           font-weight: 700;
           margin-bottom: px-to-rem(12px);
@@ -259,11 +323,11 @@
         height: 100%;
         max-width: px-to-rem(400px);
         padding: px-to-rem(24px) px-to-rem(16px);
-        background: var(--Colors-Neutral-Bg-colorBgLayout, #f5f5f5);
+        background: var(--fill-tertiary);
         p {
           position: relative;
           text-align: left;
-          color: var(--Colors-Neutral-Text-colorText, rgba(0, 0, 0, 0.88));
+          color: var(--text-color);
           font-size: px-to-rem(14px);
           padding-left: px-to-rem(27px);
           font-weight: 500;

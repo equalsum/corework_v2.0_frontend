@@ -275,12 +275,30 @@ const Orgchart02 = () => {
                         양식에 맞게 작성한 엑셀 파일을 업로드해 주세요. 데이터가 올바른지 확인한 후, 문제가 없다면 여러
                         팀을 한 번에 추가할 수 있어요.
                       </h2>
-                      <div className="header-wrp">
+
+                      {/* // 경고 모달 추가 */}
+                      <div className="warning-message flex aic jcb">
+                        <div className="title">
+                          <i className="icon-warning-outlined"></i>총 <span className="total-count">30</span>건 중
+                          비정상 <span className="error-count">5건</span>이 있습니다. &nbsp;
+                          <span className="error-message">
+                            {' '}
+                            데이터 검사 결과가 포함된 엑셀을 다운받아 비정상 건을 수정하여 다시 업로드 해주세요.
+                          </span>
+                        </div>
+                        <Button type="default" danger size="large">
+                          검사 결과 엑셀 다운로드
+                        </Button>
+                      </div>
+                      {/* // 경고 모달 추가 eee */}
+
+                      {/* // 기본 문구 삭제 */}
+                      {/* <div className="header-wrp">
                         <h1 className="title flex aic jcb">
                           <div className="left flex aic gap8">
                             <i className="icon-circle-outlined"></i>
                             팀명(필수 정보)과 상위 팀(선택 정보) 정보를 양식에 맞추어 입력해 주세요.
-                            <span className="desc">양식을 다운로드 해주세요.</span>
+                            <span>양식을 다운로드 해주세요.</span>
                           </div>
                           <div className="right">
                             <Button type="default" size="large">
@@ -288,7 +306,9 @@ const Orgchart02 = () => {
                             </Button>
                           </div>
                         </h1>
-                      </div>
+                      </div> */}
+                      {/* // 기본 문구 삭제 eee */}
+
                       <div className="content">
                         <p>양식에 맞춰 작성한 엑셀 파일을 업로드 해주세요.</p>
                         <div className="wrap">

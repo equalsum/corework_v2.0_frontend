@@ -3,16 +3,18 @@
   h1 {
     font-size: px-to-rem(14px);
     font-weight: 500;
-    color: $primary-color;
+    color: var(--text-color);
   }
   h2 {
     font-size: px-to-rem(32px);
     font-weight: 600;
     letter-spacing: -1px;
-    color: #13130c;
+    color: var(--text-color);
   }
   p {
-    margin-top: px-to-rem(7px); color: #4A5568;
-    font-size: px-to-rem(14px); font-weight: 400; 
+    margin-top: px-to-rem(7px);
+    color: var(--text-secondary);
+    font-size: px-to-rem(14px);
+    font-weight: 400;
   }
 }

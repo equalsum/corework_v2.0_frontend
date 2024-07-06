@@ -1,18 +1,17 @@
-/* ==========================================================================
-   SideBar
-   ========================================================================== */
-// body,
-// html {
-//   overflow-y: hidden;
-// }
-
 .admin-body-container {
   display: flex;
   height: 100vh;
   overflow: hidden;
   padding: px-to-rem(20px);
   padding-top: 0;
-  background: var(--Colors-Brand-Primary-ColorBgLayout, #fff8f0);
+  padding-right: px-to-rem(0px);
+  background: var(--bg-container);
+  color: var(--text-color);
+
+  @include max-width(tab) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .admin-sidebar {
@@ -28,7 +27,7 @@
 
   .admin-sidebar-left-menu {
     width: px-to-rem(80px);
-    background: #006678;
+    background: var(--sidebar-bg);
     display: flex;
     flex-direction: column;
 
@@ -42,7 +41,7 @@
       .square-button {
         width: px-to-rem(40px);
         height: px-to-rem(40px);
-        background-color: #ffffff;
+        background-color: var(--content-bg);
         margin-bottom: px-to-rem(20px);
       }
 
@@ -56,7 +55,7 @@
           height: px-to-rem(40px);
           border-radius: 50%;
           border: none;
-          background-color: #2b2b3b;
+          background-color: var(--sidebar-button-bg);
         }
       }
     }
@@ -68,14 +67,14 @@
         width: px-to-rem(40px);
         height: px-to-rem(40px);
         border-radius: 50%;
-        background-color: #2b2b3b;
+        background-color: var(--sidebar-button-bg);
       }
     }
   }
 
   .admin-sidebar-content {
     width: px-to-rem(250px); // 고정 너비 설정
-    background: #fff;
+    background: var(--content-bg);
     flex-shrink: 0; // 크기 고정
     display: flex;
     flex-direction: column;
@@ -99,11 +98,14 @@
             align-items: center;
             padding: 0 px-to-rem(24px);
             height: px-to-rem(48px);
-            color: #13130c;
-            transition: background-color 0.3s, color 0.3s;
+            color: var(--text-color);
+            transition:
+              background-color 0.3s,
+              color 0.3s;
 
             &:hover {
-              background-color: #2b2b3b;
+              background-color: var(--sidebar-button-bg);
+
               color: #fff;
             }
           }
@@ -131,10 +133,10 @@
   flex: 1;
   padding: px-to-rem(60px);
   padding-top: px-to-rem(30px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
-
+  background-color: var(--content-bg);
+  color: var(--text-color);
   @include max-width(tab) {
     padding-left: 0;
     padding-right: 0;

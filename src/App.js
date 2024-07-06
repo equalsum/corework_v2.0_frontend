@@ -1,6 +1,6 @@
 import RootRoutes from './routes';
-import { ConfigProvider } from 'antd';
-import React, { useEffect } from 'react';
+import { ConfigProvider, theme } from 'antd';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -10,31 +10,49 @@ import './css/page.css';
 import './scss/ui.scss';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   useEffect(() => {
     AOS.init({
-      duration: 1000, // 애니메이션 지속 시간 (밀리초)
-      once: false, // 스크롤 할 때마다 애니메이션 반복
+      duration: 1000,
+      once: false,
     });
   }, []);
+
+  useEffect(() => {
+    // 다크 모드 상태에 따라 body에 클래스 추가/제거
+    document.body.classList.toggle('dark-mode', isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const { defaultAlgorithm, darkAlgorithm } = theme;
 
   return (
     <ConfigProvider
       theme={{
+        algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
         token: {
           colorPrimary: '#0388A6',
-          colorLink: 'blue',
-          colorSuccess: 'skyblue',
-          colorWarning: 'darkred',
-          colorWarningBg: '#FFF2F0',
+          colorLink: isDarkMode ? '#4BB5FF' : 'blue',
+          colorSuccess: isDarkMode ? '#52C41A' : 'skyblue',
+          colorWarning: isDarkMode ? '#FAAD14' : 'darkred',
+          colorWarningBg: isDarkMode ? '#2B2111' : '#FFF2F0',
           colorError: '#FF4D4F',
-          colorBgLayout: '#EBF9FF',
-          // 툴팁 화살표 배경색 추가
-          tooltipArrowBg: '#0388A6', // 여기서 원하는 색상으로 변경
+          colorBgLayout: isDarkMode ? '#141414' : '#EBF9FF',
+          tooltipArrowBg: '#0388A6',
         },
       }}
     >
-      <div className="wrap">
-        <RootRoutes />
+      <div className={`wrap ${isDarkMode ? 'dark-mode' : ''}`}>
+        <button onClick={toggleDarkMode} className="theme-toggle">
+          {isDarkMode ? '라이트 모드' : '다크 모드'}
+        </button>
+        <div className="content-area">
+          <RootRoutes />
+        </div>
       </div>
     </ConfigProvider>
   );
