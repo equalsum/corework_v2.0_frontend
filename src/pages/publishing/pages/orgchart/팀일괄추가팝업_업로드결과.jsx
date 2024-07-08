@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Tabs, Button, Input, message, Tooltip } from 'antd';
+import { Tabs, Button, Input, message, Tooltip, Checkbox, Table, Tag } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import TeamItem from './comp/TeamItem';
 import CustomModal from '../../comp/CustomModal';
@@ -115,6 +115,57 @@ const Orgchart02 = () => {
   const onClose = () => {
     setVisible(false);
   };
+
+  const columns = [
+    {
+      title: 'No.',
+      dataIndex: 'no',
+      key: 'no',
+      width: 70,
+    },
+    {
+      title: '팀명',
+      dataIndex: 'status',
+      key: 'status',
+      width: 420,
+    },
+    {
+      title: '상위팀',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: '상태',
+      dataIndex: 'state',
+      key: 'state',
+      render: (state) => <Tag color={state === '완료' ? 'green' : 'pink'}>{state}</Tag>,
+      width: 100,
+    },
+    {
+      title: '사유',
+      dataIndex: 'reason',
+      key: 'reason',
+    },
+  ];
+
+  const data = [
+    {
+      key: '1',
+      no: 30,
+      status: '프로젝트 사용',
+      description: '-',
+      state: '비정상',
+      reason: '-',
+    },
+    {
+      key: '2',
+      no: 29,
+      status: '프로젝트 사용',
+      description: '-',
+      state: '완료',
+      reason: '-',
+    },
+  ];
 
   return (
     <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
@@ -275,12 +326,13 @@ const Orgchart02 = () => {
                         양식에 맞게 작성한 엑셀 파일을 업로드해 주세요. 데이터가 올바른지 확인한 후, 문제가 없다면 여러
                         팀을 한 번에 추가할 수 있어요.
                       </h2>
-
-                      {/* // 경고 모달 추가 */}
+                      {/* // 경고 추가 */}
                       <div className="warning-message flex aic jcb">
-                        <div className="title">
-                          <i className="icon-warning-outlined"></i>총 <span className="total-count">30</span>건 중
-                          비정상 <span className="error-count">5건</span>이 있습니다. &nbsp;
+                        <div className="flex aic jcb">
+                          <div className="title">
+                            <i className="icon-warning-outlined"></i>총 <span className="total-count">30</span>건 중
+                            비정상 <span className="error-count">5건</span>이 있습니다. &nbsp;
+                          </div>
                           <span className="error-message">
                             {' '}
                             데이터 검사 결과가 포함된 엑셀을 다운받아 비정상 건을 수정하여 다시 업로드 해주세요.
@@ -290,8 +342,7 @@ const Orgchart02 = () => {
                           검사 결과 엑셀 다운로드
                         </Button>
                       </div>
-                      {/* // 경고 모달 추가 eee */}
-
+                      {/* // 경고 추가 eee */}
                       {/* // 기본 문구 삭제 */}
                       {/* <div className="header-wrp">
                         <h1 className="title flex aic jcb">
@@ -309,23 +360,17 @@ const Orgchart02 = () => {
                       </div> */}
                       {/* // 기본 문구 삭제 eee */}
 
-                      <div className="content">
-                        <p>양식에 맞춰 작성한 엑셀 파일을 업로드 해주세요.</p>
-                        <div className="wrap">
-                          <div className="upload-area">
-                            <i className="icon-upload"></i>
-                            <p>여기 드래그 하기</p>
-                            <span>또는</span>
-                            <Button type="primary" size="large" className="mw120">
-                              엑셀 업로드
-                            </Button>
-                          </div>
-                          <div className="instructions">
-                            <p>양식에 기존 팀에 대한 변경 정보가 있을 경우, 기존 정보를 덮어씁니다.</p>
-                            <p>양식에 기존 팀에 대한 변경 정보가 있을 경우, 기존 정보를 덮어씁니다.</p>
-                          </div>
+                      <div className="filter-container">
+                        <div className="total-count">
+                          전체
+                          <span className="num">30</span>
+                        </div>
+                        <div className="unpaid-filter">
+                          <Checkbox id="unpaidCheck">비정상 건 보기</Checkbox>
                         </div>
                       </div>
+
+                      <Table columns={columns} dataSource={data} scroll={{ x: 770 }} />
                     </div>
                   </CustomModal>
                 </div>

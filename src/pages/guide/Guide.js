@@ -41,7 +41,7 @@ function Guide() {
       title: '1. 조직도',
       subsections: [
         {
-          title: '1.1 리스트 뷰',
+          // title: '1.1 리스트 뷰',
           items: [
             {
               href: '/Orgchart01',

@@ -350,3 +350,21 @@
     }
   }
 }
+
+.filter-container {
+  display: flex;
+  gap: px-to-rem(16px);
+  align-items: center;
+  .total-count {
+    color: var(--text-color);
+    font-size: px-to-rem(20px);
+    font-weight: 600;
+    .num {
+      margin-left: 5px;
+      font-size: px-to-rem(20px);
+      font-weight: 600;
+      display: inline-block;
+      color: var(--primary-color);
+    }
+  }
+}
