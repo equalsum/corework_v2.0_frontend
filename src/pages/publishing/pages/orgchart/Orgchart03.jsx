@@ -121,6 +121,18 @@ const Orgchart03 = () => {
             />
           </div>
 
+          <div className="filter-container">
+            <div className="total-count">
+              전체
+              <span className="num">30</span>
+            </div>
+            <div className="unpaid-filter">
+              <Checkbox id="unpaidCheck" disabled>
+                비정상 건 보기
+              </Checkbox>
+            </div>
+          </div>
+
           <Table
             columns={columns}
             dataSource={data}

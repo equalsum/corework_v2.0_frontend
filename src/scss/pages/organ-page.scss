@@ -34,16 +34,16 @@
       font-weight: 400;
       color: var(--text-color);
     }
-    .all-num {
+  }
+  .all-num {
+    font-size: px-to-rem(20px);
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1;
+    span {
       font-size: px-to-rem(20px);
       font-weight: 700;
-      color: var(--text-color);
-      line-height: 1;
-      span {
-        font-size: px-to-rem(20px);
-        font-weight: 700;
-        color: var(--primary-color);
-      }
+      color: var(--primary-color);
     }
   }
   .all-num {
@@ -121,6 +121,22 @@
         margin-left: px-to-rem(3px);
         color: var(--text-color);
         font-weight: 600;
+      }
+    }
+  }
+  .team-list {
+    .level-0 > .team-content {
+      position: relative;
+      @include make-before {
+        content: '';
+        position: absolute;
+        top: 48%;
+        transform: translateY(-50%);
+        left: px-to-rem(30px);
+        width: px-to-rem(8px);
+        height: px-to-rem(8px);
+        border-radius: 50%;
+        background: var(--dot-color);
       }
     }
   }
