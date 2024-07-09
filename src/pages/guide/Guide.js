@@ -63,6 +63,10 @@ function Guide() {
               to: '/orgchart05',
               title: 'Orgchart05 - 팀 설정 모달',
             },
+            {
+              to: '/orgchart06',
+              title: 'Orgchart06 - 팀 종료 모달 팝업',
+            },
           ],
         },
       ],

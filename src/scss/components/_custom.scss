@@ -1,13 +1,58 @@
 /* ==========================================================================
    Select
    ========================================================================== */
-.custom-select .ant-select-dropdown {
-  top: 100% !important;
-  bottom: auto !important;
+.custom-select {
+  .profile-wrap {
+    justify-content: flex-start;
+    align-items: center;
+    gap: px-to-rem(10px);
+  }
+  .ant-select-dropdown {
+    top: 100% !important;
+    bottom: auto !important;
+  }
+  .ant-select-selection-overflow-item {
+    .profile-wrap .left .profile-image {
+      width: px-to-rem(16px);
+      height: px-to-rem(16px);
+    }
+    .profile-wrap {
+      gap: px-to-rem(2px);
+    }
+    .profile-wrap .left span {
+      font-size: px-to-rem(13px);
+    }
+    .profile-wrap .department {
+      font-size: px-to-rem(10px);
+      color: var(--text-color);
+    }
+  }
 }
-
+.ant-select .ant-select-arrow {
+  width: px-to-rem(13px);
+  height: px-to-rem(8px);
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M11.131 0.6875H0.868486C0.560673 0.6875 0.388798 1.0125 0.579423 1.23437L5.71067 7.18437C5.85755 7.35469 6.14036 7.35469 6.2888 7.18437L11.42 1.23437C11.6107 1.0125 11.4388 0.6875 11.131 0.6875Z' fill='black' fill-opacity='0.25'/%3E%3C/svg%3E");
+  background-size: cover;
+  color: transparent;
+  margin-top: px-to-rem(-4px);
+}
 .ant-select-single {
-  height: 40px;
+  height: px-to-rem(40px);
+}
+.ant-select-multiple .ant-select-selector {
+  min-height: px-to-rem(40px);
+}
+.ant-select-selection-item {
+  display: flex;
+  align-items: center;
+  .department {
+    position: relative;
+    top: px-to-rem(1px);
+  }
+}
+.ant-select-selection-item .anticon {
+  margin-right: 5px;
 }
 
 /* ==========================================================================
@@ -15,6 +60,10 @@
    ========================================================================== */
 .ant-dropdown {
   min-width: px-to-rem(143px);
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    border-radius: var(--Style-borderRadius, 6px);
+    background: var(--Colors-Brand-Primary-colorPrimaryBg, #e0f3f5);
+  }
   .ant-dropdown-menu-item {
     height: 45px;
     .ant-dropdown-menu-title-content {
@@ -94,6 +143,12 @@
 .ant-drawer {
   .ant-drawer-body {
     padding: px-to-rem(24px);
+
+    .fixed-bottom {
+      position: absolute;
+      right: px-to-rem(24px);
+      bottom: px-to-rem(24px);
+    }
   }
   .ant-drawer-title {
     font-size: px-to-rem(16px);

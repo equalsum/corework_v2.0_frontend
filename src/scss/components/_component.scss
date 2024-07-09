@@ -37,3 +37,43 @@
     color: var(--text-secondary);
   }
 }
+
+/* ==========================================================================
+   input-container
+   ========================================================================== */
+
+.input-container {
+  .row {
+    margin-bottom: px-to-rem(16px);
+    &:last-of-type {
+      margin-bottom: px-to-rem(0px);
+    }
+    .member-num {
+      margin-top: px-to-rem(15px);
+      font-size: px-to-rem(16px);
+      font-weight: 400;
+      color: var(--text-color);
+      span {
+        display: inline-block;
+        font-size: px-to-rem(16px);
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+    }
+    dl {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: px-to-rem(16px);
+      dt {
+        width: px-to-rem(80px);
+      }
+      dd {
+        flex: 1;
+        .ant-select {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
