@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Tabs, Button, Input, message, Tooltip, Select } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { Tabs, Button, Select, Input, message } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import AdminLayout from '@layout/Layout';
 import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
 
 const { Option } = Select;
 const { Search } = Input;
 
-const Orgchart01 = () => {
+const Orgchart07 = () => {
   // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '조직도 관리',
@@ -15,17 +15,42 @@ const Orgchart01 = () => {
   };
   const pageName = 'organ-page';
 
+  // 초기 팀 데이터
+  const initialTeams = [
+    {
+      id: '1',
+      name: '최고경영진',
+      children: [],
+    },
+    {
+      id: '2',
+      name: '최고경영진22',
+      children: [],
+    },
+    {
+      id: '3',
+      name: '최고경영진33',
+      children: [],
+    },
+  ];
+
   // 상태 관리
+  const [teams, setTeams] = useState(initialTeams);
+  // eslint-disable-next-line no-unused-vars
   const [searchValue, setSearchValue] = useState('');
   const [showLeaderSelect, setShowLeaderSelect] = useState({});
   const [selectedLeader, setSelectedLeader] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [expandedTeams, setExpandedTeams] = useState({});
+  const [editingTeamId, setEditingTeamId] = useState(null);
+  const [editingTeamName, setEditingTeamName] = useState('');
 
   const leaderOptions = [
     { value: 'kang', label: '강민식', department: '전략기획팀 / DX리드' },
     { value: 'kang2', label: '이찬용', department: '전략기획팀22/ DX리드' },
     { value: 'kang3', label: '강민식', department: '전략기획팀 / DX리드' },
     { value: 'kang4', label: '강민식33', department: '전략기획팀 / DX리드' },
-    // ... 기타 리더 옵션
   ];
 
   // 검색어에 따른 필터링된 리더 옵션
@@ -34,23 +59,23 @@ const Orgchart01 = () => {
   );
 
   // 리더 선택 토글 함수
-  const handleLeaderClick = (index) => {
+  const handleLeaderClick = (teamId) => {
     setShowLeaderSelect((prev) => ({
       ...prev,
-      [index]: !prev[index],
+      [teamId]: !prev[teamId],
     }));
   };
 
   // 리더 선택 함수
-  const handleLeaderSelect = (value, index) => {
+  const handleLeaderSelect = (value, teamId) => {
     const leader = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader((prev) => ({
       ...prev,
-      [index]: leader,
+      [teamId]: leader,
     }));
     setShowLeaderSelect((prev) => ({
       ...prev,
-      [index]: false,
+      [teamId]: false,
     }));
   };
 
@@ -63,7 +88,7 @@ const Orgchart01 = () => {
     },
     {
       key: '2',
-      label: '삭제',
+      label: '팀 삭제',
       onClick: () => console.log('2'),
     },
   ];
@@ -77,7 +102,6 @@ const Orgchart01 = () => {
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
-    // ... 기타 팀 구성원
   ];
 
   // 리더 옵션 렌더링 함수
@@ -97,80 +121,171 @@ const Orgchart01 = () => {
     label: renderOption(member),
   }));
 
-  // 상태 관리
-  const [teamInputs, setTeamInputs] = useState([]); // 팀 입력 필드 상태
-  const [teamNames, setTeamNames] = useState(['디지털혁신팀', '고객경험팀', '데이터분석팀']); // 추가된 팀 이름 목록
-  const [inputErrors, setInputErrors] = useState([]); // 입력 오류 메시지
-
   // 팀 이름 유효성 검사 함수
   const isValidTeamName = (name) => {
     const regex = /^[가-힣a-zA-Z0-9\s._-]{1,50}$/;
     return regex.test(name);
   };
-
   // 팀 추가 함수
-  const addTeam = (index) => {
-    const teamName = teamInputs[index].trim();
+  const addTeam = () => {
+    const newTeam = {
+      id: `team-${Date.now()}`,
+      name: '새 팀',
+      children: [],
+    };
+    setTeams((prevTeams) => [...prevTeams, newTeam]);
+    setEditingTeamId(newTeam.id);
+    setEditingTeamName('');
+  };
 
-    // 유효성 검사
-    if (!isValidTeamName(teamName)) {
-      setInputErrors((prev) => {
-        const newErrors = [...prev];
-        newErrors[index] = '팀명은 문자/숫자/여백/특수문자(. - _)만 사용 가능하며, 50자 이내여야 합니다.';
-        return newErrors;
-      });
-      return;
+  // 팀 이름 편집 시작
+  const startEditing = (team) => {
+    setEditingTeamId(team.id);
+    setEditingTeamName(team.name);
+  };
+
+  // 팀 이름 편집 저장
+  const saveTeamName = () => {
+    if (isValidTeamName(editingTeamName)) {
+      setTeams((prevTeams) =>
+        prevTeams.map((team) => (team.id === editingTeamId ? { ...team, name: editingTeamName } : team))
+      );
+      setEditingTeamId(null);
+      setEditingTeamName('');
+    } else {
+      message.error('팀명은 문자/숫자/여백/특수문자(. - _)만 사용 가능하며, 50자 이내여야 합니다.');
     }
-
-    // 중복 검사
-    if (teamNames.includes(teamName)) {
-      setInputErrors((prev) => {
-        const newErrors = [...prev];
-        newErrors[index] = '이미 같은 팀명이 있습니다. 확인 후 다시 입력해 주세요.';
-        return newErrors;
-      });
-      return;
-    }
-
-    // 팀 추가 및 상태 업데이트
-    setTeamNames((prev) => [teamName, ...prev]);
-    setTeamInputs((prev) => prev.filter((_, i) => i !== index));
-    setInputErrors((prev) => prev.filter((_, i) => i !== index));
-    message.success(`'${teamName}' 팀이 추가되었습니다.`);
   };
 
-  // 팀 입력 필드 추가 함수
-  const addTeamInput = () => {
-    setTeamInputs([...teamInputs, '']);
-    setInputErrors([...inputErrors, '']);
+  // 팀 확장/축소 토글 함수
+  const toggleTeam = (teamId) => {
+    setExpandedTeams((prev) => ({
+      ...prev,
+      [teamId]: !prev[teamId],
+    }));
   };
 
-  // 입력 변경 핸들러
-  const handleInputChange = (index, event) => {
-    const newTeamInputs = [...teamInputs];
-    newTeamInputs[index] = event.target.value;
-    setTeamInputs(newTeamInputs);
-
-    // 오류 메시지 초기화
-    setInputErrors((prev) => {
-      const newErrors = [...prev];
-      newErrors[index] = '';
-      return newErrors;
-    });
+  // 전체 팀 수를 계산하는 함수
+  const countAllTeams = (teams) => {
+    return teams.length;
   };
 
-  // 팀 입력 필드 제거 함수
-  const removeTeamInput = (idx) => {
-    const newTeamInputs = [...teamInputs];
-    newTeamInputs.splice(idx, 1);
-    setTeamInputs(newTeamInputs);
-
-    setInputErrors((prev) => {
-      const newErrors = [...prev];
-      newErrors.splice(idx, 1);
-      return newErrors;
-    });
+  // 팀 이름 편집 취소
+  const cancelEditing = () => {
+    setEditingTeamId(null);
+    setEditingTeamName('');
   };
+
+  //팀 아이템을 렌더링하는 함수
+  const renderTeamItem = (team, level = 0) => (
+    <li key={team.id} className={`level-${level}`}>
+      <div className="team-content flex aic gap16">
+        <div className="team-indent" style={{ width: `${level * 20}px` }}></div>
+        <div className="team-toggle">
+          {team.children && team.children.length > 0 ? (
+            <Button
+              type="text"
+              icon={expandedTeams[team.id] ? <i className="icon-outlined"></i> : <RightOutlined />}
+              onClick={() => toggleTeam(team.id)}
+            />
+          ) : (
+            <Button type="default" ghost>
+              <span className="team-dot"></span>
+            </Button>
+          )}
+        </div>
+        <div className="team-info flex aic gap32 flex-grow">
+          {editingTeamId === team.id ? (
+            <div className="flex aic gap8">
+              <Input
+                value={editingTeamName}
+                onChange={(e) => setEditingTeamName(e.target.value)}
+                onPressEnter={saveTeamName}
+              />
+              <Button type="primary" size="large" onClick={saveTeamName}>
+                추가
+              </Button>
+              <Button type="default" size="large" onClick={cancelEditing}>
+                취소
+              </Button>
+            </div>
+          ) : (
+            <h3 className="team-name" onClick={() => startEditing(team)}>
+              {team.name}
+            </h3>
+          )}
+
+          {/* 팀 리더 선택 UI */}
+          {!showLeaderSelect[team.id] ? (
+            <div className="team-leader">
+              <div onClick={() => handleLeaderClick(team.id)}>
+                {selectedLeader[team.id] ? (
+                  <div className="profile-wrap">
+                    <div className="left">
+                      <span className="profile-image"></span>
+                      <span className="profile-name">{selectedLeader[team.id].label}</span>
+                    </div>
+                    <span className="department">{selectedLeader[team.id].department}</span>
+                  </div>
+                ) : (
+                  <div className="team-leader-assignment">
+                    <span className="icon">
+                      <i className="icon-user"></i>
+                    </span>
+                    팀 리더
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="leader-select-container" style={{ position: 'relative' }}>
+              <Select
+                className="custom-select"
+                placeholder={selectedLeader[team.id] ? selectedLeader[team.id].label : '리더 선택'}
+                onChange={(value) => handleLeaderSelect(value, team.id)}
+                value={selectedLeader[team.id]?.value}
+                dropdownStyle={{ minWidth: '200px', maxHeight: '300px' }}
+                getPopupContainer={(trigger) => trigger.parentNode}
+              >
+                {filteredOptions.map((leader) => (
+                  <Option key={leader.value} value={leader.value} label={leader.label}>
+                    {renderOption(leader)}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+          )}
+
+          {/* 팀원 드롭다운 */}
+          <CustomDropdown
+            items={memberMenuItems}
+            buttonText="팀원"
+            size="large"
+            className="custom-dropdown"
+            buttonClassName="custom-button"
+          />
+
+          {/* 팀 메뉴 드롭다운 */}
+          <CustomDropdown
+            items={teamMenuItems}
+            placement="bottomRight"
+            triggerType={(['click'], ['hover'])}
+            size="small"
+            onOpenChange={(visible) => {
+              console.log('Dropdown visibility changed:', visible);
+            }}
+          >
+            <Button type="default" size="large" ghost>
+              <i className="icon-dots-vertical"></i>
+            </Button>
+          </CustomDropdown>
+        </div>
+      </div>
+      {team.children && team.children.length > 0 && expandedTeams[team.id] && (
+        <ul className="team-list">{team.children.map((childTeam) => renderTeamItem(childTeam, level + 1))}</ul>
+      )}
+    </li>
+  );
 
   return (
     <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
@@ -185,18 +300,7 @@ const Orgchart01 = () => {
             {
               label: (
                 <>
-                  <div>
-                    운영 중인 팀 <span className="team-count">{teamNames.length}</span>
-                  </div>
-                </>
-              ),
-              key: '2',
-              children: <div className="task-manager">123</div>,
-            },
-            {
-              label: (
-                <>
-                  종료된 팀 <span className="team-count">0</span>
+                  운영 중인 팀 <span className="team-count">{countAllTeams(teams)}</span>
                 </>
               ),
               key: '1',
@@ -219,167 +323,28 @@ const Orgchart01 = () => {
                       />
                     </div>
                   </header>
-
                   {/* 메인 컨텐츠 */}
                   <main className="task-content">
-                    {/* 팀이 없을 때 표시할 내용 */}
-                    {teamInputs.length === 0 && teamNames.length === 0 && (
-                      <div className="task-input-container">
-                        <Button size="large" type="text" className="task-btn" onClick={addTeamInput}>
-                          <i className="icon-plus-circle"></i> 팀 추가
-                        </Button>
+                    <div className="task-list">
+                      <div className="all-num">
+                        전체 <span>{countAllTeams(teams)}</span>
                       </div>
-                    )}
-                    <div className="task-list empty">
-                      {teamInputs.length > 0 || teamNames.length > 0 ? (
-                        <>
-                          <div className="all-num">
-                            전체 <span>{teamNames.length}</span>
-                          </div>
-
-                          {/* 팀 목록 */}
-                          <ul className="team-list">
-                            {teamNames.map((teamName, index) => (
-                              <li key={index} index={index} className="team-item flex aic gap32">
-                                <div className="team-info flex aic gap32">
-                                  <h3 className="team-name">{teamName}</h3>
-
-                                  {/* 팀 리더 선택 UI */}
-                                  {!showLeaderSelect[index] ? (
-                                    <div className="team-leader">
-                                      <div onClick={() => handleLeaderClick(index)}>
-                                        {selectedLeader[index] ? (
-                                          <div className="profile-wrap">
-                                            <div className="left">
-                                              <span className="profile-image"></span>
-                                              <span className="profile-name">{selectedLeader[index].label}</span>
-                                            </div>
-                                            <span className="department">{selectedLeader[index].department}</span>
-                                          </div>
-                                        ) : (
-                                          <>
-                                            <div className="team-leader-assignment">
-                                              <span className="icon">
-                                                <i className="icon-user"></i>
-                                              </span>
-                                              팀 리더 지정
-                                            </div>
-                                          </>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <div className="leader-select-container" style={{ position: 'relative' }}>
-                                      <Select
-                                        className="custom-select"
-                                        placeholder={selectedLeader[index] ? selectedLeader[index].label : '리더 선택'}
-                                        onChange={(value) => handleLeaderSelect(value, index)}
-                                        value={selectedLeader[index]?.value}
-                                        dropdownStyle={{ minWidth: '200px', maxHeight: '300px' }}
-                                        dropdownRender={(menu) => (
-                                          <div>
-                                            <Input
-                                              placeholder="리더 검색"
-                                              style={{ marginBottom: '5px' }}
-                                              value={searchValue}
-                                              onChange={(e) => setSearchValue(e.target.value)}
-                                            />
-                                            {menu}
-                                          </div>
-                                        )}
-                                        notFoundContent={
-                                          leaderOptions.length === 0
-                                            ? '구성원이 없습니다. 구성원을 추가해주세요.'
-                                            : '검색 결과가 없습니다.'
-                                        }
-                                        filterOption={false}
-                                        getPopupContainer={(trigger) => trigger.parentNode}
-                                      >
-                                        {filteredOptions.map((leader) => (
-                                          <Option key={leader.value} value={leader.value} label={leader.label}>
-                                            {renderOption(leader)}
-                                          </Option>
-                                        ))}
-                                      </Select>
-                                    </div>
-                                  )}
-
-                                  {/* 팀원 드롭다운 */}
-                                  <CustomDropdown
-                                    items={memberMenuItems}
-                                    buttonText="팀원"
-                                    size="large"
-                                    className="custom-dropdown"
-                                    buttonClassName="custom-button"
-                                  />
-
-                                  {/* 팀 메뉴 드롭다운 */}
-                                  <CustomDropdown
-                                    items={teamMenuItems}
-                                    placement="bottomRight"
-                                    triggerType={(['click'], ['hover'])}
-                                    size="small"
-                                    onOpenChange={(visible) => {
-                                      console.log('Dropdown visibility changed:', visible);
-                                    }}
-                                  >
-                                    <Button type="default" size="large" ghost>
-                                      <i className="icon-dots-vertical"></i>
-                                    </Button>
-                                  </CustomDropdown>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-
-                          {/* 팀 입력 필드 */}
-                          {teamInputs.map((input, index) => (
-                            <div key={index} className="team-input-wrap">
-                              <div className="team-input flex aic jcb gap8">
-                                <div className="left-item flex aic gap8">
-                                  {inputErrors[index] && (
-                                    <Tooltip
-                                      title={inputErrors[index]}
-                                      visible={true}
-                                      placement="topLeft"
-                                      color="red"
-                                      overlayClassName="custom-tooltip-position"
-                                    >
-                                      <i className="icon-alert-circle" style={{ color: 'red' }}></i>
-                                    </Tooltip>
-                                  )}
-                                  <Input
-                                    allowClear
-                                    value={input}
-                                    onChange={(e) => handleInputChange(index, e)}
-                                    placeholder="팀명을 입력하세요."
-                                    maxLength={50}
-                                    size="large"
-                                    status={inputErrors[index] ? 'error' : ''}
-                                  />
-                                  <Button type="primary" size="large" onClick={() => addTeam(index)}>
-                                    추가
-                                  </Button>
-                                </div>
-                                <div className="right-item">
-                                  <Button
-                                    size="large"
-                                    onClick={() => removeTeamInput(index)}
-                                    icon={<CloseOutlined />}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </>
-                      ) : (
-                        <div className="empty-state">
-                          <i className="icon-empty"></i>
-                          <p className="empty-message">아직 팀이 없습니다.</p>
-                        </div>
-                      )}
+                      <ul className="team-list">{teams.map((team) => renderTeamItem(team))}</ul>
                     </div>
                   </main>
+                </div>
+              ),
+            },
+            {
+              label: (
+                <>
+                  종료된 팀 <span className="team-count">0</span>
+                </>
+              ),
+              key: '2',
+              children: (
+                <div>
+                  종료된 팀 <span>0</span>
                 </div>
               ),
             },
@@ -390,4 +355,4 @@ const Orgchart01 = () => {
   );
 };
 
-export default Orgchart01;
+export default Orgchart07;

@@ -64,6 +64,9 @@
       0px 1px 2px 0px rgba(0, 0, 0, 0.03),
       0px 1px 6px -1px rgba(0, 0, 0, 0.02),
       0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+    .flex.aic {
+      flex: 1;
+    }
     .ant-btn {
       min-width: auto;
     }
@@ -90,12 +93,12 @@
         flex: 1;
       }
       .ant-select-selector {
-        width: px-to-rem(320px);
+        width: px-to-rem(300px);
       }
       .team-leader {
         padding-left: px-to-rem(10px);
         padding-right: px-to-rem(10px);
-        width: px-to-rem(320px);
+        width: px-to-rem(300px);
         display: flex;
         flex: none;
         justify-content: space-between;

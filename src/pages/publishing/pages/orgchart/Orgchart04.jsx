@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Tabs, Button, Select } from 'antd';
-import { DownOutlined, RightOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Tabs, Button, Select, Input, message } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import AdminLayout from '@layout/Layout';
 import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
 import ActionButtons from 'pages/publishing/comp/ActionBtns';
@@ -8,61 +8,78 @@ import ActionButtons from 'pages/publishing/comp/ActionBtns';
 const { Option } = Select;
 
 const Orgchart01 = () => {
-  // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '조직도 관리',
     describeTitle: '팀을 일괄 또는 개별로 추가한 후 순서를 편집하여 조직도를 구성하세요.',
   };
   const pageName = 'organ-page';
-
-  // 초기 팀 데이터
-  const initialTeams = [
-    {
-      id: '1',
-      name: '최고경영진',
-      children: [
-        {
-          id: '1-1',
-          name: '전략기획부',
-          children: [
-            {
-              id: '1-1-1',
-              name: '전략기획팀',
-              children: [
-                {
-                  id: '1-1-1-1',
-                  name: '장기전략팀',
-                  children: [
-                    { id: '1-1-1-1-1', name: '비전수립팀', children: [] },
-                    { id: '1-1-1-1-2', name: '목표설정팀', children: [] },
-                  ],
-                },
-                { id: '1-1-1-2', name: '단기전략팀', children: [] },
-              ],
-            },
-            { id: '1-1-2', name: '경영분석팀', children: [] },
-          ],
-        },
-        {
-          id: '1-2',
-          name: '인사부',
-          children: [
-            { id: '1-2-1', name: '인사팀', children: [] },
-            { id: '1-2-2', name: '교육팀', children: [] },
-            { id: '1-2-3', name: '복지팀', children: [] },
-          ],
-        },
-      ],
-    },
-  ];
-
-  // 상태 관리
+  const initialTeams = useMemo(
+    () => [
+      {
+        id: '1',
+        name: '최고경영진',
+        children: [
+          {
+            id: '1-1',
+            name: '전략기획부',
+            children: [
+              {
+                id: '1-1-1',
+                name: '전략기획팀',
+                children: [
+                  {
+                    id: '1-1-1-1',
+                    name: '장기전략팀',
+                    children: [
+                      { id: '1-1-1-1-1', name: '비전수립팀', children: [] },
+                      { id: '1-1-1-1-2', name: '목표설정팀', children: [] },
+                    ],
+                  },
+                  { id: '1-1-1-2', name: '단기전략팀', children: [] },
+                ],
+              },
+              { id: '1-1-2', name: '경영분석팀', children: [] },
+            ],
+          },
+          {
+            id: '1-2',
+            name: '인사부',
+            children: [
+              { id: '1-2-1', name: '인사팀', children: [] },
+              { id: '1-2-2', name: '교육팀', children: [] },
+              { id: '1-2-3', name: '복지팀', children: [] },
+            ],
+          },
+        ],
+      },
+    ],
+    []
+  );
   const [teams, setTeams] = useState(initialTeams);
+  // eslint-disable-next-line no-unused-vars
   const [searchValue, setSearchValue] = useState('');
   const [showLeaderSelect, setShowLeaderSelect] = useState({});
   const [selectedLeader, setSelectedLeader] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [isEditMode, setIsEditMode] = useState(false);
+  const [editingTeamId, setEditingTeamId] = useState(null);
+  const [editingTeamName, setEditingTeamName] = useState('');
   const [expandedTeams, setExpandedTeams] = useState({});
+
+  useEffect(() => {
+    const initExpandedTeams = (teams) => {
+      const expanded = {};
+      const expandAll = (team) => {
+        expanded[team.id] = true;
+        if (team.children) {
+          team.children.forEach(expandAll);
+        }
+      };
+      teams.forEach(expandAll);
+      return expanded;
+    };
+    setExpandedTeams(initExpandedTeams(initialTeams));
+  }, [initialTeams]);
 
   const leaderOptions = [
     { value: 'kang', label: '강민식', department: '전략기획팀 / DX리드' },
@@ -71,12 +88,10 @@ const Orgchart01 = () => {
     { value: 'kang4', label: '강민식33', department: '전략기획팀 / DX리드' },
   ];
 
-  // 검색어에 따른 필터링된 리더 옵션
   const filteredOptions = leaderOptions.filter((option) =>
     option.label.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // 리더 선택 토글 함수
   const handleLeaderClick = (teamId) => {
     setShowLeaderSelect((prev) => ({
       ...prev,
@@ -84,7 +99,6 @@ const Orgchart01 = () => {
     }));
   };
 
-  // 리더 선택 함수
   const handleLeaderSelect = (value, teamId) => {
     const leader = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader((prev) => ({
@@ -97,7 +111,6 @@ const Orgchart01 = () => {
     }));
   };
 
-  // 팀 메뉴 아이템
   const teamMenuItems = [
     {
       key: '1',
@@ -111,7 +124,6 @@ const Orgchart01 = () => {
     },
   ];
 
-  // 팀 구성원 데이터
   const teamMembers = [
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
@@ -122,7 +134,6 @@ const Orgchart01 = () => {
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
   ];
 
-  // 리더 옵션 렌더링 함수
   const renderOption = (leader) => (
     <div className="profile-wrap">
       <div className="left">
@@ -133,25 +144,33 @@ const Orgchart01 = () => {
     </div>
   );
 
-  // 팀 구성원 메뉴 아이템 생성
   const memberMenuItems = teamMembers.map((member) => ({
     key: member.value,
     label: renderOption(member),
   }));
 
-  // 전체 팀 수를 계산하는 함수
-  const countAllTeams = (teams) => {
-    let count = 0;
-    for (const team of teams) {
-      count += 1;
-      if (team.children) {
-        count += countAllTeams(team.children);
-      }
-    }
-    return count;
+  const isValidTeamName = (name) => {
+    const regex = /^[가-힣a-zA-Z0-9\s._-]{1,50}$/;
+    return regex.test(name);
   };
 
-  // 팀 확장/축소 토글 함수
+  const startEditing = (team) => {
+    setEditingTeamId(team.id);
+    setEditingTeamName(team.name);
+  };
+
+  const saveTeamName = () => {
+    if (isValidTeamName(editingTeamName)) {
+      setTeams((prevTeams) =>
+        prevTeams.map((team) => (team.id === editingTeamId ? { ...team, name: editingTeamName } : team))
+      );
+      setEditingTeamId(null);
+      setEditingTeamName('');
+    } else {
+      message.error('팀명은 문자/숫자/여백/특수문자(. - _)만 사용 가능하며, 50자 이내여야 합니다.');
+    }
+  };
+
   const toggleTeam = (teamId) => {
     setExpandedTeams((prev) => ({
       ...prev,
@@ -159,7 +178,23 @@ const Orgchart01 = () => {
     }));
   };
 
-  //팀 아이템을 렌더링하는 함수
+  const countAllTeams = (teams) => {
+    let count = 0;
+    const countTeams = (team) => {
+      count++;
+      if (team.children) {
+        team.children.forEach(countTeams);
+      }
+    };
+    teams.forEach(countTeams);
+    return count;
+  };
+
+  const cancelEditing = () => {
+    setEditingTeamId(null);
+    setEditingTeamName('');
+  };
+
   const renderTeamItem = (team, level = 0) => (
     <li key={team.id} className={`level-${level}`}>
       <div className="team-content flex aic gap16">
@@ -168,7 +203,7 @@ const Orgchart01 = () => {
           {team.children && team.children.length > 0 ? (
             <Button
               type="text"
-              icon={expandedTeams[team.id] ? <i class="icon-outlined"></i> : <RightOutlined />}
+              icon={expandedTeams[team.id] ? <i className="icon-outlined"></i> : <RightOutlined />}
               onClick={() => toggleTeam(team.id)}
             />
           ) : (
@@ -178,9 +213,26 @@ const Orgchart01 = () => {
           )}
         </div>
         <div className="team-info flex aic gap32 flex-grow">
-          <h3 className="team-name">{team.name}</h3>
+          {editingTeamId === team.id ? (
+            <div className="flex aic gap8">
+              <Input
+                value={editingTeamName}
+                onChange={(e) => setEditingTeamName(e.target.value)}
+                onPressEnter={saveTeamName}
+              />
+              <Button type="primary" size="large" onClick={saveTeamName}>
+                추가
+              </Button>
+              <Button type="default" size="large" onClick={cancelEditing}>
+                취소
+              </Button>
+            </div>
+          ) : (
+            <h3 className="team-name" onClick={() => startEditing(team)}>
+              {team.name}
+            </h3>
+          )}
 
-          {/* 팀 리더 선택 UI */}
           {!showLeaderSelect[team.id] ? (
             <div className="team-leader">
               <div onClick={() => handleLeaderClick(team.id)}>
@@ -221,7 +273,6 @@ const Orgchart01 = () => {
             </div>
           )}
 
-          {/* 팀원 드롭다운 */}
           <CustomDropdown
             items={memberMenuItems}
             buttonText="팀원"
@@ -230,7 +281,6 @@ const Orgchart01 = () => {
             buttonClassName="custom-button"
           />
 
-          {/* 팀 메뉴 드롭다운 */}
           <CustomDropdown
             items={teamMenuItems}
             placement="bottomRight"
@@ -271,7 +321,6 @@ const Orgchart01 = () => {
               key: '1',
               children: (
                 <div className="task-manager">
-                  {/* 헤더 섹션 */}
                   <header className="task-header flex aic gap16">
                     <div className="left-actions">순서편집</div>
                     <ActionButtons
@@ -283,7 +332,6 @@ const Orgchart01 = () => {
                       }}
                     />
                   </header>
-                  {/* 메인 컨텐츠 */}
                   <main className="task-content">
                     <div className="task-list">
                       <div className="all-num">
