@@ -5,10 +5,12 @@ import { CloseOutlined } from '@ant-design/icons';
 import TeamItem from './comp/TeamItem';
 import CustomModal from '../../comp/CustomModal';
 import AdminLayout from '@layout/Layout';
+import ActionButtons from '../../comp/ActionBtns';
+import { useMediaQuery } from 'react-responsive';
 
 const { Search } = Input;
 
-const Orgchart02 = () => {
+const Orgchart03 = () => {
   // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '조직도 관리',
@@ -116,56 +118,65 @@ const Orgchart02 = () => {
     setVisible(false);
   };
 
-  const columns = [
+  // 반응형 미디어 쿼리
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  // 기본 컬럼 정의
+  const baseColumns = [
     {
       title: 'No.',
       dataIndex: 'no',
       key: 'no',
-      width: 70,
+      width: isMobile ? 30 : 50,
     },
     {
       title: '팀명',
-      dataIndex: 'status',
-      key: 'status',
-      width: 420,
+      dataIndex: 'teamName',
+      key: 'teamName',
+      width: isMobile ? 100 : 420,
+      ellipsis: true,
     },
     {
       title: '상위팀',
-      dataIndex: 'description',
-      key: 'description',
+      dataIndex: 'parentTeamColumn',
+      key: 'parentTeamColumn',
+      width: 100,
     },
     {
       title: '상태',
       dataIndex: 'state',
       key: 'state',
       render: (state) => <Tag color={state === '완료' ? 'green' : 'pink'}>{state}</Tag>,
-      width: 100,
+      width: isMobile ? 80 : 100,
     },
     {
       title: '사유',
       dataIndex: 'reason',
       key: 'reason',
+      width: 100,
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      no: 30,
-      status: '프로젝트 사용',
-      description: '-',
-      state: '비정상',
+  // 모바일용 컬럼 (3개만 선택)
+  const mobileColumns = [baseColumns[0], baseColumns[1], baseColumns[3]];
+
+  // 사용할 컬럼 결정
+  const columns = isMobile ? mobileColumns : baseColumns;
+
+  // 테이블 데이터
+  const data = Array(30)
+    .fill()
+    .map((_, index) => ({
+      key: String(index + 1),
+      no: 30 - index,
+      teamName:
+        index % 2 === 0
+          ? '글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트'
+          : '프로젝트 사용',
+      parentTeamColumn: index % 2 === 0 ? '피플' : '-',
+      state: index % 2 === 0 ? '비정상' : '완료',
       reason: '-',
-    },
-    {
-      key: '2',
-      no: 29,
-      status: '프로젝트 사용',
-      description: '-',
-      state: '완료',
-      reason: '-',
-    },
-  ];
+    }));
 
   return (
     <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
@@ -290,7 +301,7 @@ const Orgchart02 = () => {
                                     placeholder="팀명을 입력하세요."
                                     maxLength={50}
                                     size="large"
-                                    status={inputErrors[index] ? 'error' : ''}
+                                    t={inputErrors[index] ? 'error' : ''}
                                   />
                                   {/* 팀 추가 버튼 */}
                                   <Button
@@ -326,15 +337,15 @@ const Orgchart02 = () => {
                         양식에 맞게 작성한 엑셀 파일을 업로드해 주세요. 데이터가 올바른지 확인한 후, 문제가 없다면 여러
                         팀을 한 번에 추가할 수 있어요.
                       </h2>
-                      {/* // 경고 추가 */}
-                      <div className="warning-message flex aic jcb">
+
+                      {/* TODO 비정산건 일때 표시 .warning-message */}
+                      <div className="data-status-message warning-message flex aic jcb">
                         <div className="flex aic jcb">
                           <div className="title">
                             <i className="icon-warning-outlined"></i>총 <span className="total-count">30</span>건 중
-                            비정상 <span className="error-count">5건</span>이 있습니다. &nbsp;
+                            비정상 <span className="count">5건</span>이 있습니다.
                           </div>
-                          <span className="error-message">
-                            {' '}
+                          <span className="message">
                             데이터 검사 결과가 포함된 엑셀을 다운받아 비정상 건을 수정하여 다시 업로드 해주세요.
                           </span>
                         </div>
@@ -342,23 +353,6 @@ const Orgchart02 = () => {
                           검사 결과 엑셀 다운로드
                         </Button>
                       </div>
-                      {/* // 경고 추가 eee */}
-                      {/* // 기본 문구 삭제 */}
-                      {/* <div className="header-wrp">
-                        <h1 className="title flex aic jcb">
-                          <div className="left flex aic gap8">
-                            <i className="icon-circle-outlined"></i>
-                            팀명(필수 정보)과 상위 팀(선택 정보) 정보를 양식에 맞추어 입력해 주세요.
-                            <span>양식을 다운로드 해주세요.</span>
-                          </div>
-                          <div className="right">
-                            <Button type="default" size="large">
-                              양식 다운로드
-                            </Button>
-                          </div>
-                        </h1>
-                      </div> */}
-                      {/* // 기본 문구 삭제 eee */}
 
                       <div className="filter-container">
                         <div className="total-count">
@@ -369,8 +363,54 @@ const Orgchart02 = () => {
                           <Checkbox id="unpaidCheck">비정상 건 보기</Checkbox>
                         </div>
                       </div>
+                      {/* TODO 정상건일때 표시 EEE*/}
 
-                      <Table columns={columns} dataSource={data} scroll={{ x: 770 }} />
+                      {/* TODO 정상건일때 표시 success-message */}
+                      <div className="data-status-message success-message flex aic jcb">
+                        <div className="flex aic jcb">
+                          <div className="title">
+                            <i className="icon-warning-outlined"></i>총 <span className="total-count">30</span>건의
+                            데이터가 정상임을 확인했습니다.
+                          </div>
+                          <span className="message">[추가] 버튼을 누르면 아래의 팀을 한 번에 추가할 수 있습니다.</span>
+                        </div>
+                        <ActionButtons
+                          cancelText="취소"
+                          confirmText="추가"
+                          onCancel={() => console.log('취소')}
+                          onConfirm={() => console.log('확인')}
+                        />
+                      </div>
+                      <div className="filter-container">
+                        <div className="total-count">
+                          전체
+                          <span className="num">30</span>
+                        </div>
+                        <div className="unpaid-filter">
+                          <Checkbox disabled id="unpaidCheck">
+                            비정상 건 보기
+                          </Checkbox>
+                        </div>
+                      </div>
+                      {/* TODO 정상건일때 표시 EEE */}
+
+                      <Table
+                        columns={columns}
+                        dataSource={data}
+                        scroll={{ x: isMobile ? 'max-content' : 790 }}
+                        pagination={{
+                          showSizeChanger: true,
+                          pageSizeOptions: ['10', '20', '30', '50'],
+                          defaultPageSize: 10,
+                          total: data.length,
+                          showTotal: false,
+                          showQuickJumper: false,
+                          showLessItems: true,
+                          locale: { items_per_page: '개씩 보기' },
+                        }}
+                        className="centered-pagination-table"
+                      />
+                      {/* TODO 비정산건 일때 표시 */}
                     </div>
                   </CustomModal>
                 </div>
@@ -396,4 +436,4 @@ const Orgchart02 = () => {
   );
 };
 
-export default Orgchart02;
+export default Orgchart03;

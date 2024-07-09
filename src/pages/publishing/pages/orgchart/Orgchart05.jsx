@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Tabs, Button, Input, message, Tooltip } from 'antd';
+import { Tabs, Button, Input, message, Tooltip, Checkbox, Table, Tag } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import TeamItem from './comp/TeamItem';
 import CustomModal from '../../comp/CustomModal';
 import AdminLayout from '@layout/Layout';
+import ActionButtons from '../../comp/ActionBtns';
+import { useMediaQuery } from 'react-responsive';
 
 const { Search } = Input;
 
-const Orgchart01 = () => {
+const Orgchart03 = () => {
   // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '조직도 관리',
@@ -21,7 +23,7 @@ const Orgchart01 = () => {
   const [teamNames, setTeamNames] = useState([]); // 추가된 팀 이름 목록
   const [inputErrors, setInputErrors] = useState([]); // 입력 오류 메시지
   const [isEditMode, setIsEditMode] = useState(false); // 순서 편집 모드 상태
-  const [visible, setVisible] = useState(false); // 일괄 추가 모달 상태
+  const [visible, setVisible] = useState(true); // 일괄 추가 모달 상태
 
   // 팀 이름 유효성 검사 함수
   const isValidTeamName = (name) => {
@@ -116,6 +118,66 @@ const Orgchart01 = () => {
     setVisible(false);
   };
 
+  // 반응형 미디어 쿼리
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  // 기본 컬럼 정의
+  const baseColumns = [
+    {
+      title: 'No.',
+      dataIndex: 'no',
+      key: 'no',
+      width: isMobile ? 30 : 50,
+    },
+    {
+      title: '팀명',
+      dataIndex: 'teamName',
+      key: 'teamName',
+      width: isMobile ? 100 : 420,
+      ellipsis: true,
+    },
+    {
+      title: '상위팀',
+      dataIndex: 'parentTeamColumn',
+      key: 'parentTeamColumn',
+      width: 100,
+    },
+    {
+      title: '상태',
+      dataIndex: 'state',
+      key: 'state',
+      render: (state) => <Tag color={state === '완료' ? 'green' : 'pink'}>{state}</Tag>,
+      width: isMobile ? 80 : 100,
+    },
+    {
+      title: '사유',
+      dataIndex: 'reason',
+      key: 'reason',
+      width: 100,
+    },
+  ];
+
+  // 모바일용 컬럼 (3개만 선택)
+  const mobileColumns = [baseColumns[0], baseColumns[1], baseColumns[3]];
+
+  // 사용할 컬럼 결정
+  const columns = isMobile ? mobileColumns : baseColumns;
+
+  // 테이블 데이터
+  const data = Array(30)
+    .fill()
+    .map((_, index) => ({
+      key: String(index + 1),
+      no: 30 - index,
+      teamName:
+        index % 2 === 0
+          ? '글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트글자테스트'
+          : '프로젝트 사용',
+      parentTeamColumn: index % 2 === 0 ? '피플' : '-',
+      state: index % 2 === 0 ? '비정상' : '완료',
+      reason: '-',
+    }));
+
   return (
     <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
       <div className="tab-panel">
@@ -135,7 +197,7 @@ const Orgchart01 = () => {
               key: '1',
               children: (
                 <div className="task-manager">
-                  {/* 헤더 섹션 */}
+                  {/* 헤더 */}
                   <header className="task-header flex jcb aic">
                     {/* 왼쪽 액션 버튼들 */}
                     <div className="left-actions flex aic gap8">
@@ -239,7 +301,7 @@ const Orgchart01 = () => {
                                     placeholder="팀명을 입력하세요."
                                     maxLength={50}
                                     size="large"
-                                    status={inputErrors[index] ? 'error' : ''}
+                                    t={inputErrors[index] ? 'error' : ''}
                                   />
                                   {/* 팀 추가 버튼 */}
                                   <Button
@@ -267,10 +329,9 @@ const Orgchart01 = () => {
                       )}
                     </div>
                   </main>
-                  {/* 팀 일괄 추가 모달 */}
-                  <CustomModal title="팀 일괄 추가" placement="right" size="large" onClose={onClose} visible={visible}>
+                  {/* 팀 정보 설정 모달 */}
+                  <CustomModal title="프로덕트 서클" placement="right" size="small" onClose={onClose} visible={visible}>
                     {/* 모달 내용 */}
-                    {/* ... */}
                   </CustomModal>
                 </div>
               ),
@@ -295,4 +356,4 @@ const Orgchart01 = () => {
   );
 };
 
-export default Orgchart01;
+export default Orgchart03;

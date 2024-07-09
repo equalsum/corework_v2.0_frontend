@@ -18,9 +18,11 @@ import URL from 'constants/url';
 
 // 퍼블리싱 파일 라우터 셋팅
 import Guide from 'pages/guide/Guide';
-import Orgchart01 from 'pages/publishing/pages/orgchart/조직도전체';
-import Orgchart02 from 'pages/publishing/pages/orgchart/팀일괄추가팝업';
-import Orgchart03 from 'pages/publishing/pages/orgchart/팀일괄추가팝업_업로드결과';
+import Orgchart01 from 'pages/publishing/pages/orgchart/Orgchart01';
+import Orgchart02 from 'pages/publishing/pages/orgchart/Orgchart02';
+import Orgchart03 from 'pages/publishing/pages/orgchart/Orgchart03';
+import Orgchart04 from 'pages/publishing/pages/orgchart/Orgchart04';
+import Orgchart05 from 'pages/publishing/pages/orgchart/Orgchart05';
 
 const { Header, Sider, Content } = Layout;
 
@@ -63,6 +65,8 @@ const RootRoutes = () => {
       <Route path="/Orgchart01" element={<Orgchart01 />} />
       <Route path="/Orgchart02" element={<Orgchart02 />} />
       <Route path="/Orgchart03" element={<Orgchart03 />} />
+      <Route path="/Orgchart04" element={<Orgchart04 />} />
+      <Route path="/Orgchart05" element={<Orgchart05 />} />
       <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
       {/* 인증이 필요한 라우트 */}
       <Route

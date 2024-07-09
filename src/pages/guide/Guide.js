@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // 3depth: 개별 항목 컴포넌트
-const GuideItem = ({ href, title, description }) => (
+const GuideItem = ({ to, title, description }) => (
   <li className="guide__item">
-    {href && title ? (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="guide__link">
+    {to && title ? (
+      <Link to={to} target="_blank" className="guide__link">
         {title}
-      </a>
+      </Link>
     ) : null}
     <p className="guide__description">{description}</p>
   </li>
@@ -41,19 +42,26 @@ function Guide() {
       title: '1. 조직도',
       subsections: [
         {
-          // title: '1.1 리스트 뷰',
           items: [
             {
-              href: '/Orgchart01',
-              title: '조직도 리스트 전체',
+              to: '/orgchart01',
+              title: 'Orgchart01 - 조직도 리스트 전체',
             },
             {
-              href: '/Orgchart02',
-              title: '조직도 팀일괄추가팝업',
+              to: '/orgchart02',
+              title: 'Orgchart02 - 조직도 팀일괄추가팝업',
             },
             {
-              href: '/Orgchart03',
-              title: '조직도 팀일괄추가팝업_업로드결과- 비정상건',
+              to: '/orgchart03',
+              title: 'Orgchart03 - 조직도 팀일괄추가팝업_업로드결과- 비정상건, 정상건',
+            },
+            {
+              to: '/orgchart04',
+              title: 'Orgchart04 - 조직도 순서 편집',
+            },
+            {
+              to: '/orgchart05',
+              title: 'Orgchart05 - 팀 설정 모달',
             },
           ],
         },

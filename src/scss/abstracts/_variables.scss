@@ -47,22 +47,36 @@ $z-index: (
 
 // 다크 모드를 위한 변수 추가
 :root {
-  --bg-container: #fff8f0;
-  --bg-color: #fff;
-  --sidebar-bg: #006678;
-  --text-color: rgba(0, 0, 0, 0.88);
-  --text-secondary: rgba(0, 0, 0, 0.65);
-  --border-color: #d9d9d9;
-  --primary-color: #2698bd;
-  --error-color: #ff4d4f;
-  --warning-bg: #fff2f0;
-  --fill-tertiary: rgba(0, 0, 0, 0.04);
+  /* 라이트 모드 기본 설정 */
+  --bg-container: #fff8f0; /* 컨테이너 배경색 */
+  --bg-color: #fff; /* 일반 배경색 */
+  --sidebar-bg: #074b6b; /* 사이드바 배경색 */
+  --sidebar-sub-bg: linear-gradient(
+      0deg,
+      var(--Colors-Brand-Primary-ColorBgWhite, rgba(255, 255, 255, 0.5)) 0%,
+      var(--Colors-Brand-Primary-ColorBgWhite, rgba(255, 255, 255, 0.5)) 100%
+    ),
+    var(--Colors-Brand-Primary-colorPrimaryBg, #e0f3f5); /* 사이드바 서브 배경 */
+  --text-color: rgba(0, 0, 0, 0.88); /* 기본 텍스트 색상 */
+  --text-secondary: rgba(0, 0, 0, 0.65); /* 보조 텍스트 색상 */
+  --border-color: #d9d9d9; /* 테두리 색상 */
+  --primary-color: #2698bd; /* 메인 색상 */
+  --error-color: #ff4d4f; /* 오류 메시지 색상 */
+  --warning-bg: #fff2f0; /* 경고 배경색 */
+  --fill-tertiary: rgba(0, 0, 0, 0.04); /* 3차 채우기 색상 */
+  --dot-color: rgba(0, 0, 0, 0.45); /* 점 색상 */
 }
 
 .dark-mode {
   --bg-container: #141414;
   --bg-color: #1f1f1f;
-  --sidebar-bg: #004a59;
+  --sidebar-bg: #1f1f1f;
+  --sidebar-sub-bg: linear-gradient(
+      0deg,
+      var(--Colors-Brand-Primary-ColorBgWhite, rgba(255, 255, 255, 0.5)) 0%,
+      var(--Colors-Brand-Primary-ColorBgWhite, rgba(255, 255, 255, 0.5)) 100%
+    ),
+    var(--Colors-Brand-Primary-colorPrimaryBg, #1f1f1f);
   --text-color: rgba(255, 255, 255, 0.88);
   --text-secondary: rgba(255, 255, 255, 0.65);
   --border-color: #434343;
@@ -70,16 +84,11 @@ $z-index: (
   --error-color: #ff6b6b;
   --warning-bg: #2b1d1d;
   --fill-tertiary: rgba(255, 255, 255, 0.04);
+  --dot-color: rgba(255, 255, 255, 0.45);
 }
 
 // 다크 모드 스타일
 .dark-mode {
-  --bg-color: #141414;
-  --text-color: #fff;
-
-  background-color: var(--bg-color);
-  color: var(--text-color);
-
   // 추가적인 다크 모드 스타일
   .wrap {
     background-color: var(--bg-color);

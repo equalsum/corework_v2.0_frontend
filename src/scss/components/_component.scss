@@ -32,6 +32,7 @@
     }
   }
   .department {
+    position: relative;
     font-size: px-to-rem(14px);
     color: var(--text-secondary);
   }

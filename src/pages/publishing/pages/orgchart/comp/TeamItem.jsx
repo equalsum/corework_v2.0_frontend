@@ -4,84 +4,68 @@ import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
 import { Button, Select, Input } from 'antd';
 const { Option } = Select;
 
-const TeamItem = ({ teamName, index, isEditMode }) => {
-  // 상태 관리
+const TeamItem = ({ teamName, index }) => {
   const [showLeaderSelect, setShowLeaderSelect] = useState(false);
   const [selectedLeader, setSelectedLeader] = useState(null);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedTeamName, setEditedTeamName] = useState(teamName);
   const [tempTeamName, setTempTeamName] = useState(teamName);
   const [searchValue, setSearchValue] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [_showMembers, setShowMembers] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  // 리더 옵션 데이터
   const leaderOptions = [
     { value: 'kang', label: '강민식', department: '전략기획팀 / DX리드' },
     // ... 기타 리더 옵션
   ];
 
-  // 팀 구성원 데이터
   const teamMembers = [
     { value: 'kang', label: '강민식', department: '진단개발 / DX리드' },
     // ... 기타 팀 구성원
   ];
 
-  // 검색어에 따른 필터링된 리더 옵션
   const filteredOptions = leaderOptions.filter((option) =>
     option.label.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // 리더 선택 토글 함수
   const handleLeaderClick = () => {
     setShowLeaderSelect((prev) => !prev);
   };
 
-  // 리더 선택 처리 함수
   const handleLeaderSelect = (value) => {
     const leader = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader(leader);
     setShowLeaderSelect(false);
   };
 
-  // 팀 이름 편집 모드 전환 함수
   const handleNameClick = () => {
     setIsEditingName(true);
   };
 
-  // 임시 팀 이름 변경 처리 함수
   const handleTempNameChange = (e) => {
     setTempTeamName(e.target.value);
   };
 
-  // 팀 이름 저장 함수
   const handleNameSave = () => {
     setEditedTeamName(tempTeamName);
     setIsEditingName(false);
   };
 
-  // 팀 이름 편집 취소 함수
   const handleNameCancel = () => {
     setIsEditingName(false);
   };
 
-  // 이벤트 버블링 방지 함수
   const handleInnerClick = (event) => {
     event.stopPropagation();
   };
 
-  // 모달 표시 함수
   const showDrawer = () => {
     setVisible(true);
   };
 
-  // 모달 닫기 함수
   const onClose = () => {
     setVisible(false);
   };
 
-  // 팀 메뉴 아이템 정의
   const teamMenuItems = [
     {
       key: '1',
@@ -95,7 +79,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
     },
   ];
 
-  // 리더 옵션 렌더링 함수
   const renderOption = (leader) => (
     <div className="profile-wrap">
       <div className="left">
@@ -106,7 +89,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
     </div>
   );
 
-  // 팀 구성원 메뉴 아이템 생성
   const memberMenuItems = teamMembers.map((member) => ({
     key: member.value,
     label: renderOption(member),
@@ -115,9 +97,11 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
   return (
     <>
       <div className="team-item flex aic gap32">
-        {/* 팀 정보 섹션 */}
+        <span className="team-num">
+          {' '}
+          <div className="dot-item"></div>{' '}
+        </span>
         <div className="team-info flex aic gap32" onClick={handleInnerClick}>
-          {/* 팀 이름 편집 UI */}
           {!isEditingName ? (
             <h3 className="team-name" onClick={handleNameClick}>
               {editedTeamName}
@@ -140,7 +124,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
             </div>
           )}
 
-          {/* 팀 리더 선택 UI */}
           {!showLeaderSelect ? (
             <div className="team-leader">
               <div onClick={handleLeaderClick}>
@@ -198,7 +181,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
             </div>
           )}
 
-          {/* 팀원 드롭다운 */}
           <CustomDropdown
             items={memberMenuItems}
             buttonText="팀원"
@@ -208,7 +190,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
           />
         </div>
 
-        {/* 팀 액션 드롭다운 */}
         <div className="team-actions" onClick={handleInnerClick}>
           <CustomDropdown
             items={teamMenuItems}
@@ -226,7 +207,6 @@ const TeamItem = ({ teamName, index, isEditMode }) => {
         </div>
       </div>
 
-      {/* 팀 정보 모달 */}
       <CustomModal title={teamName} placement="right" size="large" onClose={onClose} visible={visible}>
         <p>This is my custom drawer content.</p>
       </CustomModal>
