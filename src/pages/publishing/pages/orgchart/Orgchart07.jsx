@@ -126,17 +126,6 @@ const Orgchart07 = () => {
     const regex = /^[가-힣a-zA-Z0-9\s._-]{1,50}$/;
     return regex.test(name);
   };
-  // 팀 추가 함수
-  const addTeam = () => {
-    const newTeam = {
-      id: `team-${Date.now()}`,
-      name: '새 팀',
-      children: [],
-    };
-    setTeams((prevTeams) => [...prevTeams, newTeam]);
-    setEditingTeamId(newTeam.id);
-    setEditingTeamName('');
-  };
 
   // 팀 이름 편집 시작
   const startEditing = (team) => {
@@ -308,7 +297,7 @@ const Orgchart07 = () => {
                 <div className="task-manager">
                   {/* 헤더 섹션 */}
                   <header className="task-header flex jcb aic">
-                    {/* 오른쪽 검색 바 */}
+                    {/* 오른 쪽 검색 바 */}
                     <div className="right-actions flex aic gap16">
                       <Search
                         placeholder="팀명을 입력하세요."
