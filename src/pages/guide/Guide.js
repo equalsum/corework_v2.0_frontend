@@ -67,6 +67,10 @@ function Guide() {
               to: '/orgchart06',
               title: 'Orgchart06 - 팀 종료 모달 팝업',
             },
+            {
+              to: '/orgchart07',
+              title: 'Orgchart07 - 조직도 종료된 팀',
+            },
           ],
         },
       ],

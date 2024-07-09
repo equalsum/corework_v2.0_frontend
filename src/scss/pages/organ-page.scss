@@ -54,7 +54,6 @@
     cursor: pointer;
     margin-bottom: px-to-rem(16px);
     height: px-to-rem(72px);
-    padding-left: px-to-rem(24px);
     padding-right: px-to-rem(24px);
     display: flex;
     align-items: center;
@@ -65,6 +64,22 @@
       0px 1px 2px 0px rgba(0, 0, 0, 0.03),
       0px 1px 6px -1px rgba(0, 0, 0, 0.02),
       0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+    .ant-btn {
+      min-width: auto;
+    }
+    .team-toggle {
+      .ant-btn {
+        padding-right: px-to-rem(9px);
+        padding-left: px-to-rem(9px);
+      }
+    }
+    .team-dot {
+      display: inline-block;
+      width: px-to-rem(11px);
+      height: px-to-rem(11px);
+      border-radius: 50%;
+      background-color: var(--text-third);
+    }
     .team-info {
       flex: 1 0 0;
       .por {
@@ -101,6 +116,7 @@
           display: inline-flex;
           align-items: center;
           gap: px-to-rem(8px);
+          color: var(--text-third);
           cursor: pointer;
           text-justify: auto;
           &:hover {
@@ -124,27 +140,10 @@
       }
     }
   }
-  .team-list {
-    .level-0 > .team-content {
-      position: relative;
-      @include make-before {
-        content: '';
-        position: absolute;
-        top: 48%;
-        transform: translateY(-50%);
-        left: px-to-rem(30px);
-        width: px-to-rem(8px);
-        height: px-to-rem(8px);
-        border-radius: 50%;
-        background: var(--dot-color);
-      }
-    }
-  }
   .team-item {
     cursor: pointer;
     margin-bottom: px-to-rem(16px);
     height: px-to-rem(72px);
-    padding-left: px-to-rem(24px);
     padding-right: px-to-rem(24px);
     display: flex;
     align-items: center;
@@ -166,6 +165,19 @@
       }
       .team-name {
         flex: 1;
+        position: relative;
+        padding-left: px-to-rem(20px);
+        @include make-before {
+          content: '';
+          position: absolute;
+          top: 48%;
+          transform: translateY(-50%);
+          left: px-to-rem(0px);
+          width: px-to-rem(8px);
+          height: px-to-rem(8px);
+          border-radius: 50%;
+          background: var(--dot-color);
+        }
       }
       .ant-select-selector {
         width: px-to-rem(320px);
