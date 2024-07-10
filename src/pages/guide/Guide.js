@@ -45,39 +45,45 @@ function Guide() {
           items: [
             {
               to: '/orgchart01',
-              title: 'Orgchart01 - 조직도 리스트 전체',
+              title: 'Orgchart01 - 조직도 운영 중인 팀 - 리스트',
+              description: '팀 추가 아이템 부분 반응형 디자인 필요,에러 메세지 문구 레이아웃 필요',
             },
             {
               to: '/orgchart02',
-              title: 'Orgchart02 - 조직도 팀일괄추가팝업',
+              title: 'Orgchart02 - 조직도 운영 중인 팀 - 팀일괄추가모달',
             },
             {
               to: '/orgchart03',
-              title: 'Orgchart03 - 조직도 팀일괄추가팝업_업로드결과- 비정상건, 정상건',
+              title: 'Orgchart03 - 조직도 운영 중인 팀 - 팀일괄추가모달_업로드결과- 비정상건, 정상건',
             },
             {
               to: '/orgchart04',
-              title: 'Orgchart04 - 조직도 순서 편집',
+              title: 'Orgchart04 - 조직도 운영 중인 팀 - 순서 편집',
             },
             {
               to: '/orgchart05',
-              title: 'Orgchart05 - 팀 설정 모달',
+              title: 'Orgchart05 - 조직도 운영 중인 팀 - 팀 설정 모달',
             },
             {
               to: '/orgchart06',
-              title: 'Orgchart06 - 팀 종료 모달 팝업',
+              title: 'Orgchart06 - 조직도 운영 중인 팀 - 팀 종료 모달',
             },
             {
               to: '/orgchart07',
-              title: 'Orgchart07 - 조직도 종료된 팀',
+              title: 'Orgchart07 - 조직도 종료된 팀 - 리스트',
             },
             {
               to: '/orgchart08',
               title: 'Orgchart08 - 조직도 검색된 팀이 없습니다., 종료된팀이 없습니다 등 empty 페이지 - 공통',
+              description: '검색 결과가 없거나 종료된 팀이 없을 때 표시되는 빈 페이지',
             },
             {
               to: '/orgchart09',
-              title: 'Orgchart09 - 팀 운영 전환 모달',
+              title: 'Orgchart09 - 조직도 종료된 팀 - 운영 전환 모달',
+            },
+            {
+              to: '/orgchart10',
+              title: 'Orgchart10 - 조직도 종료된 팀 - 팀 삭제 모달 ',
             },
           ],
         },
@@ -93,7 +99,6 @@ function Guide() {
       ],
     },
   ];
-
   return (
     <div className="guide">
       <h1 className="guide__title">가이드</h1>

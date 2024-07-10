@@ -114,6 +114,7 @@ const Orgchart03 = () => {
               <span className="message">[추가] 버튼을 누르면 아래의 팀을 한 번에 추가할 수 있습니다.</span>
             </div>
             <ActionButtons
+              customClass="flex-end"
               cancelText="취소"
               confirmText="추가"
               onCancel={() => console.log('취소')}

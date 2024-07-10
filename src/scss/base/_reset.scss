@@ -86,9 +86,11 @@ video {
   font-size: $base-font-size;
   font-family: $font-primary;
   vertical-align: baseline;
+  line-height: 1.5;
+  word-break: keep-all; /* 추가 */
+  word-wrap: break-word; /* 추가: 긴 영단어의 경우 줄바꿈 */
 }
 
-/* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
@@ -104,7 +106,6 @@ section {
   display: block;
 }
 
-/* HTML5 hidden-attribute fix for newer browsers */
 *[hidden] {
   display: none;
 }
@@ -136,7 +137,6 @@ table {
   border-spacing: 0;
 }
 
-/* Custom additions */
 * {
   box-sizing: border-box;
 }
@@ -158,7 +158,6 @@ select {
   font: inherit;
 }
 
-/* Remove default button styles */
 button {
   background: none;
   border: none;

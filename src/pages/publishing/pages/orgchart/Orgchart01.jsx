@@ -20,9 +20,11 @@ const Orgchart01 = () => {
 
   // 상태 관리
   const [teams, setTeams] = useState(initialTeams);
+  // eslint-disable-next-line no-unused-vars
   const [searchValue, setSearchValue] = useState('');
   const [showLeaderSelect, setShowLeaderSelect] = useState({});
   const [selectedLeader, setSelectedLeader] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [isEditMode, setIsEditMode] = useState(false);
   const [expandedTeams, setExpandedTeams] = useState({});
   const [editingTeamId, setEditingTeamId] = useState(null);

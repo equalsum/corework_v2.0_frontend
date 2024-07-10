@@ -291,7 +291,7 @@
         font-size: px-to-rem(16px);
         margin-left: px-to-rem(3px);
         @include max-width(tab) {
-          display: none;
+          margin-left: 0;
         }
       }
 
@@ -303,11 +303,19 @@
       @include max-width(tab) {
         .left {
           line-height: px-to-rem(22px);
+          font-size: px-to-rem(16px);
+          word-break: keep-all;
           .icon-circle-outlined {
             display: none;
           }
           flex-direction: column;
           align-items: start;
+        }
+      }
+
+      .right {
+        @include max-width(tab) {
+          align-self: flex-end;
         }
       }
     }
@@ -324,6 +332,27 @@
     margin-bottom: 16px;
     font-size: 14px;
 
+    @include max-width(tab) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: px-to-rem(10px);
+    }
+
+    .flex-end,
+    .ant-btn-lg {
+      @include max-width(tab) {
+        align-self: flex-end;
+      }
+    }
+
+    .flex.aic.jcb {
+      @include max-width(tab) {
+        flex-direction: column;
+        gap: px-to-rem(10px);
+        align-items: flex-start;
+      }
+    }
+
     &.success-message {
       background: #e0f3f5;
     }
@@ -337,6 +366,7 @@
       align-items: center;
       color: var(--text-color);
       font-weight: 400;
+      font-size: px-to-rem(16px);
     }
     .total-count {
       color: $primary-color;
@@ -350,6 +380,7 @@
       font-weight: 600;
       display: inline-block;
       margin-left: px-to-rem(2px);
+      font-size: px-to-rem(16px);
     }
 
     .message {
@@ -357,6 +388,7 @@
       font-weight: 600;
       display: inline-block;
       margin-left: px-to-rem(3px);
+      font-size: px-to-rem(16px);
 
       @at-root .data-status-message.success-message .message {
         color: var(--text-color);
@@ -383,6 +415,10 @@
     padding: px-to-rem(134px) px-to-rem(0px);
     display: block;
     text-align: center;
+
+    @include max-width(tab) {
+      padding: px-to-rem(30px) px-to-rem(0px);
+    }
     > p {
       margin-bottom: px-to-rem(12px);
       color: var(--text-secondary);
@@ -396,6 +432,10 @@
       border-radius: var(--Border-Radius-borderRadiusLG, 8px);
       border: 1px solid var(--border-color);
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+      @include max-width(tab) {
+        flex-direction: column;
+        height: auto;
+      }
       .upload-area {
         width: px-to-rem(400px);
         height: 100%;
@@ -403,8 +443,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        @include max-width(tab) {
+          padding: px-to-rem(20px) px-to-rem(0px);
+        }
         i {
           margin-bottom: px-to-rem(24px);
+
+          @include max-width(tab) {
+            margin-bottom: 5px;
+          }
         }
         p {
           color: var(--text-color);
@@ -416,12 +463,19 @@
           display: inline-block;
           margin-bottom: px-to-rem(12px);
         }
+
+        @include max-width(tab) {
+          width: 100%;
+        }
       }
       .instructions {
         height: 100%;
         max-width: px-to-rem(400px);
         padding: px-to-rem(24px) px-to-rem(16px);
         background: var(--fill-tertiary);
+        @include max-width(tab) {
+          max-width: 100%;
+        }
         p {
           position: relative;
           text-align: left;
@@ -432,6 +486,9 @@
           line-height: px-to-rem(22px);
           word-break: keep-all;
           margin-bottom: px-to-rem(12px);
+          &:last-of-type {
+            margin-bottom: 0;
+          }
           @include make-before() {
             position: absolute;
             left: 0;

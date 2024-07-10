@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal, message } from 'antd';
-import { Checkbox } from 'antd';
 
 const ComponentName = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
