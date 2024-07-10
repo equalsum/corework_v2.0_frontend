@@ -24,7 +24,10 @@ import Orgchart03 from 'pages/publishing/pages/orgchart/Orgchart03';
 import Orgchart04 from 'pages/publishing/pages/orgchart/Orgchart04';
 import Orgchart05 from 'pages/publishing/pages/orgchart/Orgchart05';
 import Orgchart06 from 'pages/publishing/pages/orgchart/Orgchart06';
-import Orgchart07 from 'pages/publishing/pages/orgchart/Orgchart07';
+import Orgchart08 from 'pages/publishing/pages/orgchart/Orgchart08';
+import Orgchart09 from 'pages/publishing/pages/orgchart/Orgchart09';
+import Orgchart10 from 'pages/publishing/pages/orgchart/Orgchart10';
+import Orgchart11 from 'pages/publishing/pages/orgchart/Orgchart11';
 
 const { Header, Sider, Content } = Layout;
 
@@ -70,7 +73,10 @@ const RootRoutes = () => {
       <Route path="/Orgchart04" element={<Orgchart04 />} />
       <Route path="/Orgchart05" element={<Orgchart05 />} />
       <Route path="/Orgchart06" element={<Orgchart06 />} />
-      <Route path="/Orgchart07" element={<Orgchart07 />} />
+      <Route path="/Orgchart08" element={<Orgchart08 />} />
+      <Route path="/Orgchart09" element={<Orgchart09 />} />
+      <Route path="/Orgchart10" element={<Orgchart10 />} />
+      <Route path="/Orgchart11" element={<Orgchart11 />} />
       <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
       {/* 인증이 필요한 라우트 */}
       <Route

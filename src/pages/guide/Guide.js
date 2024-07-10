@@ -71,6 +71,14 @@ function Guide() {
               to: '/orgchart07',
               title: 'Orgchart07 - 조직도 종료된 팀',
             },
+            {
+              to: '/orgchart08',
+              title: 'Orgchart08 - 조직도 검색된 팀이 없습니다., 종료된팀이 없습니다 등 empty 페이지 - 공통',
+            },
+            {
+              to: '/orgchart09',
+              title: 'Orgchart09 - 팀 운영 전환 모달',
+            },
           ],
         },
       ],

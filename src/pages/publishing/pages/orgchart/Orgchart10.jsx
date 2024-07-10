@@ -7,7 +7,7 @@ import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
 const { Option } = Select;
 const { Search } = Input;
 
-const Orgchart01 = () => {
+const Orgchart07 = () => {
   // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '조직도 관리',
@@ -16,13 +16,31 @@ const Orgchart01 = () => {
   const pageName = 'organ-page';
 
   // 초기 팀 데이터
-  const initialTeams = [];
+  const initialTeams = [
+    {
+      id: '1',
+      name: '최고경영진',
+      children: [],
+    },
+    {
+      id: '2',
+      name: '최고경영진22',
+      children: [],
+    },
+    {
+      id: '3',
+      name: '최고경영진33',
+      children: [],
+    },
+  ];
 
   // 상태 관리
   const [teams, setTeams] = useState(initialTeams);
+  // eslint-disable-next-line no-unused-vars
   const [searchValue, setSearchValue] = useState('');
   const [showLeaderSelect, setShowLeaderSelect] = useState({});
   const [selectedLeader, setSelectedLeader] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [isEditMode, setIsEditMode] = useState(false);
   const [expandedTeams, setExpandedTeams] = useState({});
   const [editingTeamId, setEditingTeamId] = useState(null);
@@ -65,12 +83,12 @@ const Orgchart01 = () => {
   const teamMenuItems = [
     {
       key: '1',
-      label: '팀 정보 설정',
+      label: '팀 운영 전환',
       onClick: () => console.log('1'),
     },
     {
       key: '2',
-      label: '팀 종료 전환',
+      label: '팀 삭제',
       onClick: () => console.log('2'),
     },
   ];
@@ -107,18 +125,6 @@ const Orgchart01 = () => {
   const isValidTeamName = (name) => {
     const regex = /^[가-힣a-zA-Z0-9\s._-]{1,50}$/;
     return regex.test(name);
-  };
-
-  // 팀 추가 함수
-  const addTeam = () => {
-    const newTeam = {
-      id: `team-${Date.now()}`,
-      name: '새 팀',
-      children: [],
-    };
-    setTeams((prevTeams) => [...prevTeams, newTeam]);
-    setEditingTeamId(newTeam.id);
-    setEditingTeamName('');
   };
 
   // 팀 이름 편집 시작
@@ -291,19 +297,7 @@ const Orgchart01 = () => {
                 <div className="task-manager">
                   {/* 헤더 섹션 */}
                   <header className="task-header flex jcb aic">
-                    {/* 왼쪽 액션 버튼들 */}
-                    <div className="left-actions flex aic gap8">
-                      <Button size="large" type="primary">
-                        <i className="icon-download"></i> 일괄 추가
-                      </Button>
-                      <Button size="large" type="primary" onClick={addTeam}>
-                        <i className="icon-plus"></i> 팀 추가
-                      </Button>
-                      <Button size="large" type="default">
-                        <i className="icon-sorter"></i>순서 편집
-                      </Button>
-                    </div>
-                    {/* 오른쪽 검색 바 */}
+                    {/* 오른 쪽 검색 바 */}
                     <div className="right-actions flex aic gap16">
                       <Search
                         placeholder="팀명을 입력하세요."
@@ -320,29 +314,11 @@ const Orgchart01 = () => {
                   </header>
                   {/* 메인 컨텐츠 */}
                   <main className="task-content">
-                    {teams.length === 0 && (
-                      <div className="task-input-container">
-                        <Button size="large" type="text" className="task-btn" onClick={addTeam}>
-                          <i className="icon-plus-circle"></i> 팀 추가
-                        </Button>
-                      </div>
-                    )}
                     <div className="task-list">
-                      {teams.length === 0 ? (
-                        <div className="empty-wrap">
-                          <div className="empty-state">
-                            <i className="icon-empty"></i>
-                            <p className="empty-message">아직 팀이 없습니다.</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="all-num">
-                            전체 <span>{countAllTeams(teams)}</span>
-                          </div>
-                          <ul className="team-list">{teams.map((team) => renderTeamItem(team))}</ul>
-                        </>
-                      )}
+                      <div className="all-num">
+                        전체 <span>{countAllTeams(teams)}</span>
+                      </div>
+                      <ul className="team-list">{teams.map((team) => renderTeamItem(team))}</ul>
                     </div>
                   </main>
                 </div>
@@ -368,4 +344,4 @@ const Orgchart01 = () => {
   );
 };
 
-export default Orgchart01;
+export default Orgchart07;
