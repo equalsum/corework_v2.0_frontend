@@ -309,3 +309,9 @@
   justify-content: center;
   align-items: center;
 }
+.ant-pagination .ant-pagination-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

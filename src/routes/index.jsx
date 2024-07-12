@@ -28,6 +28,15 @@ import Orgchart07 from 'pages/publishing/pages/orgchart/Orgchart07';
 import Orgchart08 from 'pages/publishing/pages/orgchart/Orgchart08';
 import Orgchart09 from 'pages/publishing/pages/orgchart/Orgchart09';
 import Orgchart10 from 'pages/publishing/pages/orgchart/Orgchart10';
+import Menage01 from 'pages/publishing/pages/menage/Menage01';
+import Menage02 from 'pages/publishing/pages/menage/Menage02';
+import Menage03 from 'pages/publishing/pages/menage/Menage03';
+// import Menage04 from 'pages/publishing/pages/menage/Menage04';
+// import Menage05 from 'pages/publishing/pages/menage/Menage05';
+// import Menage06 from 'pages/publishing/pages/menage/Menage06';
+// import Menage07 from 'pages/publishing/pages/menage/Menage07';
+// import Menage08 from 'pages/publishing/pages/menage/Menage08';
+// import Menage09 from 'pages/publishing/pages/menage/Menage09';
 
 const { Header, Sider, Content } = Layout;
 
@@ -77,6 +86,10 @@ const RootRoutes = () => {
       <Route path="/Orgchart08" element={<Orgchart08 />} />
       <Route path="/Orgchart09" element={<Orgchart09 />} />
       <Route path="/Orgchart10" element={<Orgchart10 />} />
+      <Route path="/Menage01" element={<Menage01 />} />
+      <Route path="/Menage02" element={<Menage02 />} />
+      <Route path="/Menage03" element={<Menage03 />} />
+      {/* <Route path="/Menage04" element={<Menage04 />} /> */}
       <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
       {/* 인증이 필요한 라우트 */}
       <Route

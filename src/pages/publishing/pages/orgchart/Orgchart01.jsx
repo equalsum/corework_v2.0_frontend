@@ -3,6 +3,7 @@ import { Tabs, Button, Select, Input, message } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import AdminLayout from '@layout/Layout';
 import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
+import EmptyContent from 'pages/publishing/comp/EmptyContent';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -331,12 +332,7 @@ const Orgchart01 = () => {
                     )}
                     <div className="task-list">
                       {teams.length === 0 ? (
-                        <div className="empty-wrap">
-                          <div className="empty-state">
-                            <i className="icon-empty"></i>
-                            <p className="empty-message">아직 팀이 없습니다.</p>
-                          </div>
-                        </div>
+                        <EmptyContent message="아직 팀이 없습니다." />
                       ) : (
                         <>
                           <div className="all-num">

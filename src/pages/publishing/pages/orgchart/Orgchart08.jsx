@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, Input, Button } from 'antd';
 import AdminLayout from '@layout/Layout';
+import EmptyContent from 'pages/publishing/comp/EmptyContent';
 
 const { Search } = Input;
 
@@ -46,12 +47,7 @@ const Orgchart07 = () => {
                   </header>
                   {/* 메인 컨텐츠 */}
                   <main className="task-content">
-                    <div className="empty-wrap">
-                      <div className="empty-state">
-                        <i className="icon-empty"></i>
-                        <p className="empty-message">empty 문구</p>
-                      </div>
-                    </div>
+                    <EmptyContent message="종료된 팀이 없습니다." />
                   </main>
                 </div>
               ),

@@ -60,7 +60,7 @@ $z-index: (
   --text-color: rgba(0, 0, 0, 0.88); /* 기본 텍스트 색상 */
   --text-secondary: rgba(0, 0, 0, 0.65); /* 보조 텍스트 색상 */
   --text-third: rgba(0, 0, 0, 0.25); /* 3차 텍스트 색상 */
-  --dot-color: rgba(0, 0, 0, 0.45); /* 점 색상 */
+  --icon-color: rgba(0, 0, 0, 0.45); /* 점 색상 */
   --border-color: #d9d9d9; /* 테두리 색상 */
   --primary-color: #2698bd; /* 메인 색상 */
   --error-color: #ff4d4f; /* 오류 메시지 색상 */
@@ -81,7 +81,7 @@ $z-index: (
   --text-color: rgba(255, 255, 255, 0.88);
   --text-secondary: rgba(255, 255, 255, 0.65);
   --text-third: rgba(255, 255, 255, 0.25);
-  --dot-color: rgba(255, 255, 255, 0.45);
+  --icon-color: rgba(255, 255, 255, 0.45);
   --border-color: #434343;
   --primary-color: #4bb5ff;
   --error-color: #ff6b6b;

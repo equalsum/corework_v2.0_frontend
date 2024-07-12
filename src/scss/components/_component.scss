@@ -39,7 +39,7 @@
 }
 
 /* ==========================================================================
-   input-container
+   2. input-container
    ========================================================================== */
 
 .input-container {
@@ -62,7 +62,7 @@
     }
     dl {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       gap: px-to-rem(16px);
       dt {
@@ -76,6 +76,40 @@
         }
       }
     }
+  }
+}
+
+.task-content {
+  margin-top: px-to-rem(24px);
+  height: 55vh;
+}
+.task-input-container {
+  border-radius: var(--Border-Radius-borderRadius, 6px);
+  border: 1px dashed var(--primary-color);
+  background: var(--bg-color);
+  box-shadow:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.03),
+    0px 1px 6px -1px rgba(0, 0, 0, 0.02),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+  .task-btn {
+    display: flex;
+    padding-top: px-to-rem(24px);
+    padding-bottom: px-to-rem(24px);
+    height: auto;
+    width: 100%;
+  }
+}
+.all-num {
+  font-size: px-to-rem(20px);
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1;
+  margin-bottom: px-to-rem(24px);
+
+  span {
+    font-size: px-to-rem(20px);
+    font-weight: 700;
+    color: var(--primary-color);
   }
 }
 
