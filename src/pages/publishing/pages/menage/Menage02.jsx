@@ -1,13 +1,13 @@
 import { React, useState } from 'react';
-import { Tabs, Button, Input, Tag } from 'antd';
-import { Table } from 'antd';
+import { Tabs, Button, Input } from 'antd';
+import { Table, Tag } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import AdminLayout from '@layout/Layout';
-import EmptyContent from 'pages/publishing/comp/EmptyContent';
+import CustomDropdown from 'pages/publishing/comp/CustomDropdown';
 
 const { Search } = Input;
 
-const Menage02 = () => {
+const Menage01 = () => {
   // 페이지 정보 설정
   const breadcrumbItems = {
     mainTitle: '구성원 관리',
@@ -16,83 +16,154 @@ const Menage02 = () => {
   const pageName = 'organ-page';
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const [sortedInfo, setSortedInfo] = useState({});
-  const handleChange = (sorter) => {
-    setSortedInfo(sorter);
+
+  const [sortedInfo, setSortedInfo] = useState([]);
+
+  const handleChange = (pagination, filters, sorter) => {
+    setSortedInfo(Array.isArray(sorter) ? sorter : [sorter]);
   };
+
+  // 팀 메뉴 아이템
+  const teamMenuItems = [
+    {
+      key: '1',
+      label: '이퀄썸',
+    },
+    {
+      key: '2',
+      label: '그로스 서클',
+    },
+  ];
+
+  // 팀 메뉴 아이템
+  const teamMenuItems2 = [
+    {
+      key: '1',
+      label: '팀 정보 설정',
+      onClick: () => console.log('1'),
+    },
+    {
+      key: '2',
+      label: '팀 종료 전환',
+      onClick: () => console.log('2'),
+    },
+  ];
 
   const columns = [
     {
       title: 'No.',
       dataIndex: 'no',
       key: 'no',
-      width: isMobile ? 30 : 50,
+      width: 60,
     },
     {
       title: '이름',
       dataIndex: 'name',
       key: 'name',
-      width: isMobile ? 80 : 100,
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+      width: 100,
+      sorter: {
+        compare: (a, b) => a.name.localeCompare(b.name),
+        multiple: 1,
+      },
+      sortOrder: sortedInfo.find((s) => s.columnKey === 'name')?.order,
     },
     {
       title: '이메일',
       dataIndex: 'email',
       key: 'email',
-      width: isMobile ? 120 : 200,
       ellipsis: true,
     },
     {
       title: '휴대폰 번호',
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
-      width: isMobile ? 100 : 130,
+      width: 160,
     },
     {
       title: '관리',
       dataIndex: 'management',
       key: 'management',
-      width: isMobile ? 60 : 80,
-      sorter: (a, b) => a.management.localeCompare(b.management),
-      sortOrder: sortedInfo.columnKey === 'management' && sortedInfo.order,
+      width: 100,
+      sorter: {
+        compare: (a, b) => a.management.localeCompare(b.management),
+        multiple: 2,
+      },
+      sortOrder: sortedInfo.find((s) => s.columnKey === 'management')?.order,
     },
     {
-      title: '소스팀',
-      dataIndex: 'sourceTeam',
-      key: 'sourceTeam',
-      width: isMobile ? 80 : 120,
-      sorter: (a, b) => a.sourceTeam.localeCompare(b.sourceTeam),
-      sortOrder: sortedInfo.columnKey === 'sourceTeam' && sortedInfo.order,
+      title: '소속팀',
+      render: (record) =>
+        record.team ? (
+          <CustomDropdown
+            items={teamMenuItems}
+            buttonText={record.team.name}
+            size="large"
+            className="custom-dropdown"
+            buttonClassName="custom-button"
+          />
+        ) : null,
+      key: 'team',
+      width: 100,
+      sorter: {
+        compare: (a, b) => a.team.localeCompare(b.team),
+        multiple: 3,
+      },
+      sortOrder: sortedInfo.find((s) => s.columnKey === 'team')?.order,
     },
     {
       title: '직책',
       dataIndex: 'position',
       key: 'position',
-      width: isMobile ? 80 : 100,
-      sorter: (a, b) => a.position.localeCompare(b.position),
-      sortOrder: sortedInfo.columnKey === 'position' && sortedInfo.order,
+      width: 100,
+      sorter: {
+        compare: (a, b) => a.position.localeCompare(b.position),
+        multiple: 4,
+      },
+      sortOrder: sortedInfo.find((s) => s.columnKey === 'position')?.order,
     },
     {
       title: '직무',
       dataIndex: 'jobFunction',
       key: 'jobFunction',
-      width: isMobile ? 80 : 120,
-      sorter: (a, b) => a.jobFunction.localeCompare(b.jobFunction),
-      sortOrder: sortedInfo.columnKey === 'jobFunction' && sortedInfo.order,
+      width: 100,
+      sorter: {
+        compare: (a, b) => a.jobFunction.localeCompare(b.jobFunction),
+        multiple: 5,
+      },
+      sortOrder: sortedInfo.find((s) => s.columnKey === 'jobFunction')?.order,
     },
     {
       title: '추가 역할',
       dataIndex: 'additionalRole',
       key: 'additionalRole',
-      width: isMobile ? 90 : 120,
     },
     {
       title: '상태',
       dataIndex: 'status',
       key: 'status',
+      width: 100,
       render: (status) => <Tag color={status === '초대전' ? 'green' : 'pink'}>{status}</Tag>,
-      width: isMobile ? 60 : 80,
+    },
+    {
+      title: '',
+      render: (record) =>
+        record.team ? (
+          <CustomDropdown
+            items={teamMenuItems2}
+            placement="bottomRight"
+            triggerType={(['click'], ['hover'])}
+            size="small"
+            onOpenChange={(visible) => {
+              console.log('Dropdown visibility changed:', visible);
+            }}
+          >
+            <Button type="default" size="large" ghost>
+              <i className="icon-dots-vertical"></i>
+            </Button>
+          </CustomDropdown>
+        ) : null,
+      key: 'team',
+      width: 100,
     },
   ];
 
@@ -105,7 +176,9 @@ const Menage02 = () => {
       email: `email${index + 1}@example.com`,
       phoneNumber: `010-1234-${5678 + index}`,
       management: '관리' + ((index % 3) + 1),
-      sourceTeam: '팀' + ((index % 5) + 1),
+      team: {
+        name: '팀' + ((index % 5) + 1),
+      },
       position: '직책' + ((index % 4) + 1),
       jobFunction: '직무' + ((index % 6) + 1),
       additionalRole: '역할' + ((index % 3) + 1),
@@ -127,9 +200,7 @@ const Menage02 = () => {
               key: '1',
               children: (
                 <div className="task-manager">
-                  {/* 헤더 섹션 */}
                   <header className="task-header flex jcb aic">
-                    {/* 왼쪽 액션 버튼들 */}
                     <div className="left-actions flex aic gap8">
                       <Button size="large" type="primary">
                         <i className="icon-download"></i> 일괄 추가
@@ -141,7 +212,6 @@ const Menage02 = () => {
                         <i className="icon-excel-download"></i> 엑셀 다운로드
                       </Button>
                     </div>
-                    {/* 오른쪽 검색 바 */}
                     <div className="right-actions flex aic gap16">
                       <Search
                         placeholder="구성원을 검색하세요."
@@ -157,40 +227,26 @@ const Menage02 = () => {
                     </div>
                   </header>
 
-                  {/* 바디 섹션 */}
-                  {columns.length === 0 ? (
-                    <>
-                      <div className="task-content">
-                        <div className="task-input-container">
-                          <Button size="large" type="text" className="task-btn">
-                            <i className="icon-plus-circle"></i> 구성원 추가
-                          </Button>
-                        </div>
-                        <EmptyContent message="아직 구성원이 없습니다." />
-                      </div>
-                    </>
-                  ) : (
-                    <Table
-                      columns={columns}
-                      dataSource={data}
-                      scroll={{ x: isMobile ? 'max-content' : 790 }}
-                      pagination={{
-                        showSizeChanger: true,
-                        pageSizeOptions: ['10', '30', '50'],
-                        defaultPageSize: 10,
-                        total: data.length,
-                        showTotal: false,
-                        showQuickJumper: false,
-                        showLessItems: true,
-                        locale: { items_per_page: '개씩 보기' },
-                      }}
-                      showSorterTooltip={{
-                        title: '클릭하여 정렬해주세요.',
-                      }}
-                      onChange={handleChange}
-                      className="centered-pagination-table"
-                    />
-                  )}
+                  <Table
+                    columns={columns}
+                    dataSource={data}
+                    scroll={{ x: isMobile ? 'max-content' : 'min-content' }}
+                    pagination={{
+                      showSizeChanger: true,
+                      pageSizeOptions: ['10', '30', '50'],
+                      defaultPageSize: 10,
+                      total: data.length,
+                      showTotal: false,
+                      showQuickJumper: false,
+                      showLessItems: true,
+                      locale: { items_per_page: '개씩 보기' },
+                    }}
+                    onChange={handleChange}
+                    showSorterTooltip={{
+                      title: '클릭하여 정렬해주세요.',
+                    }}
+                    className="centered-pagination-table"
+                  />
                 </div>
               ),
             },
@@ -211,4 +267,4 @@ const Menage02 = () => {
   );
 };
 
-export default Menage02;
+export default Menage01;

@@ -137,3 +137,21 @@
     color: var(--text-color);
   }
 }
+
+/* ==========================================================================
+    Team Members
+   ========================================================================== */
+.team-members {
+  width: px-to-rem(150px);
+  font-size: px-to-rem(14px);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-secondary);
+  span {
+    display: inline-block;
+    font-size: px-to-rem(14px);
+    margin-left: px-to-rem(3px);
+    color: var(--text-color);
+    font-weight: 600;
+  }
+}

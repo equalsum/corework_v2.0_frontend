@@ -3,7 +3,7 @@ import { Dropdown } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 const CustomDropdown = ({
-  items,
+  items = [],
   placement = 'bottomLeft',
   triggerType = ['click'],
   className = '',
