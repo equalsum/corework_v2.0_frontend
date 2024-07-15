@@ -4,12 +4,13 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 const CustomDropdown = ({
   items = [],
-  placement = 'bottomLeft',
+  placement = 'bottomRight',
   triggerType = ['click'],
   className = '',
   size = 'medium',
   children,
   onOpenChange,
+  labelText = '멤버',
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -27,8 +28,8 @@ const CustomDropdown = ({
   // 크기에 따른 스타일 정의 (rem 단위 사용)
   const sizeStyles = {
     small: { width: '10rem', maxHeight: '10rem' },
-    medium: { width: '15rem', maxHeight: '15rem' },
-    large: { width: '18rem', maxHeight: '17rem' },
+    medium: { width: '12rem', maxHeight: '12rem' },
+    large: { width: '17rem', maxHeight: '17rem' },
   };
 
   const dropdownStyle = sizeStyles[size] || sizeStyles.medium;
@@ -36,7 +37,7 @@ const CustomDropdown = ({
   // 기본 트리거 엘리먼트
   const defaultTrigger = (
     <p className="team-members">
-      멤버 <span>{items.length}명</span>
+      {labelText} <span>{items.length}명</span>
       {isDropdownOpen ? <UpOutlined /> : <DownOutlined />}
     </p>
   );
@@ -50,7 +51,7 @@ const CustomDropdown = ({
       }}
       placement={placement}
       trigger={triggerType}
-      onOpenChange={onOpenChange}
+      onOpenChange={handleVisibleChange}
     >
       {children || defaultTrigger}
     </Dropdown>

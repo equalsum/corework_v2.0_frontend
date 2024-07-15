@@ -10,6 +10,9 @@
   .ant-select-dropdown {
     top: 100% !important;
     bottom: auto !important;
+    .ant-select-item {
+      padding: px-to-rem(12px) px-to-rem(12px);
+    }
   }
   .ant-select-selection-overflow-item {
     .profile-wrap .left .profile-image {
@@ -59,7 +62,6 @@
   font-size: px-to-rem(16px);
   .department {
     position: relative;
-    top: px-to-rem(1px);
   }
 }
 .ant-select-selection-item .anticon {
@@ -72,6 +74,9 @@
 .ant-select .ant-select-selection-placeholder {
   font-size: px-to-rem(16px);
 }
+.ant-avatar {
+  flex: none;
+}
 /* ==========================================================================
      Dropdown
      ========================================================================== */
@@ -82,7 +87,7 @@
     background: var(--Colors-Brand-Primary-colorPrimaryBg, #e0f3f5);
   }
   .ant-dropdown-menu-item {
-    height: 45px;
+    height: px-to-rem(45px);
     .ant-dropdown-menu-title-content {
       color: var(--text-color);
       display: flex;
@@ -109,6 +114,9 @@
       }
     }
   }
+}
+.ant-dropdown .custom-dropdown .ant-dropdown-menu-item {
+  cursor: default;
 }
 /* ==========================================================================
      Tooltip

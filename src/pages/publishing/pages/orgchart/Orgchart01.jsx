@@ -21,12 +21,11 @@ const Orgchart01 = () => {
 
   // 상태 관리
   const [teams, setTeams] = useState(initialTeams);
+  const [teamItemShow, setTeamItemShow] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [searchValue, setSearchValue] = useState('');
   const [showLeaderSelect, setShowLeaderSelect] = useState({});
   const [selectedLeader, setSelectedLeader] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [isEditMode, setIsEditMode] = useState(false);
   const [expandedTeams, setExpandedTeams] = useState({});
   const [editingTeamId, setEditingTeamId] = useState(null);
   const [editingTeamName, setEditingTeamName] = useState('');
@@ -116,18 +115,12 @@ const Orgchart01 = () => {
   const addTeam = () => {
     const newTeam = {
       id: `team-${Date.now()}`,
-      name: '새 팀',
+      name: '',
       children: [],
     };
     setTeams((prevTeams) => [...prevTeams, newTeam]);
     setEditingTeamId(newTeam.id);
-    setEditingTeamName('');
-  };
-
-  // 팀 이름 편집 시작
-  const startEditing = (team) => {
-    setEditingTeamId(team.id);
-    setEditingTeamName(team.name);
+    setTeamItemShow(false);
   };
 
   // 팀 이름 편집 저장
@@ -138,9 +131,21 @@ const Orgchart01 = () => {
       );
       setEditingTeamId(null);
       setEditingTeamName('');
+      setTeamItemShow(true);
     } else {
       message.error('팀명은 문자/숫자/여백/특수문자(. - _)만 사용 가능하며, 50자 이내여야 합니다.');
     }
+  };
+
+  // 팀 삭제 함수
+  const deleteTeam = (teamId) => {
+    setTeams((prevTeams) => prevTeams.filter((team) => team.id !== teamId));
+  };
+
+  // 팀 이름 편집 시작
+  const startEditing = (team) => {
+    setEditingTeamId(team.id);
+    setEditingTeamName(team.name);
   };
 
   // 팀 확장/축소 토글 함수
@@ -175,7 +180,7 @@ const Orgchart01 = () => {
               onClick={() => toggleTeam(team.id)}
             />
           ) : (
-            <Button type="default" ghost>
+            <Button type="default" ghost className="none-event">
               <span className="team-dot"></span>
             </Button>
           )}
@@ -191,9 +196,20 @@ const Orgchart01 = () => {
               <Button type="primary" size="large" onClick={saveTeamName}>
                 추가
               </Button>
-              <Button type="default" size="large" onClick={cancelEditing}>
-                취소
-              </Button>
+
+              {teamItemShow && (
+                <>
+                  <Button type="default" size="large" onClick={cancelEditing}>
+                    취소
+                  </Button>
+                </>
+              )}
+
+              {!teamItemShow && (
+                <Button type="default" size="large" onClick={() => deleteTeam(team.id)}>
+                  <i className="icon-closeOutlined"></i>
+                </Button>
+              )}
             </div>
           ) : (
             <h3 className="team-name" onClick={() => startEditing(team)}>
@@ -201,70 +217,74 @@ const Orgchart01 = () => {
             </h3>
           )}
 
-          {/* 팀 리더 선택 UI */}
-          {!showLeaderSelect[team.id] ? (
-            <div className="team-leader">
-              <div onClick={() => handleLeaderClick(team.id)}>
-                {selectedLeader[team.id] ? (
-                  <div className="profile-wrap">
-                    <div className="left">
-                      <span className="profile-image"></span>
-                      <span className="profile-name">{selectedLeader[team.id].label}</span>
-                    </div>
-                    <span className="department">{selectedLeader[team.id].department}</span>
+          {teamItemShow && (
+            <>
+              {/* 팀 리더 선택 UI */}
+              {!showLeaderSelect[team.id] ? (
+                <div className="team-leader">
+                  <div onClick={() => handleLeaderClick(team.id)}>
+                    {selectedLeader[team.id] ? (
+                      <div className="profile-wrap">
+                        <div className="left">
+                          <span className="profile-image"></span>
+                          <span className="profile-name">{selectedLeader[team.id].label}</span>
+                        </div>
+                        <span className="department">{selectedLeader[team.id].department}</span>
+                      </div>
+                    ) : (
+                      <div className="team-leader-assignment">
+                        <span className="icon">
+                          <i className="icon-user"></i>
+                        </span>
+                        팀 리더
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="team-leader-assignment">
-                    <span className="icon">
-                      <i className="icon-user"></i>
-                    </span>
-                    팀 리더
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className="leader-select-container" style={{ position: 'relative' }}>
-              <Select
-                className="custom-select"
-                placeholder={selectedLeader[team.id] ? selectedLeader[team.id].label : '리더 선택'}
-                onChange={(value) => handleLeaderSelect(value, team.id)}
-                value={selectedLeader[team.id]?.value}
-                dropdownStyle={{ minWidth: '200px', maxHeight: '300px' }}
-                getPopupContainer={(trigger) => trigger.parentNode}
+                </div>
+              ) : (
+                <div className="leader-select-container" style={{ position: 'relative' }}>
+                  <Select
+                    className="custom-select"
+                    placeholder={selectedLeader[team.id] ? selectedLeader[team.id].label : '리더 선택'}
+                    onChange={(value) => handleLeaderSelect(value, team.id)}
+                    value={selectedLeader[team.id]?.value}
+                    dropdownStyle={{ minWidth: '200px', maxHeight: '300px' }}
+                    getPopupContainer={(trigger) => trigger.parentNode}
+                  >
+                    {filteredOptions.map((leader) => (
+                      <Option key={leader.value} value={leader.value} label={leader.label}>
+                        {renderOption(leader)}
+                      </Option>
+                    ))}
+                  </Select>
+                </div>
+              )}
+
+              {/* 팀원 드롭다운 */}
+              <CustomDropdown
+                items={memberMenuItems}
+                buttonText="팀원"
+                size="large"
+                className="custom-dropdown none-event"
+                buttonClassName="custom-button"
+              />
+
+              {/* 팀 메뉴 드롭다운 */}
+              <CustomDropdown
+                items={teamMenuItems}
+                placement="bottomRight"
+                triggerType={(['click'], ['hover'])}
+                size="small"
+                onOpenChange={(visible) => {
+                  console.log('Dropdown visibility changed:', visible);
+                }}
               >
-                {filteredOptions.map((leader) => (
-                  <Option key={leader.value} value={leader.value} label={leader.label}>
-                    {renderOption(leader)}
-                  </Option>
-                ))}
-              </Select>
-            </div>
+                <Button type="default" size="large" ghost>
+                  <i className="icon-dots-vertical"></i>
+                </Button>
+              </CustomDropdown>
+            </>
           )}
-
-          {/* 팀원 드롭다운 */}
-          <CustomDropdown
-            items={memberMenuItems}
-            buttonText="팀원"
-            size="large"
-            className="custom-dropdown"
-            buttonClassName="custom-button"
-          />
-
-          {/* 팀 메뉴 드롭다운 */}
-          <CustomDropdown
-            items={teamMenuItems}
-            placement="bottomRight"
-            triggerType={(['click'], ['hover'])}
-            size="small"
-            onOpenChange={(visible) => {
-              console.log('Dropdown visibility changed:', visible);
-            }}
-          >
-            <Button type="default" size="large" ghost>
-              <i className="icon-dots-vertical"></i>
-            </Button>
-          </CustomDropdown>
         </div>
       </div>
       {team.children && team.children.length > 0 && expandedTeams[team.id] && (
