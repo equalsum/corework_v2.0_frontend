@@ -32,7 +32,7 @@ const MyCheckinPage = () => {
 
     const fetchData = useCallback((newLimitStart) => {
         setLoading(true);
-        requestAxios('/mycheckin1'
+        requestAxios('/mycheckin/list1'
             , {
                 method: 'POST',
                 data: {

@@ -23,7 +23,7 @@ const TeamListPage = () => {
     }, []); // 메모이제이션을 위해 useCallback 사용
 
     useEffect(() => {
-        requestAxios('/team1'
+        requestAxios('/team/list1'
             , { method: 'GET' }
             , (response) => {
                 const transformedData = transformData(response.data.teamList, response.data.teamUserList);

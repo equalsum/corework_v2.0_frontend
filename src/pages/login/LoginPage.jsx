@@ -8,7 +8,7 @@ const LoginPage = ({onLogin}) => {
 
     const handleFinish = async (values) => {
         setLoading(true);
-        requestAxios('/login1'
+        requestAxios('/login-check1'
             , {method: 'POST', data: values}
             , (response) => {
                 if (response.data === 'login') {

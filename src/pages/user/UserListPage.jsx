@@ -10,7 +10,7 @@ const UserListPage = () => {
     const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
-        requestAxios('/user1'
+        requestAxios('/user/list1'
             , {method: 'GET'}
             , (response) => {
                 setData(response.data.userList);
