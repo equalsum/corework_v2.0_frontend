@@ -29,12 +29,12 @@ const Menage01 = () => {
   const teamMenuItems2 = [
     {
       key: '1',
-      label: '팀 정보 설정',
+      label: '구성원 정보 설정',
       onClick: () => console.log('1'),
     },
     {
       key: '2',
-      label: '팀 종료 전환',
+      label: <span style={{ color: 'red' }}>구성원 삭제</span>,
       onClick: () => console.log('2'),
     },
   ];
@@ -184,7 +184,7 @@ const Menage01 = () => {
     {
       title: '',
       render: (record) =>
-        record.team ? (
+        record.teams ? (
           <CustomDropdown
             items={teamMenuItems2}
             placement="bottomRight"
