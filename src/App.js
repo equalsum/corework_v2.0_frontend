@@ -29,7 +29,7 @@ import Orgchart09 from 'pages/publishing/pages/orgchart/Orgchart09';
 import Orgchart10 from 'pages/publishing/pages/orgchart/Orgchart10';
 import Menage01 from 'pages/publishing/pages/menage/Menage01';
 import Menage02 from 'pages/publishing/pages/menage/Menage02';
-import Menage03 from 'pages/publishing/pages/menage/Menage03';
+// import Menage03 from 'pages/publishing/pages/menage/Menage03';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -121,7 +121,7 @@ function App() {
             <Route path="/Orgchart10" element={<Orgchart10 />} />
             <Route path="/Menage01" element={<Menage01 />} />
             <Route path="/Menage02" element={<Menage02 />} />
-            <Route path="/Menage03" element={<Menage03 />} />
+            {/* <Route path="/Menage03" element={<Menage03 />} /> */}
             {/* <Route path="/Menage04" element={<Menage04 />} /> */}
             <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
             <Route path="/mycheckin" element={<MyCheckinPage />} />
