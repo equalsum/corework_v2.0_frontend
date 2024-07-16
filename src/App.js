@@ -1,4 +1,4 @@
-import { ConfigProvider, theme } from 'antd';
+import { Button, ConfigProvider, Layout, Menu, theme } from 'antd';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,14 @@ import './css/layout.css';
 import './css/page.css';
 import './scss/ui.scss';
 
+import {
+  ApartmentOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
 import axios from 'axios';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/login/LoginPage';
@@ -29,7 +37,9 @@ import Orgchart09 from 'pages/publishing/pages/orgchart/Orgchart09';
 import Orgchart10 from 'pages/publishing/pages/orgchart/Orgchart10';
 import Menage01 from 'pages/publishing/pages/menage/Menage01';
 import Menage02 from 'pages/publishing/pages/menage/Menage02';
-// import Menage03 from 'pages/publishing/pages/menage/Menage03';
+import Menage03 from 'pages/publishing/pages/menage/Menage03';
+
+const { Header, Sider, Content } = Layout;
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -52,10 +62,8 @@ function App() {
 
   const { defaultAlgorithm, darkAlgorithm } = theme;
 
-  // eslint-disable-next-line no-unused-vars
   const [collapsed, setCollapsed] = useState(false);
   const {
-    // eslint-disable-next-line no-unused-vars
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const navigate = useNavigate();
@@ -65,7 +73,6 @@ function App() {
     navigate('/mycheckin');
   };
 
-  // eslint-disable-next-line no-unused-vars
   const handleLogout = async () => {
     try {
       await axios.post('/logout');
@@ -121,14 +128,79 @@ function App() {
             <Route path="/Orgchart10" element={<Orgchart10 />} />
             <Route path="/Menage01" element={<Menage01 />} />
             <Route path="/Menage02" element={<Menage02 />} />
-            {/* <Route path="/Menage03" element={<Menage03 />} /> */}
+            <Route path="/Menage03" element={<Menage03 />} />
             {/* <Route path="/Menage04" element={<Menage04 />} /> */}
             <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
-            <Route path="/mycheckin" element={<MyCheckinPage />} />
-            <Route path="/userlist" element={<UserListPage />} />
-            <Route path="/teamlist" element={<TeamListPage />} />
-            <Route path="/" element={<Navigate to="/mycheckin" replace />} />
           </Routes>
+          {/* <RootRoutes /> */}
+          <Layout style={{ minHeight: '100vh' }}>
+            <Sider trigger={null} collapsible collapsed={collapsed}>
+              <div className="demo-logo-vertical" />
+              <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={['/mycheckin']}
+                selectedKeys={[window.location.pathname]}
+                onClick={({ key }) => navigate(key)}
+                items={[
+                  {
+                    key: '/mycheckin',
+                    icon: <HomeOutlined />,
+                    label: '마이체크인',
+                  },
+                  {
+                    key: '/userlist',
+                    icon: <TeamOutlined />,
+                    label: '사용자 리스트',
+                  },
+                  {
+                    key: '/teamlist',
+                    icon: <ApartmentOutlined />,
+                    label: '팀 리스트',
+                  },
+                ]}
+              />
+            </Sider>
+            <Layout>
+              <Header
+                style={{
+                  padding: 0,
+                  background: colorBgContainer,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Button
+                  type="text"
+                  icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                  onClick={() => setCollapsed(!collapsed)}
+                  style={{ fontSize: '16px', width: 64, height: 64 }}
+                />
+                <Button
+                  type="text"
+                  icon={<LogoutOutlined />}
+                  onClick={handleLogout}
+                  style={{ fontSize: '16px', width: 64, height: 64 }}
+                />
+              </Header>
+              <Content
+                style={{
+                  margin: '24px 16px',
+                  padding: 24,
+                  minHeight: 280,
+                  background: colorBgContainer,
+                  borderRadius: borderRadiusLG,
+                }}
+              >
+                <Routes>
+                  <Route path="/mycheckin" element={<MyCheckinPage />} />
+                  <Route path="/userlist" element={<UserListPage />} />
+                  <Route path="/teamlist" element={<TeamListPage />} />
+                  <Route path="/" element={<Navigate to="/mycheckin" replace />} />
+                </Routes>
+              </Content>
+            </Layout>
+          </Layout>
         </div>
       </div>
     </ConfigProvider>

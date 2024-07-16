@@ -7,7 +7,6 @@ import FeedbackStatusCard from '../../components/myCheckin/FeedbackStatusCard';
 import MeetingListCard from '../../components/myCheckin/MeetingListCard';
 import TodoListCard from '../../components/myCheckin/TodoListCard';
 import FeedbackListCard from '../../components/myCheckin/FeedbackListCard';
-import AdminLayout from 'pages/publishing/comp/layout/Layout';
 
 const MyCheckinPage = () => {
   const [feedbackTargetList, setFeedbackTargetList] = useState([]);
@@ -30,12 +29,6 @@ const MyCheckinPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
   const [cuId, setCuId] = useState('');
-
-  const breadcrumbItems = {
-    mainTitle: '조직도 관리',
-    describeTitle: '팀을 일괄 또는 개별로 추가한 후 순서를 편집하여 조직도를 구성하세요.',
-  };
-  const pageName = 'organ-page';
 
   const fetchData = useCallback(
     (newLimitStart) => {
@@ -106,36 +99,34 @@ const MyCheckinPage = () => {
   );
 
   return (
-    <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
-      <Row gutter={[16, 16]} style={{ height: '100%' }}>
-        <Col span={8} style={{ height: '100%' }}>
-          <FeedbackListCard
-            feedbackList={feedbackList}
-            setFeedbackList={setFeedbackList}
-            feedbackTargetList={feedbackTargetList}
-            coreValuesList={coreValuesList}
-            coinManagementInfo={coinManagementInfo}
-            lastElementRef={lastElementRef}
-            fetchData={fetchData}
-            limitStart={limitStart}
-            setLimitStart={setLimitStart}
-            setHasMore={setHasMore}
-          />
-        </Col>
-        <Col span={8}>
-          <CoinStatusCard receiveCoinList={receiveCoinList} sendCoinList={sendCoinList} />
-          <FeedbackStatusCard
-            receiveFeedbackRankingList={receiveFeedbackRankingList}
-            sendFeedbackRankingList={sendFeedbackRankingList}
-            cuId={cuId}
-          />
-        </Col>
-        <Col span={8}>
-          <MeetingListCard myCheckInMeetingList={myCheckInMeetingList} cuId={cuId} />
-          <TodoListCard initMyCheckInOkrTaskList={myCheckInOkrTaskList} bpList={bpList} />
-        </Col>
-      </Row>
-    </AdminLayout>
+    <Row gutter={[16, 16]} style={{ height: '100%' }}>
+      <Col span={8} style={{ height: '100%' }}>
+        <FeedbackListCard
+          feedbackList={feedbackList}
+          setFeedbackList={setFeedbackList}
+          feedbackTargetList={feedbackTargetList}
+          coreValuesList={coreValuesList}
+          coinManagementInfo={coinManagementInfo}
+          lastElementRef={lastElementRef}
+          fetchData={fetchData}
+          limitStart={limitStart}
+          setLimitStart={setLimitStart}
+          setHasMore={setHasMore}
+        />
+      </Col>
+      <Col span={8}>
+        <CoinStatusCard receiveCoinList={receiveCoinList} sendCoinList={sendCoinList} />
+        <FeedbackStatusCard
+          receiveFeedbackRankingList={receiveFeedbackRankingList}
+          sendFeedbackRankingList={sendFeedbackRankingList}
+          cuId={cuId}
+        />
+      </Col>
+      <Col span={8}>
+        <MeetingListCard myCheckInMeetingList={myCheckInMeetingList} cuId={cuId} />
+        <TodoListCard initMyCheckInOkrTaskList={myCheckInOkrTaskList} bpList={bpList} />
+      </Col>
+    </Row>
   );
 };
 
