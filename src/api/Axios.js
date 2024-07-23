@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSessionItem } from 'utils/storage';
 
 // axios 인스턴스 생성
 const axiosInstance = axios.create({});
@@ -6,6 +7,15 @@ const axiosInstance = axios.create({});
 // 요청 인터셉터 설정
 axiosInstance.interceptors.request.use(
     config => {
+        // Login 했을경우 JWT 설정
+    const jToken = getSessionItem('jToken');
+    //configuring header
+    config.headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `${jToken}`
+    };
+
         return config;
     },
     error => {
@@ -24,6 +34,8 @@ axiosInstance.interceptors.response.use(
 );
 
 export function requestAxios(url, requestOptions, handler, errorHandler) {
+    
+    
     axiosInstance(url, requestOptions)
         .then(response => {
             if (typeof handler === 'function') {

@@ -2,19 +2,27 @@ import React, {useState} from 'react';
 import {Button, Form, Input, message} from 'antd';
 import login_img1 from '../../css/images/login_img1.png';
 import {requestAxios} from "../../api/Axios";
+import CODE from 'constants/code';
+import { setSessionItem } from 'utils/storage';
 
 const LoginPage = ({onLogin}) => {
     const [loading, setLoading] = useState(false);
 
     const handleFinish = async (values) => {
         setLoading(true);
-        requestAxios('/login-check1'
+        requestAxios('/login-check'
             , {method: 'POST', data: values}
             , (response) => {
-                if (response.data === 'login') {
+                if (Number(response.data.resultCode) === Number(CODE.RCV_SUCCESS)) {
+
+                    let resultVO = response.data.resultVO;
+                    let jToken = response.data?.jToken || null;
+
+                    setSessionItem('jToken', jToken);
+                    setSessionItem('loginUser', resultVO);
                     onLogin();
                 } else {
-                    message.error('Login failed');
+                    alert(response.data.resultMessage)
                 }
                 setLoading(false);
             }
