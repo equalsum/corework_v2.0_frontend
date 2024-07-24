@@ -22,6 +22,7 @@ import LoginPage from './pages/login/LoginPage';
 import MyCheckinPage from './pages/mycheckin/MyCheckinPage';
 import TeamListPage from './pages/team/TeamListPage';
 import UserListPage from './pages/user/UserListPage';
+import { getSessionItem, setSessionItem } from 'utils/storage';
 
 // 퍼블리싱 파일 라우터 셋팅
 import Guide from 'pages/guide/Guide';
@@ -69,21 +70,21 @@ function App() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    localStorage.setItem('isAuthenticated', 'true');
     navigate('/mycheckin');
   };
 
   const handleLogout = async () => {
     try {
       await axios.post('/logout');
-      localStorage.removeItem('isAuthenticated');
-      navigate('/login');
+        setSessionItem('loginUser', {"id":""});
+        setSessionItem('jToken', null);
+        navigate('/login');
     } catch (error) {
       console.error('Logout failed', error);
     }
   };
 
-  if (!localStorage.getItem('isAuthenticated')) {
+  if (getSessionItem('jToken') == null) {
     return (
       <Routes>
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />

@@ -34,7 +34,7 @@ const MyCheckinPage = () => {
     (newLimitStart) => {
       setLoading(true);
       requestAxios(
-        '/mycheckin/list1',
+        '/mycheckin/list',
         {
           method: 'POST',
           data: {

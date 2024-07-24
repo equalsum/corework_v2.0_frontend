@@ -2,19 +2,27 @@ import React, {useState} from 'react';
 import {Button, Form, Input, message} from 'antd';
 import login_img1 from '../../css/images/login_img1.png';
 import {requestAxios} from "../../api/Axios";
+import CODE from 'constants/code';
+import { setSessionItem } from 'utils/storage';
 
 const LoginPage = ({onLogin}) => {
     const [loading, setLoading] = useState(false);
 
     const handleFinish = async (values) => {
         setLoading(true);
-        requestAxios('/login-check1'
+        requestAxios('/login-check'
             , {method: 'POST', data: values}
             , (response) => {
-                if (response.data === 'login') {
+                if (Number(response.data.resultCode) === Number(CODE.RCV_SUCCESS)) {
+
+                    let resultVO = response.data.resultVO;
+                    let jToken = response.data?.jToken || null;
+
+                    setSessionItem('jToken', jToken);
+                    setSessionItem('loginUser', resultVO);
                     onLogin();
                 } else {
-                    message.error('Login failed');
+                    alert(response.data.resultMessage)
                 }
                 setLoading(false);
             }
@@ -42,13 +50,13 @@ const LoginPage = ({onLogin}) => {
                             name="cu_email"
                             rules={[{required: true, message: '이메일을 입력해주세요.'}]}
                         >
-                            <Input placeholder="이메일"/>
+                            <Input placeholder="이메일" autoComplete="email"/>
                         </Form.Item>
                         <Form.Item
                             name="cu_pw"
                             rules={[{required: true, message: '비밀번호를 입력해주세요.'}]}
                         >
-                            <Input.Password placeholder="비밀번호"/>
+                            <Input.Password placeholder="비밀번호" autoComplete="current-password" />
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" loading={loading} block>
