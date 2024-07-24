@@ -222,7 +222,14 @@ h5 {
 }
 
 body {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  min-width: 1450px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@media (max-width: $breakpoint-tab) {
+  body {
+    min-width: auto;
+    overflow-x: hidden;
+  }
 }

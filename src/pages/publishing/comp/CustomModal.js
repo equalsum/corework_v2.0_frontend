@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 import { Drawer } from 'antd';
 
 const CustomModal = ({ placement = 'right', size = 'small', visible, onClose, title, children, ...props }) => {
@@ -15,7 +15,6 @@ const CustomModal = ({ placement = 'right', size = 'small', visible, onClose, ti
     width = '100%';
     height = size === 'small' ? '30%' : size === 'medium' ? '50%' : '80%';
   }
-
   return (
     <Drawer
       title={title}

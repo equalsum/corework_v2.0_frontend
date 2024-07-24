@@ -168,3 +168,23 @@
 .none-event {
   cursor: default;
 }
+
+/* ==========================================================================
+   ellipsis
+   ========================================================================== */
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+}
+
+/* ==========================================================================
+   no-copy
+   ========================================================================== */
+.no-copy {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

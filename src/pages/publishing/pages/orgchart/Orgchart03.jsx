@@ -100,7 +100,7 @@ const Orgchart03 = () => {
               전체
               <span className="num">30</span>
             </div>
-            <div className="unpaid-filter">
+            <div className="unpaid-filter no-copy">
               <Checkbox id="unpaidCheck">비정상 건 보기</Checkbox>
             </div>
           </div>

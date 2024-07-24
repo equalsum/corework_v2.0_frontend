@@ -17,7 +17,29 @@ export default {
   },
 };
 
-const Template = ({ placement, size, ...args }) => {
+const DefaultModalTemplate = ({ placement, size }) => {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button onClick={showDrawer}>Open Drawer</Button>
+      <CustomModal placement={placement} size={size} onClose={onClose} title="Drawer Title" visible={visible}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </CustomModal>
+    </>
+  );
+};
+
+const LargeModalTemplate = () => {
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -30,8 +52,8 @@ const Template = ({ placement, size, ...args }) => {
 
   return (
     <>
-      <Button onClick={showDrawer}>Open Drawer</Button>
-      <CustomModal title="Drawer Title" placement={placement} size={size} onClose={onClose} visible={visible} {...args}>
+      <Button onClick={showDrawer}>Open Large Drawer</Button>
+      <CustomModal placement="right" size="large" onClose={onClose} title="Large Drawer" visible={visible}>
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
@@ -40,10 +62,29 @@ const Template = ({ placement, size, ...args }) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  placement: 'right',
-  size: 'small',
+export const LargeModal = LargeModalTemplate.bind({});
+
+const TopModalTemplate = () => {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  return (
+    <>
+      <Button onClick={showDrawer}>Open Top Drawer</Button>
+      <CustomModal placement="top" size="medium" onClose={onClose} title="Top Drawer" visible={visible}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </CustomModal>
+    </>
+  );
 };
 
-// ... 다른 스토리 예시들
+export const TopModal = TopModalTemplate.bind({});

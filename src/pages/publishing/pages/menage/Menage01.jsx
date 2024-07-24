@@ -1,6 +1,6 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Tabs, Button, Input } from 'antd';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import AdminLayout from '@layout/Layout';
 import EmptyContent from 'pages/publishing/comp/EmptyContent';
@@ -15,25 +15,151 @@ const Menage01 = () => {
   };
   const pageName = 'organ-page';
 
+  const columnData = [
+    {
+      title: 'No',
+      dataIndex: 'no',
+      key: 'no',
+      ellipsis: true,
+      width: 70,
+      sorter: (a, b) => a.no - b.no,
+    },
+    {
+      title: '이름',
+      dataIndex: 'name',
+      key: 'name',
+      width: 100,
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: '이메일',
+      dataIndex: 'email',
+      key: 'email',
+      width: 250,
+      ellipsis: true,
+      render: (text) => {
+        const isLongText = text.length > 20;
+        return (
+          <Tooltip title={isLongText ? text : null}>
+            <span>{isLongText ? text : null}</span>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: '휴대폰번호',
+      dataIndex: 'phone',
+      key: 'phone',
+      width: 160,
+    },
+    {
+      title: '관리자',
+      dataIndex: 'isAdmin',
+      key: 'isAdmin',
+      width: 100,
+    },
+    {
+      title: '소속팀',
+      dataIndex: 'team',
+      key: 'team',
+      width: 150,
+    },
+    {
+      title: '직책',
+      dataIndex: 'position',
+      key: 'position',
+      width: 120,
+    },
+    {
+      title: '직무',
+      dataIndex: 'job',
+      key: 'job',
+      width: 150,
+    },
+    {
+      title: '추가 역할',
+      dataIndex: 'additionalRole',
+      key: 'additionalRole',
+      width: 150,
+      render: (text) => (text !== '' ? <div style={{ whiteSpace: 'normal', wordBreak: 'keep-all' }}>{text}</div> : '-'),
+    },
+    {
+      title: '상태',
+      dataIndex: 'status',
+      key: 'status',
+      width: 100,
+    },
+  ];
+
+  const data = [
+    {
+      no: '1',
+      name: '진미경',
+      email: 'jin.migyeong@example.com',
+      phone: '010-1234-5678',
+      isAdmin: '일반',
+      team: '마케팅팀',
+      position: '팀장',
+      job: '디지털 마케팅',
+      additionalRole: '신입사원 멘토',
+      status: '재직중',
+    },
+    {
+      no: '2',
+      name: '김철수',
+      email: 'kim.chulsoo1234567890@verylongdomainname.co.kr',
+      phone: '010-9876-5432',
+      isAdmin: '관리자',
+      team: 'IT개발팀',
+      position: '수석 개발자',
+      job: '백엔드 개발',
+      additionalRole: '기술 고문, 보안 담당',
+      status: '재직중',
+    },
+    {
+      no: '3',
+      name: '이영희',
+      email: 'lee.younghee@example.com',
+      phone: '010-1111-2222',
+      isAdmin: '일반',
+      team: '인사팀',
+      position: '사원',
+      job: '채용 담당',
+      additionalRole: '',
+      status: '휴직',
+    },
+    {
+      no: '4',
+      name: '박지성',
+      email: 'park_jisung@example.net',
+      phone: '010-3333-4444',
+      isAdmin: '일반',
+      team: '영업팀',
+      position: '과장',
+      job: '해외 영업',
+      additionalRole: '외국어 통역',
+      status: '출장중',
+    },
+    {
+      no: '5',
+      name: '최다온',
+      email: 'choi.daon@shortmail.com',
+      phone: '010-5555-6666',
+      isAdmin: '슈퍼관리자',
+      team: '경영지원팀',
+      position: '이사',
+      job: '재무 관리',
+      additionalRole: '이사회 간사, 법무 자문',
+      status: '재직중',
+    },
+  ];
+
+  const [memberColumnData, setMemberColumnData] = useState([]);
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const columns = [];
-
-  const data = Array(30)
-    .fill()
-    .map((_, index) => ({
-      key: String(index + 1),
-      no: index + 1,
-      name: `이름${index + 1}`,
-      email: `email${index + 1}@example.com`,
-      phoneNumber: `010-1234-${5678 + index}`,
-      management: '관리' + ((index % 3) + 1),
-      sourceTeam: '팀' + ((index % 5) + 1),
-      position: '직책' + ((index % 4) + 1),
-      jobFunction: '직무' + ((index % 6) + 1),
-      additionalRole: '역할' + ((index % 3) + 1),
-      status: index % 2 === 0 ? '초대전' : '초대완료',
-    }));
+  function addMember() {
+    setMemberColumnData((prev) => [...prev, ...columnData]);
+  }
 
   return (
     <AdminLayout breadcrumbItems={breadcrumbItems} pageClass={pageName}>
@@ -54,7 +180,7 @@ const Menage01 = () => {
                   <header className="task-header flex jcb aic">
                     {/* 왼쪽 액션 버튼들 */}
                     <div className="left-actions flex aic gap8">
-                      <Button size="large" type="primary">
+                      <Button size="large" type="primary" onClick={addMember}>
                         <i className="icon-download"></i> 일괄 추가
                       </Button>
                       <Button size="large" type="primary">
@@ -81,7 +207,7 @@ const Menage01 = () => {
                   </header>
 
                   {/* 바디 섹션 */}
-                  {columns.length === 0 ? (
+                  {memberColumnData.length === 0 ? (
                     <>
                       <div className="task-content">
                         <div className="task-input-container">
@@ -94,7 +220,7 @@ const Menage01 = () => {
                     </>
                   ) : (
                     <Table
-                      columns={columns}
+                      columns={memberColumnData}
                       dataSource={data}
                       scroll={{ x: isMobile ? 'max-content' : 790 }}
                       pagination={{

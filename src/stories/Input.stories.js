@@ -1,5 +1,8 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+
+const { Search } = Input;
 
 export default {
   title: 'Ant Design/Input',
@@ -7,7 +10,7 @@ export default {
   argTypes: {
     size: {
       options: ['large', 'middle', 'small'],
-      control: { type: 'radio' }
+      control: { type: 'radio' },
     },
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
@@ -20,7 +23,7 @@ export default {
 };
 
 const InputTemplate = (args) => <Input {...args} />;
-const SearchTemplate = (args) => <Input.Search {...args} />;
+const SearchTemplate = (args) => <Search {...args} />;
 const PasswordTemplate = (args) => <Input.Password {...args} />;
 const TextAreaTemplate = (args) => <Input.TextArea {...args} />;
 
@@ -30,40 +33,16 @@ Default.args = {
   size: 'middle',
 };
 
-export const Search = SearchTemplate.bind({});
-Search.args = {
-  placeholder: 'Search...',
+export const CustomSearch = SearchTemplate.bind({});
+CustomSearch.args = {
+  placeholder: '팀명을 입력하세요.',
   allowClear: true,
-  enterButton: 'Search',
-  size: 'middle',
-};
-
-export const Password = PasswordTemplate.bind({});
-Password.args = {
-  placeholder: 'Input password',
-  size: 'middle',
-};
-
-export const TextArea = TextAreaTemplate.bind({});
-TextArea.args = {
-  placeholder: 'Input text area',
-  rows: 4,
-};
-
-export const DisabledInput = InputTemplate.bind({});
-DisabledInput.args = {
-  placeholder: 'Disabled input',
-  disabled: true,
-};
-
-export const InputWithClearButton = InputTemplate.bind({});
-InputWithClearButton.args = {
-  placeholder: 'Input with clear button',
-  allowClear: true,
-};
-
-export const InputWithMaxLength = InputTemplate.bind({});
-InputWithMaxLength.args = {
-  placeholder: 'Input with max length',
-  maxLength: 10,
+  prefix: <SearchOutlined style={{ marginRight: 8 }} />,
+  enterButton: (
+    <Button type="primary" size="large">
+      검색
+    </Button>
+  ),
+  size: 'large',
+  style: { width: '20rem' },
 };

@@ -8,15 +8,13 @@ const CustomDropdown = ({
   triggerType = ['click'],
   className = '',
   size = 'medium',
-  children,
-  onOpenChange,
   labelText = '멤버',
+  SecLabelText = '명',
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const handleVisibleChange = (visible) => {
-    setIsDropdownOpen(visible);
+  const onOpenChange = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const menuItems = items.map((item) => ({
@@ -34,14 +32,6 @@ const CustomDropdown = ({
 
   const dropdownStyle = sizeStyles[size] || sizeStyles.medium;
 
-  // 기본 트리거 엘리먼트
-  const defaultTrigger = (
-    <p className="team-members">
-      {labelText} <span>{items.length}명</span>
-      {isDropdownOpen ? <UpOutlined /> : <DownOutlined />}
-    </p>
-  );
-
   return (
     <Dropdown
       menu={{
@@ -51,9 +41,15 @@ const CustomDropdown = ({
       }}
       placement={placement}
       trigger={triggerType}
-      onOpenChange={handleVisibleChange}
+      onOpenChange={onOpenChange}
     >
-      {children || defaultTrigger}
+      <p className="team-members">
+        {labelText}{' '}
+        <span>
+          {items.length} {SecLabelText}{' '}
+        </span>
+        {isDropdownOpen ? <UpOutlined /> : <DownOutlined />}
+      </p>
     </Dropdown>
   );
 };

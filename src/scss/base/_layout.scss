@@ -146,7 +146,7 @@
   flex: 1;
   padding: px-to-rem(60px);
   padding-top: px-to-rem(30px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   position: relative;
   background-color: var(--content-bg);

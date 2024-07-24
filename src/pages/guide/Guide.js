@@ -125,7 +125,7 @@ function Guide() {
             },
             {
               to: '/Menage02',
-              title: 'Menage02 - 구성원 관리 - 구성원 추가 시',
+              title: 'Menage02 - 구성원 관리 - 구성원 일괄 추가 시',
             },
             {
               to: '/Menage03',

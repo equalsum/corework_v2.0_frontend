@@ -55,16 +55,3 @@ Default.args = {
   tabPosition: 'top',
   type: 'line',
 };
-
-export const CardType = Template.bind({});
-CardType.args = {
-  ...Default.args,
-  type: 'card',
-};
-
-export const VerticalTabs = Template.bind({});
-VerticalTabs.args = {
-  ...Default.args,
-  tabPosition: 'left',
-  style: { height: 220 },
-};

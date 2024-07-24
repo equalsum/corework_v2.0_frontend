@@ -7,11 +7,11 @@ export default {
   argTypes: {
     type: {
       options: ['primary', 'default', 'dashed', 'text', 'link'],
-      control: { type: 'select' }
+      control: { type: 'select' },
     },
     size: {
       options: ['large', 'middle', 'small'],
-      control: { type: 'radio' }
+      control: { type: 'radio' },
     },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
@@ -28,11 +28,5 @@ const Template = (args) => <Button {...args} />;
 export const Default = (args) => <Button {...args}>Button</Button>;
 Default.args = {
   type: 'default',
-  size: 'middle',
-};
-export const Primary = Template.bind({});
-Primary.args = {
-  type: 'primary',
-  children: 'Primary Button',
   size: 'middle',
 };
