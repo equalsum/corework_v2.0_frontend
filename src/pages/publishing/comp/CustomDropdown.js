@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dropdown } from 'antd';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, UpOutlined, UserOutlined } from '@ant-design/icons';
 
 const CustomDropdown = ({
   items = [],
@@ -10,6 +10,10 @@ const CustomDropdown = ({
   size = 'medium',
   labelText = '멤버',
   SecLabelText = '명',
+  icon = null, // 커스텀 아이콘
+  disabled = false, // 드롭다운 비활성화 여부
+  overlayStyle = {}, // 오버레이 스타일
+  buttonStyle = {}, // 버튼 스타일
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -23,14 +27,13 @@ const CustomDropdown = ({
     onClick: item.onClick,
   }));
 
-  // 크기에 따른 스타일 정의 (rem 단위 사용)
   const sizeStyles = {
     small: { width: '10rem', maxHeight: '10rem' },
     medium: { width: '12rem', maxHeight: '12rem' },
     large: { width: '17rem', maxHeight: '17rem' },
   };
 
-  const dropdownStyle = sizeStyles[size] || sizeStyles.medium;
+  const dropdownStyle = { ...(sizeStyles[size] || sizeStyles.medium), ...overlayStyle };
 
   return (
     <Dropdown
@@ -42,8 +45,10 @@ const CustomDropdown = ({
       placement={placement}
       trigger={triggerType}
       onOpenChange={onOpenChange}
+      disabled={disabled}
     >
-      <p className="team-members">
+      <p className="team-members" style={{ ...buttonStyle, cursor: disabled ? 'not-allowed' : 'pointer' }}>
+        {icon || <UserOutlined />} {/* 커스텀 아이콘 또는 기본 아이콘 */}
         {labelText}{' '}
         <span>
           {items.length} {SecLabelText}{' '}

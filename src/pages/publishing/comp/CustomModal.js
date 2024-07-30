@@ -17,6 +17,7 @@ const CustomModal = ({ placement = 'right', size = 'small', visible, onClose, ti
   }
   return (
     <Drawer
+      className="custom-modal"
       title={title}
       placement={placement}
       onClose={onClose}

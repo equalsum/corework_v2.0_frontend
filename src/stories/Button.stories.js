@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'antd';
-
 export default {
   title: 'Ant Design/Button',
   component: Button,
@@ -20,11 +19,14 @@ export default {
     block: { control: 'boolean' },
     icon: { control: 'text' },
     onClick: { action: 'clicked' },
+    shape: {
+      options: ['default', 'circle', 'round'],
+      control: { type: 'radio' },
+    },
+    style: { control: 'object' },
+    className: { control: 'text' },
   },
 };
-
-const Template = (args) => <Button {...args} />;
-
 export const Default = (args) => <Button {...args}>Button</Button>;
 Default.args = {
   type: 'default',

@@ -161,7 +161,7 @@
    Flex
    ========================================================================== */
 .flex {
-  display: flex;
+  display: flex !important;
 
   &.aib {
     align-items: baseline;
@@ -189,4 +189,9 @@
   .gap#{$i} {
     gap: px-to-rem($i * 1px);
   }
+}
+
+.sbdocs-wrapper,
+.sb-show-main {
+  overflow-y: scroll;
 }

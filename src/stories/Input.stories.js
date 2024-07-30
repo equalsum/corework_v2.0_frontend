@@ -19,6 +19,12 @@ export default {
     maxLength: { control: 'number' },
     onChange: { action: 'changed' },
     onPressEnter: { action: 'enter pressed' },
+    addonBefore: { control: 'text' },
+    addonAfter: { control: 'text' },
+    prefix: { control: 'text' },
+    suffix: { control: 'text' },
+    style: { control: 'object' },
+    className: { control: 'text' },
   },
 };
 
@@ -45,4 +51,16 @@ CustomSearch.args = {
   ),
   size: 'large',
   style: { width: '20rem' },
+};
+
+export const Password = PasswordTemplate.bind({});
+Password.args = {
+  placeholder: 'Input password',
+  size: 'middle',
+};
+
+export const TextArea = TextAreaTemplate.bind({});
+TextArea.args = {
+  placeholder: 'Input text area',
+  rows: 4,
 };

@@ -1,6 +1,13 @@
 import { React, useState } from 'react';
-import { Tabs, Button, Input, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Checkbox, Tabs, Button, Input, Avatar, Space, Modal, DatePicker } from 'antd';
+import {
+  UserOutlined,
+  BellOutlined,
+  SearchOutlined,
+  LockOutlined,
+  InfoCircleOutlined,
+  CloseCircleOutlined,
+} from '@ant-design/icons';
 import { Table, Tooltip } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import AdminLayout from '@layout/Layout';
@@ -8,7 +15,9 @@ import EmptyContent from 'pages/publishing/comp/EmptyContent';
 import CustomModal from '../../comp/CustomModal';
 import CustomSelect from '../../comp/CustomSelect';
 import CustomDropdown from '../../comp/CustomDropdown';
-const { Search } = Input;
+const { Search, TextArea, Password } = Input;
+const { TabPane } = Tabs;
+const { RangePicker } = DatePicker;
 
 const Menage01 = () => {
   // 페이지 정보 설정
@@ -32,14 +41,40 @@ const Menage01 = () => {
       dataIndex: 'name',
       key: 'name',
       width: 150,
-      sorter: (a, b) => a.name.localeCompare(b.name, 'ko', { sensitivity: 'base' }),
+      sorter: (a, b) =>
+        a.name.localeCompare(b.name, 'ko', {
+          sensitivity: 'base',
+        }),
       render: (text, record) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar icon={<UserOutlined />} src={record.profilePic} style={{ marginRight: 8, flexShrink: 0 }} />
-          <div style={{ minWidth: 0, flex: 1 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar
+            icon={<UserOutlined />}
+            src={record.profilePic}
+            style={{
+              marginRight: 8,
+              flexShrink: 0,
+            }}
+          />
+          <div
+            style={{
+              minWidth: 0,
+              flex: 1,
+            }}
+          >
             <div className="ellipsis">{text}</div>
             {record.nickname && (
-              <div className="ellipsis" style={{ fontSize: '12px', color: '#888' }}>
+              <div
+                className="ellipsis"
+                style={{
+                  fontSize: '12px',
+                  color: '#888',
+                }}
+              >
                 {record.nickname}
               </div>
             )}
@@ -54,11 +89,9 @@ const Menage01 = () => {
       width: 250,
       ellipsis: true,
       render: (text) => {
-        const isLongText = text.length > 30; // 텍스트 길이가 될수도 있고
-        // const isLongTextWidth = text.length > 30; // 텍스트 넓이가 될수도 있고
+        const isLongText = text.length > 30;
         return (
           <Tooltip title={isLongText ? text : null}>
-            {/* copy 금지 */}
             <span className="no-copy">{text}</span>
           </Tooltip>
         );
@@ -100,7 +133,18 @@ const Menage01 = () => {
       key: 'additionalRole',
       width: 150,
       render: (text) =>
-        text !== undefined ? <div style={{ whiteSpace: 'normal', wordBreak: 'keep-all' }}>{text}</div> : '-',
+        text !== undefined ? (
+          <div
+            style={{
+              whiteSpace: 'normal',
+              wordBreak: 'keep-all',
+            }}
+          >
+            {text}
+          </div>
+        ) : (
+          '-'
+        ),
     },
     {
       title: '상태',
@@ -109,9 +153,9 @@ const Menage01 = () => {
       width: 100,
     },
   ];
-
   const data = [
     {
+      key: '1',
       no: '1',
       name: '이찬용',
       nickname: '용가리',
@@ -125,6 +169,7 @@ const Menage01 = () => {
       status: '재직중',
     },
     {
+      key: '2',
       no: '2',
       name: '김철수',
       nickname: '별명이 매우 깁니다.별명이 매우 깁니다.',
@@ -138,6 +183,7 @@ const Menage01 = () => {
       status: '재직중',
     },
     {
+      key: '3',
       no: '3',
       name: '이영희',
       email: 'lee.younghee@example.com',
@@ -149,6 +195,7 @@ const Menage01 = () => {
       status: '휴직',
     },
     {
+      key: '4',
       no: '4',
       name: '박지성',
       email: 'park_jisung@example.net',
@@ -161,6 +208,7 @@ const Menage01 = () => {
       status: '출장중',
     },
     {
+      key: '5',
       no: '5',
       name: '최다온',
       email: 'choi.daon@shortmail.com',
@@ -173,32 +221,48 @@ const Menage01 = () => {
       status: '재직중',
     },
   ];
-
   const [selectedLeader, setSelectedLeader] = useState(null);
+
   const leaderOptions = [
-    {
-      value: '1',
-      name: '홍길동',
-      department: '개발팀',
-      profileImage: 'https://example.com/user1.jpg',
-    },
-    {
-      value: '2',
-      name: '김철수',
-      department: '디자인팀',
-      profileImage: 'https://example.com/user2.jpg',
-    },
-    {
-      value: '3',
-      name: '이영희',
-      department: '마케팅팀',
-      profileImage: 'https://example.com/user3.jpg',
-    },
+    { value: '1', name: '홍길동', department: '개발팀', profileImage: 'https://example.com/user1.jpg' },
+    { value: '2', name: '김철수', department: '디자인팀', profileImage: 'https://example.com/user2.jpg' },
+    { value: '3', name: '이영희', department: '마케팅팀', profileImage: 'https://example.com/user3.jpg' },
   ];
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [alertType, setAlertType] = useState(null);
+
+  const showInfoModal = () => {
+    setAlertType('info');
+    setIsModalVisible(true);
+  };
+
+  const showErrorModal = () => {
+    setAlertType('error');
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const [value, setValue] = useState('');
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSearch = (value) => {
+    console.log('Searched:', value);
+  };
   const handleLeaderSelect = (value) => {
     const selected = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader(selected);
   };
+
   const [selectedMembers, setSelectedMembers] = useState([]);
   const memberOptions = [
     {
@@ -302,9 +366,11 @@ const Menage01 = () => {
                     </>
                   ) : (
                     <Table
-                      columns={members}
+                      columns={columnData}
                       dataSource={data}
-                      scroll={{ x: 1428 }}
+                      scroll={{
+                        x: 1428,
+                      }}
                       pagination={{
                         showSizeChanger: true,
                         pageSizeOptions: ['10', '30', '50'],
@@ -313,7 +379,9 @@ const Menage01 = () => {
                         showTotal: false,
                         showQuickJumper: false,
                         showLessItems: true,
-                        locale: { items_per_page: '개씩 보기' },
+                        locale: {
+                          items_per_page: '개씩 보기',
+                        },
                       }}
                       showSorterTooltip={{
                         title: '클릭하여 정렬해주세요.',
@@ -396,6 +464,192 @@ const Menage01 = () => {
           <p>3</p>
         </CustomModal>
       </>
+      <CustomSelect
+        placeholder="팀 리더를 선택하세요"
+        searchPlaceholder="이름 또는 부서로 검색"
+        width="20rem"
+        size="large"
+        showProfileInfo={true}
+        mode="single"
+        notFoundContent="검색 결과가 없습니다"
+        numberNum={10}
+      />
+      <CustomDropdown
+        items={items}
+        icon={<BellOutlined />}
+        disabled={false}
+        overlayStyle={{ backgroundColor: '#f0f0f0', borderRadius: '8px' }}
+        buttonStyle={{
+          backgroundColor: '#1890ff',
+          color: 'white',
+          padding: '8px 16px',
+          borderRadius: '4px',
+        }}
+      />
+      <Space direction="vertical">
+        <Space>
+          <Button type="primary">Primary Button</Button>
+          <Button>Default Button</Button>
+          <Button type="dashed">Dashed Button</Button>
+          <Button type="text">Text Button</Button>
+          <Button type="link">Link Button</Button>
+        </Space>
+
+        <Space>
+          <Button size="large">Large</Button>
+          <Button>Default</Button>
+          <Button size="small">Small</Button>
+        </Space>
+
+        <Space>
+          <Button type="primary" disabled>
+            Disabled
+          </Button>
+          <Button type="primary" loading>
+            Loading
+          </Button>
+        </Space>
+
+        <Space>
+          <Button type="primary" icon={<SearchOutlined />}>
+            Search
+          </Button>
+          <Button type="primary" shape="circle" icon={<SearchOutlined />} />
+          <Button type="primary" shape="round" icon={<SearchOutlined />} />
+        </Space>
+
+        <Button type="primary" block>
+          Block Button
+        </Button>
+
+        <Button type="primary" style={{ backgroundColor: '#f50', borderColor: '#f50' }} className="custom-button">
+          Custom Style Button
+        </Button>
+      </Space>
+      <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Input placeholder="Basic usage" />
+
+        <Input placeholder="Enter your username" prefix={<UserOutlined />} allowClear />
+
+        <Password placeholder="Enter your password" prefix={<LockOutlined />} />
+
+        <Search placeholder="input search text" allowClear enterButton="Search" size="large" onSearch={handleSearch} />
+
+        <Search
+          placeholder="input search text"
+          allowClear
+          enterButton={<Button icon={<SearchOutlined />}>Search</Button>}
+        />
+
+        <Input addonBefore="http://" addonAfter=".com" defaultValue="mysite" />
+
+        <Input value={value} onChange={handleChange} placeholder="Controlled Input" />
+
+        <TextArea rows={4} placeholder="input text area" maxLength={100} />
+
+        <Input.Group compact className="flex gap10">
+          <Input style={{ width: '20%' }} defaultValue="0571" />
+          <Input style={{ width: '60%' }} defaultValue="26888888" />
+          <Input style={{ width: '20%' }} defaultValue="26888888" />
+        </Input.Group>
+
+        <Input disabled placeholder="Disabled input" />
+
+        <Search
+          placeholder="구성원을 검색하세요."
+          allowClear
+          prefix={<i className="icon-search" style={{ marginRight: 8 }} />}
+          enterButton={
+            <Button type="primary" size="large">
+              검색
+            </Button>
+          }
+          size="large"
+        />
+      </Space>
+      <Tabs defaultActiveKey="1" size="small" animated tabBarGutter={50}>
+        <TabPane tab="Tab 1" key="1">
+          Content of Tab Pane 1
+        </TabPane>
+        <TabPane tab="Tab 2" key="2">
+          Content of Tab Pane 2
+        </TabPane>
+        <TabPane tab="Tab 3" key="3">
+          Content of Tab Pane 3
+        </TabPane>
+      </Tabs>
+
+      <Table
+        columns={columnData}
+        dataSource={data}
+        scroll={{ x: 1428 }}
+        pagination={{
+          showSizeChanger: true,
+          pageSizeOptions: ['10', '30', '50'],
+          defaultPageSize: 10,
+          total: data.length,
+          showTotal: false,
+          showQuickJumper: false,
+          showLessItems: true,
+          locale: {
+            items_per_page: '개씩 보기',
+          },
+        }}
+        showSorterTooltip={{
+          title: '클릭하여 정렬해주세요.',
+        }}
+        className="centered-pagination-table"
+      />
+
+      <div style={{ padding: '20px', backgroundColor: '#f0f2f5' }}>
+        <Button type="primary" onClick={showInfoModal} style={{ marginRight: '10px' }}>
+          Show Info Alert
+        </Button>
+        <Button type="danger" onClick={showErrorModal}>
+          Show Error Alert
+        </Button>
+
+        <Modal
+          title={
+            alertType === 'info' ? (
+              <span style={{ display: 'flex', alignItems: 'center' }}>
+                <InfoCircleOutlined style={{ color: 'blue', marginRight: '8px', fontSize: '24px' }} />
+                운영자에게 부여된 운영 권한을 이메일로 안내합니다.
+              </span>
+            ) : (
+              <span style={{ display: 'flex', alignItems: 'center' }}>
+                <CloseCircleOutlined style={{ color: 'red', marginRight: '8px', fontSize: '24px' }} />
+                기존 권한 그룹 1개가 삭제됩니다.
+              </span>
+            )
+          }
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okText="확인"
+          cancelText="취소"
+          style={{ borderRadius: '8px', padding: '16px' }}
+        >
+          {alertType === 'info' ? (
+            <p>운영자에게 부여된 운영 권한을 이메일로 안내합니다.</p>
+          ) : (
+            <>
+              <p>이 변경 사항을 포함하여 운영자의 권한 정보를 수정하시겠습니까?</p>
+              <Checkbox>삭제 시, 운영자의 권한은 취소 되어 더 이상 운영 활동을 할 수 없습니다.</Checkbox>
+              <Checkbox>삭제 시, 해당 구성원에게 권한 취소 메일이 발송됩니다.</Checkbox>
+              <Checkbox>운영자 삭제 이력은 [운영자 활동 로그] 메뉴에서 확인할 수 있습니다.</Checkbox>
+            </>
+          )}
+        </Modal>
+      </div>
+      <p>
+        <Space direction="vertical" size={12}>
+          <DatePicker bordered picker="date" size="middle" />
+          <DatePicker bordered picker="date" showTime size="middle" />
+          <RangePicker bordered picker="date" size="middle" />
+          <RangePicker bordered picker="date" showTime size="middle" />
+        </Space>
+      </p>
     </AdminLayout>
   );
 };

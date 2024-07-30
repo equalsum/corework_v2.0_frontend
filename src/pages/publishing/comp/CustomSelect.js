@@ -12,6 +12,7 @@ const CustomSelect = ({
   numberNum, // 선택된 멤버의 수 또는 총 멤버 수. 정의되지 않은 경우 표시되지 않음
   mode = 'single', // Select 컴포넌트의 모드. 'single' 또는 'multiple'. 기본값은 'single'
   onChange, // 선택된 값이 변경될 때 호출되는 콜백 함수
+  notFoundContent, // 옵션 없음을 나타내는 커스텀 텍스트
 }) => {
   const [searchValue, setSearchValue] = useState('');
 
@@ -58,6 +59,7 @@ const CustomSelect = ({
         dropdownStyle={{ minWidth: '200px', maxHeight: '300px' }}
         style={{ width: width }}
         size={size}
+        notFoundContent={notFoundContent}
         onChange={onChange} // onChange prop 사용
         dropdownRender={(menu) => (
           <div>
