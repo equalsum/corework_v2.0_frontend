@@ -89,6 +89,20 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/Orgchart01" element={<Orgchart01 />} />
+        <Route path="/Orgchart02" element={<Orgchart02 />} />
+        <Route path="/Orgchart03" element={<Orgchart03 />} />
+        <Route path="/Orgchart04" element={<Orgchart04 />} />
+        <Route path="/Orgchart05" element={<Orgchart05 />} />
+        <Route path="/Orgchart06" element={<Orgchart06 />} />
+        <Route path="/Orgchart07" element={<Orgchart07 />} />
+        <Route path="/Orgchart08" element={<Orgchart08 />} />
+        <Route path="/Orgchart09" element={<Orgchart09 />} />
+        <Route path="/Orgchart10" element={<Orgchart10 />} />
+        <Route path="/Menage01" element={<Menage01 />} />
+        <Route path="/Menage02" element={<Menage02 />} />
+        {/* <Route path="/Menage03" element={<Menage03 />} /> */}
+        {/* <Route path="/Menage04" element={<Menage04 />} /> */}
       </Routes>
     );
   }
@@ -114,25 +128,6 @@ function App() {
           {isDarkMode ? '라이트 모드' : '다크 모드'}
         </button>
         <div className="content-area">
-          <Routes>
-            {/* 인증이 필요하지 않은 라우트 */}
-            <Route path={URL.LOGIN} element={<LoginPage onLogin={handleLogin} />} />
-            <Route path="/Orgchart01" element={<Orgchart01 />} />
-            <Route path="/Orgchart02" element={<Orgchart02 />} />
-            <Route path="/Orgchart03" element={<Orgchart03 />} />
-            <Route path="/Orgchart04" element={<Orgchart04 />} />
-            <Route path="/Orgchart05" element={<Orgchart05 />} />
-            <Route path="/Orgchart06" element={<Orgchart06 />} />
-            <Route path="/Orgchart07" element={<Orgchart07 />} />
-            <Route path="/Orgchart08" element={<Orgchart08 />} />
-            <Route path="/Orgchart09" element={<Orgchart09 />} />
-            <Route path="/Orgchart10" element={<Orgchart10 />} />
-            <Route path="/Menage01" element={<Menage01 />} />
-            <Route path="/Menage02" element={<Menage02 />} />
-            {/* <Route path="/Menage03" element={<Menage03 />} /> */}
-            {/* <Route path="/Menage04" element={<Menage04 />} /> */}
-            <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
-          </Routes>
           {/* <RootRoutes /> */}
           <Layout style={{ minHeight: '100vh' }}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -202,6 +197,7 @@ function App() {
                   <Route path="/userlist" element={<UserListPage />} />
                   <Route path="/teamlist" element={<TeamListPage />} />
                   <Route path="/" element={<Navigate to="/mycheckin" replace />} />
+                  <Route path="/guide/*" element={<Guide />} /> {/* Guide 라우트 추가 */}
                 </Routes>
               </Content>
             </Layout>
