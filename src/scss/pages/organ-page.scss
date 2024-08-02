@@ -484,6 +484,28 @@
     font-size: px-to-rem(16px);
     color: var(--text-color);
     font-weight: 600;
+    justify-content: space-between;
+  }
+
+  @include max-width(tab) {
+    flex-direction: column;
+    align-items: stretch !important;
+
+    .mobile-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: px-to-rem(10px);
+    }
+
+    .search-container {
+      margin-top: px-to-rem(10px);
+    }
+
+    .ant-float-btn-body {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+    }
   }
 }
 

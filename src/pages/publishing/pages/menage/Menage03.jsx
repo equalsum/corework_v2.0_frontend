@@ -97,8 +97,7 @@ const Menage03 = () => {
       dataIndex: 'additionalRole',
       key: 'additionalRole',
       width: 150,
-      render: (text) =>
-        text !== undefined ? <div style={{ whiteSpace: 'normal', wordBreak: 'keep-all' }}>{text}</div> : '-',
+      render: (text) => (text !== undefined ? <div style={{ whiteSpace: 'normal', wordBreak: 'keep-all' }}>{text}</div> : '-'),
     },
     {
       title: '상태',

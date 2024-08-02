@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Checkbox, Tabs, Button, Input, Avatar, Space, Modal, DatePicker } from 'antd';
 import {
   UserOutlined,
@@ -7,14 +7,17 @@ import {
   LockOutlined,
   InfoCircleOutlined,
   CloseCircleOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
 import { Table, Tooltip } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import AdminLayout from '@layout/Layout';
-import EmptyContent from 'pages/publishing/comp/EmptyContent';
-import CustomModal from '../../comp/CustomModal';
-import CustomSelect from '../../comp/CustomSelect';
-import CustomDropdown from '../../comp/CustomDropdown';
+import ResponsiveHeader from '@comp/layout/ResponsiveHeader';
+import EmptyContent from '@comp/EmptyContent';
+import CustomModal from '@comp/CustomModal';
+import CustomSelect from '@comp/CustomSelect';
+import CustomDropdown from '@comp/CustomDropdown';
+
 const { Search, TextArea, Password } = Input;
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -26,7 +29,26 @@ const Menage01 = () => {
     describeTitle: '구성원을 일괄 또는 개별로 추가하고, 필요한 설정을 완료한 후에 워크스페이스로 초대하세요. ',
   };
   const pageName = 'organ-page';
-
+  const headerProps = {
+    title: '메뉴',
+    menuItems: [
+      { label: '일괄 추가', icon: 'icon-excel-download', onClick: () => {} },
+      { label: '엑셀 다운로드', icon: 'icon-excel-download', onClick: () => {} },
+    ],
+    primaryAction: {
+      label: '구성원 추가',
+      icon: <PlusOutlined />,
+      onClick: () => {},
+    },
+    secondaryActions: [
+      { label: '일괄 추가', icon: 'icon-download', type: 'primary', onClick: () => {} },
+      { label: '구성원 추가', icon: 'icon-plus', type: 'primary', onClick: () => {} },
+      { label: '엑셀 다운로드', icon: 'icon-excel-download', type: 'default', onClick: () => {} },
+    ],
+    searchPlaceholder: '구성원을 검색하세요.',
+    onSearch: (value) => console.log(value),
+    mobileBreakpoint: 992,
+  };
   const columnData = [
     {
       title: 'No',
@@ -222,39 +244,31 @@ const Menage01 = () => {
     },
   ];
   const [selectedLeader, setSelectedLeader] = useState(null);
-
   const leaderOptions = [
     { value: '1', name: '홍길동', department: '개발팀', profileImage: 'https://example.com/user1.jpg' },
     { value: '2', name: '김철수', department: '디자인팀', profileImage: 'https://example.com/user2.jpg' },
     { value: '3', name: '이영희', department: '마케팅팀', profileImage: 'https://example.com/user3.jpg' },
   ];
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [alertType, setAlertType] = useState(null);
-
   const showInfoModal = () => {
     setAlertType('info');
     setIsModalVisible(true);
   };
-
   const showErrorModal = () => {
     setAlertType('error');
     setIsModalVisible(true);
   };
-
   const handleOk = () => {
     setIsModalVisible(false);
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
   const [value, setValue] = useState('');
-
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-
   const handleSearch = (value) => {
     console.log('Searched:', value);
   };
@@ -262,7 +276,6 @@ const Menage01 = () => {
     const selected = leaderOptions.find((leader) => leader.value === value);
     setSelectedLeader(selected);
   };
-
   const [selectedMembers, setSelectedMembers] = useState([]);
   const memberOptions = [
     {
@@ -304,6 +317,33 @@ const Menage01 = () => {
     { key: '2', label: '멤버 2' },
     { key: '3', label: '멤버 3' },
   ];
+  const [value2, setValue2] = useState(['Apple']);
+  // eslint-disable-next-line no-unused-vars
+  const [options, setOptions] = useState(['Apple', 'Pear', 'Orange']);
+  // eslint-disable-next-line no-unused-vars
+  const [Disabled, setDisabled] = useState(false);
+  const onChange = (checkedValues) => {
+    setValue2(checkedValues);
+  };
+  // eslint-disable-next-line no-unused-vars
+  const [options3, setOptions3] = useState(['Apple', 'Pear', 'Orange']);
+  const [checkedList, setCheckedList] = useState([]);
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+
+  useEffect(() => {
+    setIndeterminate(!!checkedList.length && checkedList.length < options3.length);
+    setCheckAll(checkedList.length === options3.length);
+  }, [checkedList, options3]);
+
+  const onCheckAllChange = (e) => {
+    const newCheckedList = e.target.checked ? options3 : [];
+    setCheckedList(newCheckedList);
+  };
+
+  const onCheckedListChange = (list) => {
+    setCheckedList(list);
+  };
 
   function addMember() {}
 
@@ -323,34 +363,7 @@ const Menage01 = () => {
               children: (
                 <div className="task-manager">
                   {/* 헤더 섹션 */}
-                  <header className="task-header flex jcb aic">
-                    {/* 왼쪽 액션 버튼들 */}
-                    <div className="left-actions flex aic gap8">
-                      <Button size="large" type="primary">
-                        <i className="icon-download"></i> 일괄 추가
-                      </Button>
-                      <Button size="large" type="primary">
-                        <i className="icon-plus"></i> 구성원 추가
-                      </Button>
-                      <Button size="large" type="default">
-                        <i className="icon-excel-download"></i> 엑셀 다운로드
-                      </Button>
-                    </div>
-                    {/* 오른쪽 검색 바 */}
-                    <div className="right-actions flex aic gap16">
-                      <Search
-                        placeholder="구성원을 검색하세요."
-                        allowClear
-                        prefix={<i className="icon-search" style={{ marginRight: 8 }} />}
-                        enterButton={
-                          <Button type="primary" size="large">
-                            검색
-                          </Button>
-                        }
-                        size="large"
-                      />
-                    </div>
-                  </header>
+                  <ResponsiveHeader {...headerProps} />
 
                   {/* 바디 섹션 */}
                   {members.length === 0 ? (
@@ -458,7 +471,7 @@ const Menage01 = () => {
       </div>
       <>
         <Button onClick={showDrawer}>Open Large Drawer</Button>
-        <CustomModal placement="right" size="large" title="Large Drawer" visible={visible} onClose={onClose}>
+        <CustomModal placement="right" size="large" title="Large Drawer" open={visible} onClose={onClose}>
           <p>1</p>
           <p>2</p>
           <p>3</p>
@@ -528,31 +541,22 @@ const Menage01 = () => {
       </Space>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
         <Input placeholder="Basic usage" />
-
         <Input placeholder="Enter your username" prefix={<UserOutlined />} allowClear />
-
         <Password placeholder="Enter your password" prefix={<LockOutlined />} />
-
         <Search placeholder="input search text" allowClear enterButton="Search" size="large" onSearch={handleSearch} />
-
         <Search
           placeholder="input search text"
           allowClear
           enterButton={<Button icon={<SearchOutlined />}>Search</Button>}
         />
-
         <Input addonBefore="http://" addonAfter=".com" defaultValue="mysite" />
-
         <Input value={value} onChange={handleChange} placeholder="Controlled Input" />
-
         <TextArea rows={4} placeholder="input text area" maxLength={100} />
-
-        <Input.Group compact className="flex gap10">
+        <Space.Compact className="flex gap10">
           <Input style={{ width: '20%' }} defaultValue="0571" />
           <Input style={{ width: '60%' }} defaultValue="26888888" />
           <Input style={{ width: '20%' }} defaultValue="26888888" />
-        </Input.Group>
-
+        </Space.Compact>
         <Input disabled placeholder="Disabled input" />
 
         <Search
@@ -578,7 +582,6 @@ const Menage01 = () => {
           Content of Tab Pane 3
         </TabPane>
       </Tabs>
-
       <Table
         columns={columnData}
         dataSource={data}
@@ -600,7 +603,6 @@ const Menage01 = () => {
         }}
         className="centered-pagination-table"
       />
-
       <div style={{ padding: '20px', backgroundColor: '#f0f2f5' }}>
         <Button type="primary" onClick={showInfoModal} style={{ marginRight: '10px' }}>
           Show Info Alert
@@ -650,6 +652,19 @@ const Menage01 = () => {
           <RangePicker bordered picker="date" showTime size="middle" />
         </Space>
       </p>
+      <Space direction="vertical">
+        <Checkbox disabled={true}>Disabled Checkbox</Checkbox>
+        <Checkbox disabled={true} checked={true}>
+          Disabled Checked Checkbox
+        </Checkbox>
+      </Space>
+      <Checkbox.Group options={options} value={value2} onChange={onChange} disabled={Disabled} />
+      <Space direction="vertical">
+        <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} disabled={false}>
+          Check all
+        </Checkbox>
+        <Checkbox.Group options={options} value={checkedList} onChange={onCheckedListChange} disabled={false} />
+      </Space>
     </AdminLayout>
   );
 };

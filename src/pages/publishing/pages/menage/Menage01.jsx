@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import { Tabs, Button, Input } from 'antd';
 import { Table, Tooltip } from 'antd';
 import { useMediaQuery } from 'react-responsive';
@@ -13,6 +13,7 @@ const Menage01 = () => {
     mainTitle: '구성원 관리',
     describeTitle: '구성원을 일괄 또는 개별로 추가하고, 필요한 설정을 완료한 후에 워크스페이스로 초대하세요. ',
   };
+
   const pageName = 'organ-page';
 
   const columnData = [

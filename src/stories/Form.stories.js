@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Upload, Button } from 'antd';
+import { Form, Input, Select, Upload, Button, Space } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 export default {
@@ -22,10 +22,10 @@ export const ProfileForm = ({ layout }) => (
     </Form.Item>
 
     <Form.Item name="firstName" label="이름" required>
-      <Input.Group compact>
+      <Space.Compact>
         <Input placeholder="성" style={{ width: '50%' }} />
         <Input placeholder="이름" style={{ width: '50%' }} />
-      </Input.Group>
+      </Space.Compact>
     </Form.Item>
 
     <Form.Item name="nickName" label="구분자 입력 (선택)">

@@ -76,9 +76,9 @@ function App() {
   const handleLogout = async () => {
     try {
       await axios.post('/logout');
-        setSessionItem('loginUser', {"id":""});
-        setSessionItem('jToken', null);
-        navigate('/login');
+      setSessionItem('loginUser', { id: '' });
+      setSessionItem('jToken', null);
+      navigate('/login');
     } catch (error) {
       console.error('Logout failed', error);
     }
@@ -86,24 +86,43 @@ function App() {
 
   if (getSessionItem('jToken') == null) {
     return (
-      <Routes>
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-        <Route path="/Orgchart01" element={<Orgchart01 />} />
-        <Route path="/Orgchart02" element={<Orgchart02 />} />
-        <Route path="/Orgchart03" element={<Orgchart03 />} />
-        <Route path="/Orgchart04" element={<Orgchart04 />} />
-        <Route path="/Orgchart05" element={<Orgchart05 />} />
-        <Route path="/Orgchart06" element={<Orgchart06 />} />
-        <Route path="/Orgchart07" element={<Orgchart07 />} />
-        <Route path="/Orgchart08" element={<Orgchart08 />} />
-        <Route path="/Orgchart09" element={<Orgchart09 />} />
-        <Route path="/Orgchart10" element={<Orgchart10 />} />
-        <Route path="/Menage01" element={<Menage01 />} />
-        <Route path="/Menage02" element={<Menage02 />} />
-        {/* <Route path="/Menage03" element={<Menage03 />} /> */}
-        {/* <Route path="/Menage04" element={<Menage04 />} /> */}
-      </Routes>
+      <ConfigProvider
+        theme={{
+          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+          token: {
+            colorPrimary: '#0388A6',
+            colorLink: isDarkMode ? '#4BB5FF' : 'blue',
+            colorSuccess: isDarkMode ? '#52C41A' : 'skyblue',
+            colorWarning: isDarkMode ? '#FAAD14' : 'darkred',
+            colorWarningBg: isDarkMode ? '#2B2111' : '#FFF2F0',
+            colorError: '#FF4D4F',
+            colorBgLayout: isDarkMode ? '#141414' : '#EBF9FF',
+            tooltipArrowBg: '#0388A6',
+          },
+        }}
+      >
+        <button onClick={toggleDarkMode} className="theme-toggle">
+          {isDarkMode ? '라이트 모드' : '다크 모드'}
+        </button>
+        <Routes>
+          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="/Orgchart01" element={<Orgchart01 />} />
+          <Route path="/Orgchart02" element={<Orgchart02 />} />
+          <Route path="/Orgchart03" element={<Orgchart03 />} />
+          <Route path="/Orgchart04" element={<Orgchart04 />} />
+          <Route path="/Orgchart05" element={<Orgchart05 />} />
+          <Route path="/Orgchart06" element={<Orgchart06 />} />
+          <Route path="/Orgchart07" element={<Orgchart07 />} />
+          <Route path="/Orgchart08" element={<Orgchart08 />} />
+          <Route path="/Orgchart09" element={<Orgchart09 />} />
+          <Route path="/Orgchart10" element={<Orgchart10 />} />
+          <Route path="/Menage01" element={<Menage01 />} />
+          <Route path="/Menage02" element={<Menage02 />} />
+          {/* <Route path="/Menage03" element={<Menage03 />} /> */}
+          {/* <Route path="/Menage04" element={<Menage04 />} /> */}
+        </Routes>
+      </ConfigProvider>
     );
   }
 

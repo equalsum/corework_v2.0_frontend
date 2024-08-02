@@ -21,7 +21,7 @@ const CustomModal = ({ placement = 'right', size = 'small', visible, onClose, ti
       title={title}
       placement={placement}
       onClose={onClose}
-      visible={visible}
+      open={visible}
       width={width}
       height={height}
       {...props}

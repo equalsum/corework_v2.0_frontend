@@ -1,12 +1,60 @@
-import React from 'react';
-import { DatePicker, Space, ConfigProvider } from 'antd';
+import React, { useState } from 'react';
+import { DatePicker, Space } from 'antd';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
-import koKR from 'antd/lib/locale/ko_KR';
-
-dayjs.locale('ko');
 
 const { RangePicker } = DatePicker;
+
+export const DatePickerExamples = (args) => {
+  const [selectedDates, setSelectedDates] = useState([]);
+
+  const handleDateChange = (date) => {
+    if (date) {
+      setSelectedDates((prev) => {
+        const dateStr = date.format('YYYY-MM-DD');
+        if (prev.includes(dateStr)) {
+          return prev.filter((d) => d !== dateStr);
+        } else {
+          return [...prev, dateStr];
+        }
+      });
+    }
+  };
+
+  const isDateSelected = (current) => {
+    const dateStr = current.format('YYYY-MM-DD');
+    return selectedDates.includes(dateStr);
+  };
+
+  const dateRender = (current) => {
+    const style = {};
+    if (isDateSelected(current)) {
+      style.border = '1px solid #1890ff';
+      style.borderRadius = '50%';
+    }
+    return (
+      <div className="ant-picker-cell-inner" style={style}>
+        {current.date()}
+      </div>
+    );
+  };
+
+  return (
+    <Space direction="vertical" size={12}>
+      <DatePicker {...args} />
+      <DatePicker {...args} showTime />
+      <RangePicker {...args} />
+      <RangePicker {...args} showTime />
+      <DatePicker
+        {...args}
+        onChange={handleDateChange}
+        dateRender={dateRender}
+        disabledDate={isDateSelected}
+        multiple
+      />
+      <div>선택된 날짜: {selectedDates.join(', ')}</div>
+    </Space>
+  );
+};
 
 export default {
   title: 'Ant Design/DatePicker',
@@ -22,67 +70,16 @@ export default {
       options: ['date', 'week', 'month', 'quarter', 'year'],
       control: { type: 'select' },
     },
+    showTime: { control: 'boolean' },
+    multiple: { control: 'boolean' },
   },
-  decorators: [(Story) => <ConfigProvider locale={koKR}>{Story()}</ConfigProvider>],
 };
 
-export const Default = (args) => {
-  return (
-    <Space direction="vertical" size={12}>
-      <DatePicker {...args} />
-      <DatePicker {...args} showTime />
-      <RangePicker {...args} />
-      <RangePicker {...args} showTime />
-    </Space>
-  );
-};
-
-Default.args = {
+DatePickerExamples.args = {
   bordered: true,
   disabled: false,
   size: 'middle',
   picker: 'date',
-};
-
-export const CustomFormat = (args) => {
-  const dateFormat = 'YYYY년 MM월 DD일';
-  const weekFormat = 'YYYY년 wo주';
-  const monthFormat = 'YYYY년 MM월';
-
-  const dateFormatList = ['YYYY년 MM월 DD일', 'YY년 MM월 DD일', 'YYYY-MM-DD', 'YY-MM-DD'];
-
-  const customFormat = (value) => `커스텀 형식: ${value.format(dateFormat)}`;
-
-  return (
-    <Space direction="vertical" size={12}>
-      <DatePicker defaultValue={dayjs('2015/01/01', 'YYYY/MM/DD')} format={dateFormat} />
-      <DatePicker defaultValue={dayjs('2015/01', 'YYYY/MM')} format={monthFormat} picker="month" />
-      <DatePicker defaultValue={dayjs()} format={customFormat} />
-      <RangePicker
-        defaultValue={[dayjs('2015/01/01', 'YYYY/MM/DD'), dayjs('2015/01/01', 'YYYY/MM/DD')]}
-        format={dateFormat}
-      />
-      <DatePicker defaultValue={dayjs('2015/01/01', 'YYYY/MM/DD')} format={dateFormatList} />
-    </Space>
-  );
-};
-
-export const DisabledDate = (args) => {
-  const disabledDate = (current) => {
-    return current && current < dayjs().endOf('day');
-  };
-
-  return (
-    <Space direction="vertical" size={12}>
-      <DatePicker disabledDate={disabledDate} />
-      <RangePicker disabledDate={disabledDate} />
-    </Space>
-  );
-};
-
-DisabledDate.args = {
-  bordered: true,
-  disabled: false,
-  size: 'middle',
-  picker: 'date',
+  showTime: false,
+  multiple: false,
 };
