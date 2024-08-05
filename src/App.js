@@ -38,6 +38,7 @@ import Orgchart09 from 'pages/publishing/pages/orgchart/Orgchart09';
 import Orgchart10 from 'pages/publishing/pages/orgchart/Orgchart10';
 import Menage01 from 'pages/publishing/pages/menage/Menage01';
 import Menage02 from 'pages/publishing/pages/menage/Menage02';
+import GoogleSsoRedirectHandler from "./components/login/GoogleSsoRedirectHandler";
 // import Menage03 from 'pages/publishing/pages/menage/Menage03';
 
 const { Header, Sider, Content } = Layout;
@@ -121,6 +122,7 @@ function App() {
           <Route path="/Menage02" element={<Menage02 />} />
           {/* <Route path="/Menage03" element={<Menage03 />} /> */}
           {/* <Route path="/Menage04" element={<Menage04 />} /> */}
+          <Route path="/permission-google-sso" element={<GoogleSsoRedirectHandler />} />
         </Routes>
       </ConfigProvider>
     );
