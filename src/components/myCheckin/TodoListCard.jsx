@@ -48,30 +48,30 @@ const TodoListCard = ({ initMyCheckInOkrTaskList, bpList }) => {
     }, [bpList]);
 
     const fetchToDoList = useCallback((newLimitStart, otStats, bpNoValue) => {
-        setLoading(true);
-        axios.post('/mycheckin/search-to-do-list1', {
-            task_limit_start: newLimitStart,
-            task_limit_end: taskLimitEnd,
-            ot_stats: otStats,
-            bp_no: bpNoValue
-        })
-            .then(response => {
-                const data = response.data;
-                if (data.myCheckInOkrTaskList && data.myCheckInOkrTaskList.length > 0) {
-                    if (newLimitStart === 0) {
-                        setMyCheckInOkrTaskList(data.myCheckInOkrTaskList);
-                    } else {
-                        setMyCheckInOkrTaskList(prev => [...prev, ...data.myCheckInOkrTaskList]);
-                    }
-                } else {
-                    setHasMore(false);
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
+        // setLoading(true);
+        // axios.post('/mycheckin/search-to-do-list1', {
+        //     task_limit_start: newLimitStart,
+        //     task_limit_end: taskLimitEnd,
+        //     ot_stats: otStats,
+        //     bp_no: bpNoValue
+        // })
+        //     .then(response => {
+        //         const data = response.data;
+        //         if (data.myCheckInOkrTaskList && data.myCheckInOkrTaskList.length > 0) {
+        //             if (newLimitStart === 0) {
+        //                 setMyCheckInOkrTaskList(data.myCheckInOkrTaskList);
+        //             } else {
+        //                 setMyCheckInOkrTaskList(prev => [...prev, ...data.myCheckInOkrTaskList]);
+        //             }
+        //         } else {
+        //             setHasMore(false);
+        //         }
+        //         setLoading(false);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching data:', error);
+        //         setLoading(false);
+        //     });
     }, [taskLimitEnd]);
 
     const handleStatusChange = useCallback((selectedStatuses) => {
