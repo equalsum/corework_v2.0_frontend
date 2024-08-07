@@ -7,7 +7,7 @@ export default {
   component: Alert,
 };
 
-const App = () => {
+export const DefaultAlert = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [alertType, setAlertType] = useState(null);
 
@@ -52,7 +52,7 @@ const App = () => {
             </span>
           )
         }
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         okText="확인"
@@ -72,7 +72,3 @@ const App = () => {
     </div>
   );
 };
-
-// Stories
-export const Alerts = () => <App />;
-Alerts.storyName = 'Alerts';

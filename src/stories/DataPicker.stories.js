@@ -47,7 +47,7 @@ export const DatePickerExamples = (args) => {
       <DatePicker
         {...args}
         onChange={handleDateChange}
-        dateRender={dateRender}
+        cellRender={dateRender}
         disabledDate={isDateSelected}
         multiple
       />
@@ -60,7 +60,7 @@ export default {
   title: 'Ant Design/DatePicker',
   component: DatePicker,
   argTypes: {
-    bordered: { control: 'boolean' },
+    variant: { control: 'boolean' },
     disabled: { control: 'boolean' },
     size: {
       options: ['small', 'middle', 'large'],
@@ -76,7 +76,7 @@ export default {
 };
 
 DatePickerExamples.args = {
-  bordered: true,
+  variant: 'outlined',
   disabled: false,
   size: 'middle',
   picker: 'date',

@@ -646,10 +646,10 @@ const Menage01 = () => {
       </div>
       <p>
         <Space direction="vertical" size={12}>
-          <DatePicker bordered picker="date" size="middle" />
-          <DatePicker bordered picker="date" showTime size="middle" />
-          <RangePicker bordered picker="date" size="middle" />
-          <RangePicker bordered picker="date" showTime size="middle" />
+          <DatePicker picker="date" size="middle" />
+          <DatePicker picker="date" showTime size="middle" />
+          <RangePicker picker="date" size="middle" />
+          <RangePicker picker="date" showTime size="middle" />
         </Space>
       </p>
       <Space direction="vertical">

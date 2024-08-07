@@ -1,0 +1,49 @@
+// 미디어 쿼리 함수 정의
+@mixin max-width($breakpoint) {
+  @if $breakpoint == web {
+    @media (max-width: #{$breakpoint-web - 1}) {
+      @content;
+    }
+  } @else if $breakpoint == tab {
+    @media (max-width: #{$breakpoint-tab - 1}) {
+      @content;
+    }
+  } @else if $breakpoint == mo {
+    @media (max-width: #{$breakpoint-mo - 1}) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+// make-after
+@mixin make-after {
+  &::after {
+    content: '';
+    display: inline-block;
+    @content;
+  }
+}
+
+// make-before
+@mixin make-before {
+  &::before {
+    content: '';
+    display: inline-block;
+    @content;
+  }
+}
+
+//z-index css
+@mixin z-index($name) {
+  z-index: map-get($z-index, $name);
+}
+
+// bg-url
+@mixin bg-url($folder, $filename, $size: null) {
+  background-image: url('../../../public/assets/images/#{$folder}/#{$filename}');
+  @if $size {
+    background-size: $size;
+  }
+}

@@ -85,7 +85,7 @@
   display: inline-block;
   width: px-to-rem(16px);
   height: px-to-rem(16px);
-  @include bg-url('icon', 'icon-sorter.svg', cover);
+  @include bg-url('icon', 'icon-sorter.svg');
   background-size: cover;
 }
 .dark-mode .icon-sorter {

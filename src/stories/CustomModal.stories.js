@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const DefaultModalTemplate = ({ placement, size }) => {
+export const DefaultModalTemplate = () => {
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -27,10 +27,11 @@ export const DefaultModalTemplate = ({ placement, size }) => {
   const onClose = () => {
     setVisible(false);
   };
+
   return (
     <>
       <Button onClick={showDrawer}>Open Drawer</Button>
-      <CustomModal placement={placement} size={size} onClose={onClose} title="Drawer Title" visible={visible}>
+      <CustomModal placement="right" size="small" onClose={onClose} title="Drawer Title" visible={visible}>
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>

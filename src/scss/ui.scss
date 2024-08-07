@@ -2,12 +2,12 @@
 
 // abstracts
 @import './abstracts/variables.scss';
+@import './abstracts/mixin.scss';
 @import './abstracts/function.scss';
 
 // base classes
 @import './base/reset.scss';
 @import './base/typography.scss';
-@import './base/layout.scss';
 
 // components
 @import './components/custom.scss';
@@ -16,7 +16,7 @@
 @import './components/component.scss';
 
 // layouts
-@import './components/layout.scss';
+@import './layouts/layout.scss';
 
 // page content
 @import './pages/organ-page.scss';

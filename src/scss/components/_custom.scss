@@ -135,7 +135,7 @@
 .ant-tooltip.ant-tooltip-red {
   .ant-tooltip-inner {
     background: #fff2f0;
-    color: $error-color;
+    color: var(--error-color);
     font-size: px-to-rem(14px);
     font-weight: 700;
     word-break: keep-all;

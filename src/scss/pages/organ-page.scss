@@ -61,7 +61,7 @@
           justify-content: center;
           width: 24px;
           height: 24px;
-          background: $primary-color;
+          background: var(--primary-color);
           border-radius: 9999px;
         }
         .team-leader-assignment {
@@ -72,7 +72,7 @@
           cursor: pointer;
           text-justify: auto;
           &:hover {
-            color: $primary-color;
+            color: var(--primary-color);
           }
         }
       }
@@ -93,7 +93,7 @@
       0px 1px 6px -1px rgba(0, 0, 0, 0.02),
       0px 2px 4px 0px rgba(0, 0, 0, 0.02);
     // &:hover {
-    //   border: 1px solid $primary-color;
+    //   border: 1px solid var(--primary-color);)
     // }
     .team-info {
       flex: 1 0 0;
@@ -137,7 +137,7 @@
           justify-content: center;
           width: 24px;
           height: 24px;
-          background: $primary-color;
+          background: var(--primary-color);
           border-radius: 9999px;
         }
         .team-leader-assignment {
@@ -147,7 +147,7 @@
           cursor: pointer;
           text-justify: auto;
           &:hover {
-            color: $primary-color;
+            color: var(--primary-color);
           }
         }
       }
@@ -206,7 +206,7 @@
       left: 4px;
       top: 40px;
       font-size: px-to-rem(12px);
-      color: $error-color;
+      color: var(--error-color);
     }
   }
 }
@@ -320,14 +320,14 @@
       font-size: px-to-rem(16px);
     }
     .total-count {
-      color: $primary-color;
+      color: var(--primary-color);
       display: inline-block;
       font-size: px-to-rem(16px);
       font-weight: 600;
     }
 
     .count {
-      color: $error-color;
+      color: var(--error-color);
       font-weight: 600;
       display: inline-block;
       margin-left: px-to-rem(2px);
@@ -335,7 +335,7 @@
     }
 
     .message {
-      color: $error-color;
+      color: var(--error-color);
       font-weight: 600;
       display: inline-block;
       margin-left: px-to-rem(3px);
